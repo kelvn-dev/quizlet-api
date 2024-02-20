@@ -1,27 +1,26 @@
-package com.kelvn.model;
+package com.quizlet.model;
 
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
 @MappedSuperclass // ensure that won't have a separate representation as table
-@EntityListeners(AuditingEntityListener.class)
+// @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseModel implements Serializable {
 
   @Id
-  @GeneratedValue(generator = "uuid2")
+  @GeneratedValue()
   @Column(
       name = "id",
-      columnDefinition = "BINARY(16)", // make the value of UUID more readable
+      columnDefinition = "uuid", // make the value of UUID more readable
       updatable = false,
       nullable = false)
   private UUID id;
