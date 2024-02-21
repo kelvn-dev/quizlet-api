@@ -3,6 +3,7 @@ package com.quizlet.controller;
 import com.quizlet.dto.request.TopicReqDto;
 import com.quizlet.mapping.TopicMapper;
 import com.quizlet.model.Topic;
+import com.quizlet.model.TopicEntityGraph;
 import com.quizlet.service.TopicService;
 import jakarta.validation.Valid;
 import java.util.UUID;
@@ -26,8 +27,9 @@ public class TopicController implements SecuredRestController {
 
   @GetMapping("/{id}")
   public ResponseEntity<?> getById(@PathVariable UUID id) {
-    Topic topic = topicService.getById(id, false);
-    return ResponseEntity.ok(topicMapper.model2Dto(topic));
+    TopicEntityGraph entityGraph = TopicEntityGraph.____().words().____.____();
+    Topic topic = topicService.getById(id, entityGraph, false);
+    return ResponseEntity.ok(topicMapper.model2ExtendDto(topic));
   }
 
   @PutMapping("/{id}")
