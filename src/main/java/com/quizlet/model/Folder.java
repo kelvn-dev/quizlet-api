@@ -1,14 +1,17 @@
 package com.quizlet.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "folder")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @DynamicUpdate
 public class Folder extends BaseModel {
 
@@ -20,5 +23,6 @@ public class Folder extends BaseModel {
       name = "folder_topic",
       joinColumns = @JoinColumn(name = "folder_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "topic_id", referencedColumnName = "id"))
-  private Set<Topic> topics = new HashSet<>();
+  @JsonManagedReference
+  private Set<Topic> topics;
 }

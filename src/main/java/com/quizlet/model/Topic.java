@@ -1,20 +1,31 @@
 package com.quizlet.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import java.util.Set;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "topic")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @DynamicUpdate
 public class Topic extends BaseModel {
 
   @Column(name = "name")
   private String name;
 
-  //  @ManyToMany(mappedBy = "topics")
-  //  private Set<Folder> folders = new HashSet<>();
+  @ManyToMany(mappedBy = "topics", fetch = FetchType.LAZY)
+  @JsonBackReference
+  private Set<Folder> folders;
+
+  @PreRemove
+  private void removeAssociations() {
+    for (Folder folder : this.folders) {
+      folder.getTopics().remove(this);
+    }
+  }
 }

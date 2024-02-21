@@ -1,5 +1,6 @@
 package com.quizlet.service;
 
+import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
 import com.quizlet.exception.NotFoundException;
 import com.quizlet.model.BaseModel;
 import com.quizlet.repository.BaseRepository;
@@ -21,6 +22,14 @@ public abstract class BaseService<M extends BaseModel, R extends BaseRepository<
 
   public M getById(UUID id, boolean noException) {
     M model = repository.findById(id).orElse(null);
+    if (Objects.isNull(model) && !noException) {
+      throw new NotFoundException(modelClass, "id", id.toString());
+    }
+    return model;
+  }
+
+  public M getById(UUID id, EntityGraph entityGraph, boolean noException) {
+    M model = repository.findById(id, entityGraph).orElse(null);
     if (Objects.isNull(model) && !noException) {
       throw new NotFoundException(modelClass, "id", id.toString());
     }
