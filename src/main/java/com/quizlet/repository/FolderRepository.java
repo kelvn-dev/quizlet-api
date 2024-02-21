@@ -5,5 +5,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FolderRepository extends BaseRepository<Folder, UUID> {
-  Optional<Folder> findByName(String name);
+  Optional<Folder> findByNameIgnoreCase(String name);
 }
