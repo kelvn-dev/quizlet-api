@@ -7,6 +7,11 @@ import com.quizlet.service.WordService;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +45,17 @@ public class WordController implements SecuredRestController {
   public ResponseEntity<?> deleteById(@PathVariable UUID id) {
     wordService.deleteById(id);
     return ResponseEntity.ok(null);
+  }
+
+  @GetMapping
+  public ResponseEntity<?> getList(
+      @PageableDefault(
+              sort = {"createdAt"},
+              direction = Sort.Direction.DESC)
+          @ParameterObject
+          Pageable pageable,
+      @RequestParam(required = false) String[] filter) {
+    Page<Word> words = wordService.getList(filter, pageable);
+    return ResponseEntity.ok(wordMapper.model2Dto(words));
   }
 }

@@ -1,13 +1,20 @@
 package com.quizlet.service;
 
 import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.quizlet.exception.NotFoundException;
 import com.quizlet.model.BaseModel;
 import com.quizlet.repository.BaseRepository;
+import com.quizlet.utils.HelperUtils;
+import com.quizlet.utils.PredicateUtils;
+import com.quizlet.utils.SearchCriteria;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,22 +48,9 @@ public abstract class BaseService<M extends BaseModel, R extends BaseRepository<
     repository.delete(model);
   }
 
-  //  public ApiPageableResponse getList(String[] filter, Pageable pageable) {
-  //    List<SearchCriteria> criteria = HelperUtils.formatSearchCriteria(filter);
-  //    BooleanExpression expression = PredicateUtils.getBooleanExpression(criteria, modelClass);
-  //    Page<M> pagingModel = repository.findAll(expression, pageable);
-  //    return formatPagingResponse(pagingModel);
-  //  }
-  //
-  //  public ApiPageableResponse formatPagingResponse(Page<M> page) {
-  //    return ApiPageableResponse.builder()
-  //        .currentPage(page.getNumber() + 1)
-  //        .pageSize(page.getSize())
-  //        .totalPages(page.getTotalPages())
-  //        .totalElements(page.getTotalElements())
-  //        .isFirst(page.isFirst())
-  //        .isLast(page.isLast())
-  //        .data(mappingUtils.mapListToDTO(page.getContent(), responseDtoClass))
-  //        .build();
-  //  }
+  public Page<M> getList(String[] filter, Pageable pageable) {
+    List<SearchCriteria> criteria = HelperUtils.formatSearchCriteria(filter);
+    BooleanExpression expression = PredicateUtils.getBooleanExpression(criteria, modelClass);
+    return repository.findAll(expression, pageable);
+  }
 }

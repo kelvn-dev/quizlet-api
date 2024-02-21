@@ -18,7 +18,7 @@ public class Folder extends BaseModel {
   @Column(name = "name")
   private String name;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "folder_topic",
       joinColumns = @JoinColumn(name = "folder_id", referencedColumnName = "id"),

@@ -4,6 +4,7 @@ import com.quizlet.dto.request.FolderReqDto;
 import com.quizlet.exception.ConflictException;
 import com.quizlet.mapping.FolderMapper;
 import com.quizlet.model.Folder;
+import com.quizlet.model.FolderEntityGraph;
 import com.quizlet.model.Topic;
 import com.quizlet.repository.FolderRepository;
 import java.util.*;
@@ -34,7 +35,8 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
   }
 
   public Folder updateById(UUID id, FolderReqDto dto) {
-    Folder folder = this.getById(id, false);
+    FolderEntityGraph entityGraph = FolderEntityGraph.____().topics().____.____();
+    Folder folder = this.getById(id, entityGraph, false);
     if (!folder.getName().equalsIgnoreCase(dto.getName())) {
       if (repository.findByNameIgnoreCase(dto.getName()).isPresent()) {
         throw new ConflictException(modelClass, "name", dto.getName());
