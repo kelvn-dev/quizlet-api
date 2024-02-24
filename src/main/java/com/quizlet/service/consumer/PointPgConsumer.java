@@ -1,7 +1,6 @@
 package com.quizlet.service.consumer;
 
 import com.quizlet.dto.request.PointReqDto;
-import com.quizlet.mapping.PointMapper;
 import com.quizlet.model.User;
 import com.quizlet.repository.UserRepository;
 import com.quizlet.service.UserService;
@@ -16,10 +15,9 @@ import org.springframework.stereotype.Service;
 public class PointPgConsumer {
   private final UserService userService;
   private final UserRepository userRepository;
-  private final PointMapper pointMapper;
 
-  @RabbitListener(queues = "q.point-increment")
-  private void updatePoint(PointReqDto dto) {
+  @RabbitListener(queues = "q.pg-point-increment")
+  private void increasePoint(PointReqDto dto) {
     User user = userService.getById(dto.getId(), false);
     user.setPoint(user.getPoint() + dto.getPoint());
     user = userRepository.save(user);

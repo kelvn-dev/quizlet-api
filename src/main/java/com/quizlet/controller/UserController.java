@@ -45,7 +45,8 @@ public class UserController implements SecuredRestController {
     //    User user = userService.updateById(id, dto);
     PointReqDto pointReqDto = pointMapper.userReqDto2dto(dto);
     pointReqDto.setId(id);
-    rabbitTemplate.convertAndSend("x.point-update", "", pointReqDto);
+    rabbitTemplate.convertAndSend("x.leaderboard", "pg-point-increment", pointReqDto);
+    rabbitTemplate.convertAndSend("x.leaderboard", "redis-point-increment", pointReqDto);
     return ResponseEntity.ok(null);
   }
 

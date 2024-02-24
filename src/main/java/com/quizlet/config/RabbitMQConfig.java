@@ -55,15 +55,24 @@ public class RabbitMQConfig {
   }
 
   @Bean
-  public Declarables createPointUpdateSchema() {
+  public Declarables createLeaderboardSchema() {
     return new Declarables(
-        new FanoutExchange("x.point-update"),
-        new Queue("q.point-increment" ),
+        new DirectExchange("x.leaderboard"),
+        // PostgreSQL consumer
+        new Queue("q.pg-point-increment"),
         new Binding(
-            "q.point-increment",
+            "q.pg-point-increment",
             Binding.DestinationType.QUEUE,
-            "x.point-update",
-            "point-increment",
+            "x.leaderboard",
+            "pg-point-increment",
+            null),
+        // Redis consumer (increment point in Redis sorted set collection)
+        new Queue("q.redis-point-increment"),
+        new Binding(
+            "q.redis-point-increment",
+            Binding.DestinationType.QUEUE,
+            "x.leaderboard",
+            "redis-point-increment",
             null));
   }
 }
