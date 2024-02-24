@@ -1,6 +1,8 @@
 package com.quizlet.controller;
 
+import com.quizlet.dto.request.PointReqDto;
 import com.quizlet.dto.request.UserReqDto;
+import com.quizlet.mapping.PointMapper;
 import com.quizlet.mapping.UserMapper;
 import com.quizlet.model.User;
 import com.quizlet.service.UserService;
@@ -8,6 +10,7 @@ import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,6 +25,8 @@ public class UserController implements SecuredRestController {
 
   private final UserService userService;
   private final UserMapper userMapper;
+  private final PointMapper pointMapper;
+  private final RabbitTemplate rabbitTemplate;
 
   @PostMapping()
   public ResponseEntity<?> create(@Valid @RequestBody UserReqDto dto) {
@@ -37,8 +42,11 @@ public class UserController implements SecuredRestController {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> updateById(@PathVariable UUID id, @Valid @RequestBody UserReqDto dto) {
-    User user = userService.updateById(id, dto);
-    return ResponseEntity.ok(userMapper.model2Dto(user));
+    //    User user = userService.updateById(id, dto);
+    PointReqDto pointReqDto = pointMapper.userReqDto2dto(dto);
+    pointReqDto.setId(id);
+    rabbitTemplate.convertAndSend("x.point-update", "", pointReqDto);
+    return ResponseEntity.ok(null);
   }
 
   @DeleteMapping("/{id}")

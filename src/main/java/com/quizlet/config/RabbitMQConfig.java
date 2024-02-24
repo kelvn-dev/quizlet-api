@@ -53,4 +53,17 @@ public class RabbitMQConfig {
     factory.setAdviceChain(retryInterceptor());
     return factory;
   }
+
+  @Bean
+  public Declarables createPointUpdateSchema() {
+    return new Declarables(
+        new FanoutExchange("x.point-update"),
+        new Queue("q.point-increment" ),
+        new Binding(
+            "q.point-increment",
+            Binding.DestinationType.QUEUE,
+            "x.point-update",
+            "point-increment",
+            null));
+  }
 }
