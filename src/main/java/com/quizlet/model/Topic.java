@@ -27,6 +27,9 @@ public class Topic extends BaseModel {
   @JsonManagedReference
   private Set<Word> words;
 
+  @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<UserScore> userScores;
+
   @PreRemove
   private void removeAssociations() {
     for (Folder folder : this.folders) {

@@ -1,8 +1,7 @@
 package com.quizlet.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,12 +17,22 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class User extends BaseModel {
 
-  @Column(name = "name")
-  private String name;
+  @Column(name = "username")
+  private String username;
 
-  @Column(name = "point")
-  private int point;
+  @OneToMany(
+      mappedBy = "user",
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+      fetch = FetchType.LAZY,
+      orphanRemoval = true)
+  private Set<UserScore> userScores;
 
-  @Column(name = "study_time")
-  private int studyTime;
+  @ManyToMany(
+      fetch = FetchType.LAZY,
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+  @JoinTable(
+      name = "user_score",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "topic_id"))
+  private Set<Topic> topics;
 }

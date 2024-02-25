@@ -12,30 +12,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService extends BaseService<User, UserRepository> {
 
-  private final UserMapper topicMapper;
+  private final UserMapper userMapper;
 
-  public UserService(UserRepository repository, UserMapper topicMapper) {
+  public UserService(UserRepository repository, UserMapper userMapper) {
     super(repository);
-    this.topicMapper = topicMapper;
+    this.userMapper = userMapper;
   }
 
   public User create(UserReqDto dto) {
-    if (repository.findByNameIgnoreCase(dto.getName()).isPresent()) {
+    if (repository.findByUsernameIgnoreCase(dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
-    User topic = topicMapper.dto2Model(dto);
-    return repository.save(topic);
+    User user = userMapper.dto2Model(dto);
+    return repository.save(user);
   }
 
   public User updateById(UUID id, UserReqDto dto) {
-    User topic = this.getById(id, false);
-    if (!topic.getName().equalsIgnoreCase(dto.getName())) {
-      if (repository.findByNameIgnoreCase(dto.getName()).isPresent()) {
+    User user = this.getById(id, false);
+    if (!user.getUsername().equalsIgnoreCase(dto.getName())) {
+      if (repository.findByUsernameIgnoreCase(dto.getName()).isPresent()) {
         throw new ConflictException(modelClass, "name", dto.getName());
       }
     }
-    topicMapper.updateModelFromDto(dto, topic);
-    return repository.save(topic);
+    userMapper.updateModelFromDto(dto, user);
+    return repository.save(user);
   }
 
   public Set<User> getAllById(Set<UUID> uuids) {

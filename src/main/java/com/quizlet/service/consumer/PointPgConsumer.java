@@ -19,7 +19,7 @@ public class PointPgConsumer {
   @RabbitListener(queues = "q.pg-point-increment")
   private void increasePoint(PointReqDto dto) {
     User user = userService.getById(dto.getId(), false);
-    user.setPoint(user.getPoint() + dto.getPoint());
+    //    user.setPoint(user.getPoint() + dto.getPoint());
     user = userRepository.save(user);
     log.info("point updated to db , id: {}", user.getId());
   }
