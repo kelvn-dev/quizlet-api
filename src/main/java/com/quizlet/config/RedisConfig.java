@@ -1,6 +1,6 @@
 package com.quizlet.config;
 
-import com.quizlet.dto.cache.LeaderboardDto;
+import com.quizlet.dto.cache.LeaderboardCacheDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
   @Bean
-  public RedisTemplate<String, String> redisPointTemplate(
+  public RedisTemplate<String, String> redisScoreCacheTemplate(
       RedisConnectionFactory redisConnectionFactory) {
     RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(redisConnectionFactory);
@@ -29,9 +29,9 @@ public class RedisConfig {
   }
 
   @Bean
-  public RedisTemplate<String, LeaderboardDto> redisLeaderboardCacheTemplate(
+  public RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate(
       RedisConnectionFactory redisConnectionFactory) {
-    RedisTemplate<String, LeaderboardDto> redisTemplate = new RedisTemplate<>();
+    RedisTemplate<String, LeaderboardCacheDto> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(redisConnectionFactory);
     return redisTemplate;
   }

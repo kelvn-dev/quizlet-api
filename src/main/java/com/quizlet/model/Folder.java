@@ -23,6 +23,5 @@ public class Folder extends BaseModel {
       name = "folder_topic",
       joinColumns = @JoinColumn(name = "folder_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "topic_id", referencedColumnName = "id"))
-  @JsonManagedReference
   private Set<Topic> topics;
 }

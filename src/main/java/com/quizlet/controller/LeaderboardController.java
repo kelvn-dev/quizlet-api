@@ -1,7 +1,8 @@
 package com.quizlet.controller;
 
-import com.quizlet.dto.cache.LeaderboardDto;
+import com.quizlet.dto.cache.LeaderboardCacheDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/leaderboard")
 @RequiredArgsConstructor
 public class LeaderboardController {
-  private final RedisTemplate<String, LeaderboardDto> redisLeaderboardCacheTemplate;
+  @Value("${redis.leaderboard-cache.key}")
+  private String leaderboardCacheKey;
+  private final RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate;
 
   @GetMapping()
   public ResponseEntity<?> getLeaderboard() {
-    String cacheKey = "leaderboard";
-    LeaderboardDto leaderBoardCache = redisLeaderboardCacheTemplate.opsForValue().get(cacheKey);
+    LeaderboardCacheDto leaderBoardCache =
+        redisLeaderboardCacheTemplate.opsForValue().get(leaderboardCacheKey);
     return ResponseEntity.ok(leaderBoardCache);
   }
 }

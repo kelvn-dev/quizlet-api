@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LeaderboardDto implements Serializable {
-  private List<UserCacheDto> users;
+public class LeaderboardCacheDto implements Serializable {
+  private List<LeaderboardUserCacheDto> users;
   private long lastModifyTimestampMs;
 }

@@ -1,8 +1,8 @@
 package com.quizlet.service.consumer;
 
-import com.quizlet.dto.cache.LeaderboardDto;
-import com.quizlet.dto.cache.UserCacheDto;
-import com.quizlet.dto.request.PointReqDto;
+import com.quizlet.dto.cache.LeaderboardCacheDto;
+import com.quizlet.dto.cache.LeaderboardUserCacheDto;
+import com.quizlet.model.UserScore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -20,21 +21,28 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LeaderboardCacheConsumer {
 
-  private final RedisTemplate<String, String> redisPointTemplate;
+  @Value("${redis.leaderboard-cache.key}")
+  private String leaderboardCacheKey;
+
+  @Value("${redis.user-score-cache.key}")
+  private String userScoreCacheKey;
+
+  private final RedisTemplate<String, String> redisScoreCacheTemplate;
   private final RedisTemplate<String, String> redisUserCacheTemplate;
-  private final RedisTemplate<String, LeaderboardDto> redisLeaderboardCacheTemplate;
+  private final RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate;
   private final RabbitTemplate rabbitTemplate;
 
-  @RabbitListener(queues = "q.leaderboard-change-event")
-  public void leaderboardCacheConsumer(PointReqDto dto) {
+  @RabbitListener(queues = "q.redis-leaderboard-update")
+  public void leaderboardCacheConsumer(UserScore userScore) {
+
     // throttle leaderboard update interval
-    String cacheKey = "leaderboard";
-    LeaderboardDto leaderBoardCache = redisLeaderboardCacheTemplate.opsForValue().get(cacheKey);
+    LeaderboardCacheDto leaderBoardCache =
+        redisLeaderboardCacheTemplate.opsForValue().get(leaderboardCacheKey);
     long currentTimeMs = System.currentTimeMillis();
 
     // check if throttle timestamp hasn't  passed just skip this update
     if (!canRefreshLeaderboard(leaderBoardCache, currentTimeMs)) {
-      log.info(
+      log.debug(
           "leaderboard cache update skipped , reason: throttle duration hasn't passed ,currentTs: {},  cacheTs: {}",
           currentTimeMs,
           !Objects.isNull(leaderBoardCache) ? leaderBoardCache.getLastModifyTimestampMs() : null);
@@ -43,49 +51,47 @@ public class LeaderboardCacheConsumer {
 
     // get current leaderboard top 10 users from sortedset and  update leaderboard cache & send this
     // update to "leaderboard" topic
-    Set<ZSetOperations.TypedTuple<String>> leaderBoard =
-        redisPointTemplate.opsForZSet().reverseRangeWithScores("user_point", 0, 9);
-    if (Objects.isNull(leaderBoard)) {
-      log.info("leaderboard cache update skipped , reason: current leaderboard is null");
-      return;
-    }
+    Set<ZSetOperations.TypedTuple<String>> userScoreCache =
+        redisScoreCacheTemplate.opsForZSet().reverseRangeWithScores(userScoreCacheKey, 0, 9);
 
     // update leaderboard cache which stores only top 10 users
-    LeaderboardDto leaderBoardUpdate = mapToLeaderboardDto(leaderBoard, currentTimeMs);
-    redisLeaderboardCacheTemplate.opsForValue().set(cacheKey, leaderBoardUpdate);
+    LeaderboardCacheDto updatedLeaderboardCache =
+        mapToLeaderboardCachDto(userScoreCache, currentTimeMs);
+    redisLeaderboardCacheTemplate.opsForValue().set(leaderboardCacheKey, updatedLeaderboardCache);
 
-    // publish leaderBoard updated record to "leaderboard" kafka topic
+    // broadcast leaderboard changes to websocket
     rabbitTemplate.convertAndSend(
-        "x.leaderboard", "leaderboard-websocket-change-event", leaderBoardUpdate);
-    log.info("leaderboard cache updated , updateTimestamp: {}", currentTimeMs);
+        "x.leaderboard", "leaderboard-websocket-change-event", updatedLeaderboardCache);
+    log.debug("leaderboard cache updated , updateTimestamp: {}", currentTimeMs);
   }
 
-  private boolean canRefreshLeaderboard(LeaderboardDto leaderBoardCache, long currentTimeMs) {
+  private boolean canRefreshLeaderboard(LeaderboardCacheDto leaderBoardCache, long currentTimeMs) {
     // Calculate the timestamp threshold for throttling
     long throttleThreshold = currentTimeMs - 500;
     return Objects.isNull(leaderBoardCache)
         || throttleThreshold > leaderBoardCache.getLastModifyTimestampMs();
   }
 
-  private LeaderboardDto mapToLeaderboardDto(
-      Set<ZSetOperations.TypedTuple<String>> leaderBoard, long currentTimeMs) {
+  private LeaderboardCacheDto mapToLeaderboardCachDto(
+      Set<ZSetOperations.TypedTuple<String>> userScoreCache, long currentTimeMs) {
     int rank = 0;
-    List<UserCacheDto> userList = new ArrayList<>(leaderBoard.size());
-    for (ZSetOperations.TypedTuple<String> tuple : leaderBoard) {
+    List<LeaderboardUserCacheDto> users = new ArrayList<>(userScoreCache.size());
+    for (ZSetOperations.TypedTuple<String> tuple : userScoreCache) {
       String userId = tuple.getValue();
-      UserCacheDto user =
-          UserCacheDto.builder()
+      double score = tuple.getScore();
+      LeaderboardUserCacheDto user =
+          LeaderboardUserCacheDto.builder()
               .id(userId)
               .rank(++rank)
-              .point(tuple.getScore())
-              .name(getCachedNicknameByUserId(userId))
+              .score(score)
+              .username(getCachedUsernameByUserId(userId))
               .build();
-      userList.add(user);
+      users.add(user);
     }
-    return new LeaderboardDto(userList, currentTimeMs);
+    return new LeaderboardCacheDto(users, currentTimeMs);
   }
 
-  private String getCachedNicknameByUserId(String userId) {
+  private String getCachedUsernameByUserId(String userId) {
     return redisUserCacheTemplate.opsForValue().get(userId);
   }
 }

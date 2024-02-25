@@ -1,8 +1,6 @@
 package com.quizlet.controller;
 
-import com.quizlet.dto.request.PointReqDto;
 import com.quizlet.dto.request.UserReqDto;
-import com.quizlet.mapping.PointMapper;
 import com.quizlet.mapping.UserMapper;
 import com.quizlet.model.User;
 import com.quizlet.service.UserService;
@@ -25,7 +23,6 @@ public class UserController implements SecuredRestController {
 
   private final UserService userService;
   private final UserMapper userMapper;
-  private final PointMapper pointMapper;
   private final RabbitTemplate rabbitTemplate;
 
   @PostMapping()
@@ -42,12 +39,8 @@ public class UserController implements SecuredRestController {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> updateById(@PathVariable UUID id, @Valid @RequestBody UserReqDto dto) {
-    //    User user = userService.updateById(id, dto);
-    PointReqDto pointReqDto = pointMapper.userReqDto2dto(dto);
-    pointReqDto.setId(id);
-    rabbitTemplate.convertAndSend("x.leaderboard", "pg-point-increment", pointReqDto);
-    rabbitTemplate.convertAndSend("x.leaderboard", "redis-point-increment", pointReqDto);
-    return ResponseEntity.ok(null);
+    User user = userService.updateById(id, dto);
+    return ResponseEntity.ok(userMapper.model2Dto(user));
   }
 
   @DeleteMapping("/{id}")

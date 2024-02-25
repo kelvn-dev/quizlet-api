@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserCacheDto implements Serializable {
+public class LeaderboardUserCacheDto implements Serializable {
   private String id;
-  private String name;
-  private double point;
+  private String username;
+  private double score;
   private int rank;
 }

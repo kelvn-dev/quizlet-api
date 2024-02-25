@@ -58,29 +58,21 @@ public class RabbitMQConfig {
   public Declarables createLeaderboardSchema() {
     return new Declarables(
         new DirectExchange("x.leaderboard"),
-        // PostgreSQL consumer
-        new Queue("q.pg-point-increment"),
-        new Binding(
-            "q.pg-point-increment",
-            Binding.DestinationType.QUEUE,
-            "x.leaderboard",
-            "pg-point-increment",
-            null),
         // Redis consumer (increment point in Redis sorted set collection)
-        new Queue("q.redis-point-increment"),
+        new Queue("q.redis-score-update"),
         new Binding(
-            "q.redis-point-increment",
+            "q.redis-score-update",
             Binding.DestinationType.QUEUE,
             "x.leaderboard",
-            "redis-point-increment",
+            "redis-score-update",
             null),
         // Redis consumer (update leaderboard cache + check timestamp)
-        new Queue("q.redis-leaderboard-change-event"),
+        new Queue("q.redis-leaderboard-update"),
         new Binding(
-            "q.redis-leaderboard-change-event",
+            "q.redis-leaderboard-update",
             Binding.DestinationType.QUEUE,
             "x.leaderboard",
-            "redis-leaderboard-change-event",
+            "redis-leaderboard-update",
             null),
         // broadcast leaderboard changes to websocket
         new Queue("q.websocket-leaderboard-change-event"),
