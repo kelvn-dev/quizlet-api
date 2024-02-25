@@ -21,6 +21,6 @@ public class PointPgConsumer {
     User user = userService.getById(dto.getId(), false);
     user.setPoint(user.getPoint() + dto.getPoint());
     user = userRepository.save(user);
-    log.debug("point updated to db , id: {}", user.getId());
+    log.info("point updated to db , id: {}", user.getId());
   }
 }

@@ -73,6 +73,22 @@ public class RabbitMQConfig {
             Binding.DestinationType.QUEUE,
             "x.leaderboard",
             "redis-point-increment",
+            null),
+        // Redis consumer (update leaderboard cache + check timestamp)
+        new Queue("q.redis-leaderboard-change-event"),
+        new Binding(
+            "q.redis-leaderboard-change-event",
+            Binding.DestinationType.QUEUE,
+            "x.leaderboard",
+            "redis-leaderboard-change-event",
+            null),
+        // broadcast leaderboard changes to websocket
+        new Queue("q.websocket-leaderboard-change-event"),
+        new Binding(
+            "q.websocket-leaderboard-change-event",
+            Binding.DestinationType.QUEUE,
+            "x.leaderboard",
+            "websocket-leaderboard-change-event",
             null));
   }
 }
