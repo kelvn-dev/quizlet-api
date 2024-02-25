@@ -2,7 +2,6 @@ package com.quizlet.model;
 
 import com.quizlet.model.compositekey.UserScoreId;
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;

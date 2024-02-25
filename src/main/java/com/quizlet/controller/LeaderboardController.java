@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LeaderboardController {
   @Value("${redis.leaderboard-cache.key}")
   private String leaderboardCacheKey;
+
   private final RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate;
 
   @GetMapping()

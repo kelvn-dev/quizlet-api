@@ -42,27 +42,31 @@ public class LeaderboardCacheConsumer {
 
     // check if throttle timestamp hasn't  passed just skip this update
     if (!canRefreshLeaderboard(leaderBoardCache, currentTimeMs)) {
-      log.debug(
+      log.info(
           "leaderboard cache update skipped , reason: throttle duration hasn't passed ,currentTs: {},  cacheTs: {}",
           currentTimeMs,
-          !Objects.isNull(leaderBoardCache) ? leaderBoardCache.getLastModifyTimestampMs() : null);
+          leaderBoardCache.getLastModifyTimestampMs());
       return;
     }
 
-    // get current leaderboard top 10 users from sortedset and  update leaderboard cache & send this
-    // update to "leaderboard" topic
+    // get current leaderboard top 10 users from sortedset
     Set<ZSetOperations.TypedTuple<String>> userScoreCache =
         redisScoreCacheTemplate.opsForZSet().reverseRangeWithScores(userScoreCacheKey, 0, 9);
 
-    // update leaderboard cache which stores only top 10 users
     LeaderboardCacheDto updatedLeaderboardCache =
-        mapToLeaderboardCachDto(userScoreCache, currentTimeMs);
+        mapLeaderboardCache(userScoreCache, currentTimeMs);
+    if (isLeaderboardUnchanged(leaderBoardCache, updatedLeaderboardCache)) {
+      log.info("leaderboard cache update skipped , reason: leaderboard cache unchanged");
+      return;
+    }
+
+    // update leaderboard cache which stores only top 10 users
     redisLeaderboardCacheTemplate.opsForValue().set(leaderboardCacheKey, updatedLeaderboardCache);
 
     // broadcast leaderboard changes to websocket
     rabbitTemplate.convertAndSend(
         "x.leaderboard", "leaderboard-websocket-change-event", updatedLeaderboardCache);
-    log.debug("leaderboard cache updated , updateTimestamp: {}", currentTimeMs);
+    log.info("leaderboard cache updated , updateTimestamp: {}", currentTimeMs);
   }
 
   private boolean canRefreshLeaderboard(LeaderboardCacheDto leaderBoardCache, long currentTimeMs) {
@@ -72,7 +76,26 @@ public class LeaderboardCacheConsumer {
         || throttleThreshold > leaderBoardCache.getLastModifyTimestampMs();
   }
 
-  private LeaderboardCacheDto mapToLeaderboardCachDto(
+  private boolean isLeaderboardUnchanged(
+      LeaderboardCacheDto leaderboardCache, LeaderboardCacheDto updatedLeaderboardCache) {
+    List<LeaderboardUserCacheDto> users = leaderboardCache.getUsers();
+    List<LeaderboardUserCacheDto> updatedUsers = updatedLeaderboardCache.getUsers();
+    int size = users.size();
+    int updatedSize = updatedUsers.size();
+    if (size != updatedSize) {
+      return false;
+    }
+    for (int i = 0; i < size; i++) {
+      LeaderboardUserCacheDto user = users.get(i);
+      LeaderboardUserCacheDto updatedUser = updatedUsers.get(i);
+      if (!user.getId().equals(updatedUser.getId()) || user.getScore() != updatedUser.getScore()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private LeaderboardCacheDto mapLeaderboardCache(
       Set<ZSetOperations.TypedTuple<String>> userScoreCache, long currentTimeMs) {
     int rank = 0;
     List<LeaderboardUserCacheDto> users = new ArrayList<>(userScoreCache.size());
