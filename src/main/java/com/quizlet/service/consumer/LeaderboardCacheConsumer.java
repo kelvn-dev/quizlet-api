@@ -34,10 +34,12 @@ public class LeaderboardCacheConsumer {
 
   @RabbitListener(queues = "q.redis-leaderboard-update")
   public void leaderboardCacheConsumer(UserScore userScore) {
+    String userKey = userScoreCacheKey.concat(userScore.getTopicId().toString());
+    String leaderboardKey = leaderboardCacheKey.concat(userScore.getTopicId().toString());
 
     // throttle leaderboard update interval
     LeaderboardCacheDto leaderBoardCache =
-        redisLeaderboardCacheTemplate.opsForValue().get(leaderboardCacheKey);
+        redisLeaderboardCacheTemplate.opsForValue().get(leaderboardKey);
     long currentTimeMs = System.currentTimeMillis();
 
     // check if throttle timestamp hasn't  passed just skip this update
@@ -51,7 +53,7 @@ public class LeaderboardCacheConsumer {
 
     // get current leaderboard top 10 users from sortedset
     Set<ZSetOperations.TypedTuple<String>> userScoreCache =
-        redisScoreCacheTemplate.opsForZSet().reverseRangeWithScores(userScoreCacheKey, 0, 9);
+        redisScoreCacheTemplate.opsForZSet().reverseRangeWithScores(userKey, 0, 9);
 
     LeaderboardCacheDto updatedLeaderboardCache =
         mapLeaderboardCache(userScoreCache, currentTimeMs);
@@ -61,7 +63,7 @@ public class LeaderboardCacheConsumer {
     }
 
     // update leaderboard cache which stores only top 10 users
-    redisLeaderboardCacheTemplate.opsForValue().set(leaderboardCacheKey, updatedLeaderboardCache);
+    redisLeaderboardCacheTemplate.opsForValue().set(leaderboardKey, updatedLeaderboardCache);
 
     // broadcast leaderboard changes to websocket
     rabbitTemplate.convertAndSend(
@@ -78,6 +80,9 @@ public class LeaderboardCacheConsumer {
 
   private boolean isLeaderboardUnchanged(
       LeaderboardCacheDto leaderboardCache, LeaderboardCacheDto updatedLeaderboardCache) {
+    if (Objects.isNull(leaderboardCache)) {
+      return false;
+    }
     List<LeaderboardUserCacheDto> users = leaderboardCache.getUsers();
     List<LeaderboardUserCacheDto> updatedUsers = updatedLeaderboardCache.getUsers();
     int size = users.size();
