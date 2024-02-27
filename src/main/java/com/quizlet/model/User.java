@@ -17,8 +17,14 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class User extends BaseModel {
 
-  @Column(name = "username")
-  private String username;
+  @Column(name = "nickname", nullable = false, unique = true, updatable = false)
+  private String nickname;
+
+  @Column(name = "email", nullable = false, unique = true, updatable = false)
+  private String email;
+
+  @Column(name = "auth0_user_id", nullable = false, unique = true, updatable = false)
+  private String auth0UserId;
 
   @OneToMany(
       mappedBy = "user",

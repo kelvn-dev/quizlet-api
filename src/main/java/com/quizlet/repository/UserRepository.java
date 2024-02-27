@@ -5,5 +5,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends BaseRepository<User, UUID> {
-  Optional<User> findByUsernameIgnoreCase(String name);
+  Optional<User> findByAuth0UserId(String auth0UserId);
 }

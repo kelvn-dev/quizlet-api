@@ -2,8 +2,10 @@ package com.quizlet.service.provider;
 
 import com.auth0.client.auth.AuthAPI;
 import com.auth0.client.mgmt.ManagementAPI;
+import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.json.mgmt.users.User;
 import com.auth0.net.Request;
 import com.auth0.net.Response;
 import com.quizlet.config.Auth0ClientConfig;
@@ -35,5 +37,12 @@ public class Auth0Service {
     } catch (Auth0Exception e) {
       throw new RuntimeException(e.getMessage());
     }
+  }
+
+  public User getUserById(String userId) {
+    UserFilter userFilter = new UserFilter();
+    userFilter.withConnection(auth0Connection);
+    Request<User> request = managementAPI.users().get(userId, userFilter);
+    return executeRequest(request);
   }
 }

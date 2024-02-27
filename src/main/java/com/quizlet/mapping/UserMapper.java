@@ -25,4 +25,14 @@ public interface UserMapper {
   List<UserResDto> model2Dto(List<User> users);
 
   void updateModelFromDto(UserReqDto dto, @MappingTarget User user);
+
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "auth0UserId", source = "id")
+  @Mapping(
+      target = "createdAt",
+      expression = "java( user.getCreatedAt().toInstant().getEpochSecond() )")
+  @Mapping(
+      target = "updatedAt",
+      expression = "java( user.getUpdatedAt().toInstant().getEpochSecond() )")
+  User auth02Model(com.auth0.json.mgmt.users.User user);
 }

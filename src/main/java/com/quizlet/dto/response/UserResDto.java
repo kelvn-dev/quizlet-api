@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 public class UserResDto {
   private UUID id;
-  private String name;
-  private int point;
-  private int studyTime;
+  private String nickname;
+  private String email;
 }
