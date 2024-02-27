@@ -26,6 +26,9 @@ public class User extends BaseModel {
   @Column(name = "auth0_user_id", nullable = false, unique = true, updatable = false)
   private String auth0UserId;
 
+  @Column(name = "avatar")
+  private String avatar;
+
   @OneToMany(
       mappedBy = "user",
       cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},

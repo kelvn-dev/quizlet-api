@@ -28,6 +28,7 @@ public interface UserMapper {
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "auth0UserId", source = "id")
+  @Mapping(target = "avatar", source = "picture")
   @Mapping(
       target = "createdAt",
       expression = "java( user.getCreatedAt().toInstant().getEpochSecond() )")
