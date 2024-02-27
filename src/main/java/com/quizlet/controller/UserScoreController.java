@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/user-scores")
 @RequiredArgsConstructor
-public class UserScoreController {
+public class UserScoreController implements SecuredRestController {
 
   private final UserScoreService userScoreService;
 

@@ -2,6 +2,7 @@ package com.quizlet.service.consumer;
 
 import com.quizlet.dto.cache.LeaderboardCacheDto;
 import com.quizlet.dto.cache.LeaderboardUserCacheDto;
+import com.quizlet.dto.cache.UserCacheDto;
 import com.quizlet.model.UserScore;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class LeaderboardCacheConsumer {
   private String userScoreCacheKey;
 
   private final RedisTemplate<String, String> redisScoreCacheTemplate;
-  private final RedisTemplate<String, String> redisUserCacheTemplate;
+  private final RedisTemplate<String, UserCacheDto> redisUserCacheTemplate;
   private final RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate;
   private final RabbitTemplate rabbitTemplate;
 
@@ -107,19 +108,21 @@ public class LeaderboardCacheConsumer {
     for (ZSetOperations.TypedTuple<String> tuple : userScoreCache) {
       String userId = tuple.getValue();
       double score = tuple.getScore();
+      UserCacheDto userCache = getCachedUserByUserId(userId);
       LeaderboardUserCacheDto user =
           LeaderboardUserCacheDto.builder()
               .id(userId)
               .rank(++rank)
               .score(score)
-              .username(getCachedUsernameByUserId(userId))
+              .nickname(userCache.getNickname())
+              .avatar(userCache.getAvatar())
               .build();
       users.add(user);
     }
     return new LeaderboardCacheDto(users, currentTimeMs);
   }
 
-  private String getCachedUsernameByUserId(String userId) {
+  private UserCacheDto getCachedUserByUserId(String userId) {
     return redisUserCacheTemplate.opsForValue().get(userId);
   }
 }

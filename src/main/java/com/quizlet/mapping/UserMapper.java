@@ -1,5 +1,6 @@
 package com.quizlet.mapping;
 
+import com.quizlet.dto.cache.UserCacheDto;
 import com.quizlet.dto.request.UserReqDto;
 import com.quizlet.dto.response.PageResDto;
 import com.quizlet.dto.response.UserResDto;
@@ -16,6 +17,8 @@ public interface UserMapper {
   User dto2Model(UserReqDto dto);
 
   UserResDto model2Dto(User user);
+
+  UserCacheDto model2Cache(User user);
 
   @Mapping(source = "totalElements", target = "totalItems")
   @Mapping(source = "number", target = "pageIndex")

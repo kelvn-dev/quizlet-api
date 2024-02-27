@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/leaderboard")
 @RequiredArgsConstructor
-public class LeaderboardController {
+public class LeaderboardController implements SecuredRestController {
   @Value("${redis.leaderboard-cache.key}")
   private String leaderboardCacheKey;
 

@@ -1,5 +1,6 @@
 package com.quizlet.service;
 
+import com.quizlet.dto.cache.UserCacheDto;
 import com.quizlet.dto.request.PasswordReqDto;
 import com.quizlet.dto.request.UserReqDto;
 import com.quizlet.exception.BadRequestException;
@@ -9,6 +10,7 @@ import com.quizlet.model.User;
 import com.quizlet.repository.UserRepository;
 import com.quizlet.service.provider.Auth0Service;
 import java.util.Objects;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,17 @@ public class UserService extends BaseService<User, UserRepository> {
 
   private final UserMapper userMapper;
   private final Auth0Service auth0Service;
+  private final RedisTemplate<String, UserCacheDto> redisUserCacheTemplate;
 
-  public UserService(UserRepository repository, UserMapper userMapper, Auth0Service auth0Service) {
+  public UserService(
+      UserRepository repository,
+      UserMapper userMapper,
+      Auth0Service auth0Service,
+      RedisTemplate<String, UserCacheDto> redisUserCacheTemplate) {
     super(repository);
     this.userMapper = userMapper;
     this.auth0Service = auth0Service;
+    this.redisUserCacheTemplate = redisUserCacheTemplate;
   }
 
   public User getByAuth0UserId(String auth0UserId, boolean noException) {
@@ -39,8 +47,14 @@ public class UserService extends BaseService<User, UserRepository> {
       com.auth0.json.mgmt.users.User auth0User = auth0Service.getUserById(auth0UserId);
       user = userMapper.auth02Model(auth0User);
       user = repository.save(user);
+      cacheUser(user);
     }
     return user;
+  }
+
+  public void cacheUser(User user) {
+    UserCacheDto dto = userMapper.model2Cache(user);
+    redisUserCacheTemplate.opsForValue().set(user.getId().toString(), dto);
   }
 
   public User updateByToken(JwtAuthenticationToken jwtToken, UserReqDto dto) {

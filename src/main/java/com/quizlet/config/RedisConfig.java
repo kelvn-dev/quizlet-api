@@ -1,6 +1,7 @@
 package com.quizlet.config;
 
 import com.quizlet.dto.cache.LeaderboardCacheDto;
+import com.quizlet.dto.cache.UserCacheDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -20,11 +21,10 @@ public class RedisConfig {
   }
 
   @Bean
-  public RedisTemplate<String, String> redisUserCacheTemplate(
+  public RedisTemplate<String, UserCacheDto> redisUserCacheTemplate(
       RedisConnectionFactory redisConnectionFactory) {
-    RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+    RedisTemplate<String, UserCacheDto> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(redisConnectionFactory);
-    redisTemplate.setDefaultSerializer(new StringRedisSerializer());
     return redisTemplate;
   }
 
