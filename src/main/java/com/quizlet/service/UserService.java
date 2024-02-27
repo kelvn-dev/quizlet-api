@@ -9,8 +9,6 @@ import com.quizlet.model.User;
 import com.quizlet.repository.UserRepository;
 import com.quizlet.service.provider.Auth0Service;
 import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +22,6 @@ public class UserService extends BaseService<User, UserRepository> {
     super(repository);
     this.userMapper = userMapper;
     this.auth0Service = auth0Service;
-  }
-
-  public User updateById(UUID id, UserReqDto dto) {
-    User user = this.getById(id, false);
-    userMapper.updateModelFromDto(dto, user);
-    return repository.save(user);
-  }
-
-  public Set<User> getAllById(Set<UUID> uuids) {
-    return Set.copyOf(repository.findAllById(uuids));
   }
 
   public User getByAuth0UserId(String auth0UserId, boolean noException) {
@@ -53,6 +41,13 @@ public class UserService extends BaseService<User, UserRepository> {
       user = repository.save(user);
     }
     return user;
+  }
+
+  public User updateByToken(JwtAuthenticationToken jwtToken, UserReqDto dto) {
+    String auth0UserId = jwtToken.getToken().getSubject();
+    User user = this.getByAuth0UserId(auth0UserId, false);
+    userMapper.updateModelFromDto(dto, user);
+    return repository.save(user);
   }
 
   public void updatePassword(JwtAuthenticationToken jwtToken, PasswordReqDto dto) {
