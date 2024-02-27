@@ -1,8 +1,10 @@
 package com.quizlet.controller;
 
+import com.quizlet.dto.request.PasswordReqDto;
 import com.quizlet.mapping.UserMapper;
 import com.quizlet.model.User;
 import com.quizlet.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -20,5 +22,12 @@ public class UserController implements SecuredRestController {
   public ResponseEntity<?> getProfile(JwtAuthenticationToken jwtToken) {
     User user = userService.getByToken(jwtToken);
     return ResponseEntity.ok(userMapper.model2Dto(user));
+  }
+
+  @PutMapping("/profile")
+  public ResponseEntity<?> updatePassword(
+      JwtAuthenticationToken jwtToken, @Valid @RequestBody PasswordReqDto dto) {
+    userService.updatePassword(jwtToken, dto);
+    return ResponseEntity.ok(null);
   }
 }

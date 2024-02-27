@@ -1,6 +1,8 @@
 package com.quizlet.service;
 
+import com.quizlet.dto.request.PasswordReqDto;
 import com.quizlet.dto.request.UserReqDto;
+import com.quizlet.exception.BadRequestException;
 import com.quizlet.exception.NotFoundException;
 import com.quizlet.mapping.UserMapper;
 import com.quizlet.model.User;
@@ -51,5 +53,14 @@ public class UserService extends BaseService<User, UserRepository> {
       user = repository.save(user);
     }
     return user;
+  }
+
+  public void updatePassword(JwtAuthenticationToken jwtToken, PasswordReqDto dto) {
+    String auth0UserId = jwtToken.getToken().getSubject();
+    this.getByAuth0UserId(auth0UserId, false);
+    if (!auth0UserId.startsWith("auth0")) {
+      throw new BadRequestException("Account is of type social");
+    }
+    auth0Service.updatePassword(auth0UserId, dto.getPassword());
   }
 }

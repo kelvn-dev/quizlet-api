@@ -45,4 +45,11 @@ public class Auth0Service {
     Request<User> request = managementAPI.users().get(userId, userFilter);
     return executeRequest(request);
   }
+
+  public User updatePassword(String userId, String password) {
+    User user = new User(auth0Connection);
+    user.setPassword(password.toCharArray());
+    Request<User> request = managementAPI.users().update(userId, user);
+    return executeRequest(request);
+  }
 }
