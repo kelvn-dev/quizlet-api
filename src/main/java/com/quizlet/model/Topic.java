@@ -1,6 +1,6 @@
 package com.quizlet.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Set;
@@ -20,12 +20,15 @@ public class Topic extends BaseModel {
   private String name;
 
   @ManyToMany(mappedBy = "topics", fetch = FetchType.LAZY)
-  @JsonBackReference
+  @JsonIgnore
   private Set<Folder> folders;
 
   @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, orphanRemoval = true)
   @JsonManagedReference
   private Set<Word> words;
+
+  @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<UserScore> userScores;
 
   @PreRemove
   private void removeAssociations() {

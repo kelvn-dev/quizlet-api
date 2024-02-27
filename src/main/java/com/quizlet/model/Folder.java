@@ -1,6 +1,5 @@
 package com.quizlet.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Set;
 import lombok.*;
@@ -23,6 +22,5 @@ public class Folder extends BaseModel {
       name = "folder_topic",
       joinColumns = @JoinColumn(name = "folder_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "topic_id", referencedColumnName = "id"))
-  @JsonManagedReference
   private Set<Topic> topics;
 }

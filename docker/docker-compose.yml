@@ -1,0 +1,24 @@
+version: "3.8"
+name: "quizlet-api"
+services:
+  redis:
+    image: redis:6.2-alpine
+    container_name: quizlet-redis
+    ports:
+      - "6379:6379"
+    # User default
+    command: redis-server --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - ./volumes/cache:/data
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: quizlet-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: kelvin
+      RABBITMQ_DEFAULT_PASS: kelvin
+    volumes:
+      - ./volumes/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./volumes/rabbitmq/log/:/var/log/rabbitmq
