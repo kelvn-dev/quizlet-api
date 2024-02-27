@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 
-@Tag(name = "S3")
+@Tag(name = "s3-controller")
 @RestController
 @RequestMapping("/v1/s3")
 @RequiredArgsConstructor
