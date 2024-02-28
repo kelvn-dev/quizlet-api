@@ -1,5 +1,6 @@
 package com.quizlet.service;
 
+import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
 import com.quizlet.dto.request.TopicReqDto;
 import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
@@ -7,8 +8,11 @@ import com.quizlet.mapping.TopicMapper;
 import com.quizlet.model.Topic;
 import com.quizlet.model.User;
 import com.quizlet.repository.TopicRepository;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +71,24 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
     super.deleteById(id);
   }
 
+  public Topic getById(
+      JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
+    Topic topic = this.getById(id, false);
+    if (!topic.isPublic()) {
+      User owner = this.getOwnerByToken(token);
+      checkOwner(owner, topic);
+    }
+    return super.getById(id, entityGraph, noException);
+  }
+
   public Set<Topic> getAllById(Set<UUID> uuids) {
     return Set.copyOf(repository.findAllById(uuids));
+  }
+
+  public Page<Topic> getList(JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
+    User owner = this.getOwnerByToken(token);
+    UUID ownerId = owner.getId();
+    filter.add("ownerId=".concat(ownerId.toString()));
+    return super.getList(filter, pageable);
   }
 }

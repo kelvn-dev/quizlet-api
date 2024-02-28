@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import lombok.SneakyThrows;
 
 public class HelperUtils {
@@ -16,9 +15,17 @@ public class HelperUtils {
     List<SearchCriteria> criteria = new ArrayList<>();
     if (!Objects.isNull(filter)) {
       Collection<SearchCriteria> collect =
-          Arrays.asList(filter).parallelStream()
-              .map(HelperUtils::validateFilterPattern)
-              .collect(Collectors.toList());
+          Arrays.asList(filter).parallelStream().map(HelperUtils::validateFilterPattern).toList();
+      criteria.addAll(collect);
+    }
+    return criteria;
+  }
+
+  public static List<SearchCriteria> formatSearchCriteria(List<String> filter) {
+    List<SearchCriteria> criteria = new ArrayList<>();
+    if (!Objects.isNull(filter)) {
+      Collection<SearchCriteria> collect =
+          filter.parallelStream().map(HelperUtils::validateFilterPattern).toList();
       criteria.addAll(collect);
     }
     return criteria;

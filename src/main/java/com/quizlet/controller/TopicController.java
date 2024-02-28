@@ -6,6 +6,7 @@ import com.quizlet.model.Topic;
 import com.quizlet.model.TopicEntityGraph;
 import com.quizlet.service.TopicService;
 import jakarta.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -33,9 +34,9 @@ public class TopicController implements SecuredRestController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable UUID id) {
+  public ResponseEntity<?> getById(JwtAuthenticationToken token, @PathVariable UUID id) {
     TopicEntityGraph entityGraph = TopicEntityGraph.____().words().____.____();
-    Topic topic = topicService.getById(id, entityGraph, false);
+    Topic topic = topicService.getById(token, id, entityGraph, false);
     return ResponseEntity.ok(topicMapper.model2ExtendDto(topic));
   }
 
@@ -54,12 +55,25 @@ public class TopicController implements SecuredRestController {
 
   @GetMapping
   public ResponseEntity<?> getList(
+      JwtAuthenticationToken token,
       @PageableDefault(
               sort = {"createdAt"},
               direction = Sort.Direction.DESC)
           @ParameterObject
           Pageable pageable,
-      @RequestParam(required = false) String[] filter) {
+      @RequestParam(required = false, defaultValue = "") List<String> filter) {
+    Page<Topic> topics = topicService.getList(token, filter, pageable);
+    return ResponseEntity.ok(topicMapper.model2Dto(topics));
+  }
+
+  @GetMapping("/community")
+  public ResponseEntity<?> getList(
+      @PageableDefault(
+              sort = {"createdAt"},
+              direction = Sort.Direction.DESC)
+          @ParameterObject
+          Pageable pageable) {
+    List<String> filter = List.of("isPublic=true");
     Page<Topic> topics = topicService.getList(filter, pageable);
     return ResponseEntity.ok(topicMapper.model2Dto(topics));
   }

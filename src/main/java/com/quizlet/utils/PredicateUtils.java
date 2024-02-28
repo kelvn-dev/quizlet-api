@@ -26,18 +26,20 @@ public class PredicateUtils {
     PathBuilder<?> entityPath =
         new PathBuilder<>(classType, HelperUtils.getEntityVariable(classType.getSimpleName()));
     Class<?> propertyType = HelperUtils.getPropertyType(classType, key);
-    switch (propertyType.getSimpleName()) {
-      case "UUID":
+    switch (propertyType.getSimpleName().toLowerCase()) {
+      case "uuid":
         return getUUIDPredicate(key, operator, value, entityPath);
-      case "String":
+      case "boolean":
+        return getBooleanPredicate(key, value, entityPath);
+      case "string":
         return getStringPredicate(key, operator, value, entityPath);
-      case "Integer":
+      case "integer":
         return getIntegerPredicate(key, operator, value, entityPath);
-      case "Double":
+      case "double":
         return getDoublePredicate(key, operator, value, entityPath);
-      case "LocalDate":
+      case "localdate":
         return getDatePredicate(key, operator, value, entityPath);
-      case "LocalDateTime":
+      case "localdatetime":
         return getDateTimePredicate(key, operator, value, entityPath);
       default:
         return null;
@@ -68,6 +70,12 @@ public class PredicateUtils {
       return path.eq(UUID.fromString(value));
     }
     return null;
+  }
+
+  public static BooleanExpression getBooleanPredicate(
+      String key, String value, PathBuilder<?> entityPath) {
+    BooleanPath path = entityPath.getBoolean(key);
+    return path.stringValue().equalsIgnoreCase(value);
   }
 
   public static BooleanExpression getIntegerPredicate(

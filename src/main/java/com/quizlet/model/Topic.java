@@ -23,6 +23,9 @@ public class Topic extends BaseModel {
   @Column(name = "owner_id", updatable = false)
   private UUID ownerId;
 
+  @Column(name = "is_public")
+  private boolean isPublic;
+
   @ManyToMany(mappedBy = "topics", fetch = FetchType.LAZY)
   @JsonIgnore
   private Set<Folder> folders;
