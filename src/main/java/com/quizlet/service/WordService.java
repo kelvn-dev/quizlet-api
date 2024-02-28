@@ -2,6 +2,7 @@ package com.quizlet.service;
 
 import com.quizlet.dto.request.WordReqDto;
 import com.quizlet.exception.ConflictException;
+import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.WordMapper;
 import com.quizlet.model.Topic;
 import com.quizlet.model.User;
@@ -31,10 +32,16 @@ public class WordService extends BaseService<Word, WordRepository> {
     this.userService = userService;
   }
 
+  private void checkOwner(User owner, Topic topic) {
+    if (!owner.getId().equals(topic.getOwnerId())) {
+      throw new ForbiddenException("Access denied");
+    }
+  }
+
   public Word create(JwtAuthenticationToken token, WordReqDto dto) {
     Topic topic = topicService.getById(dto.getTopicId(), false);
-    User user = topicService.getOwnerByToken(token);
-    topicService.checkOwner(user, topic);
+    User owner = userService.getByToken(token, false);
+    this.checkOwner(owner, topic);
     if (repository.findByTopicIdAndNameIgnoreCase(dto.getTopicId(), dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
@@ -46,8 +53,8 @@ public class WordService extends BaseService<Word, WordRepository> {
     WordEntityGraph entityGraph = WordEntityGraph.____().topic().____.____();
     Word word = this.getById(id, entityGraph, false);
     Topic topic = word.getTopic();
-    User user = topicService.getOwnerByToken(token);
-    topicService.checkOwner(user, topic);
+    User owner = userService.getByToken(token, false);
+    this.checkOwner(owner, topic);
     if (!word.getName().equalsIgnoreCase(dto.getName())) {
       if (repository.findByTopicIdAndNameIgnoreCase(dto.getTopicId(), dto.getName()).isPresent()) {
         throw new ConflictException(modelClass, "name", dto.getName());
@@ -62,8 +69,8 @@ public class WordService extends BaseService<Word, WordRepository> {
     Word word = super.getById(id, entityGraph, noException);
     Topic topic = word.getTopic();
     if (!topic.isPublic()) {
-      User user = topicService.getOwnerByToken(token);
-      topicService.checkOwner(user, topic);
+      User owner = userService.getByToken(token, false);
+      this.checkOwner(owner, topic);
     }
     return word;
   }
@@ -72,8 +79,8 @@ public class WordService extends BaseService<Word, WordRepository> {
     WordEntityGraph entityGraph = WordEntityGraph.____().topic().____.____();
     Word word = super.getById(id, entityGraph, false);
     Topic topic = word.getTopic();
-    User user = topicService.getOwnerByToken(token);
-    topicService.checkOwner(user, topic);
+    User owner = userService.getByToken(token, false);
+    this.checkOwner(owner, topic);
     repository.delete(word);
   }
 

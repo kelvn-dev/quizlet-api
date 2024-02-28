@@ -29,20 +29,14 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
     this.userService = userService;
   }
 
-  public User getOwnerByToken(JwtAuthenticationToken token) {
-    String auth0UserId = token.getToken().getSubject();
-    User user = userService.getByAuth0UserId(auth0UserId, false);
-    return user;
-  }
-
-  public void checkOwner(User owner, Topic topic) {
+  private void checkOwner(User owner, Topic topic) {
     if (!owner.getId().equals(topic.getOwnerId())) {
       throw new ForbiddenException("Access denied");
     }
   }
 
   public Topic create(JwtAuthenticationToken token, TopicReqDto dto) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
@@ -52,7 +46,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
   }
 
   public Topic updateById(JwtAuthenticationToken token, UUID id, TopicReqDto dto) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     Topic topic = this.getById(id, false);
     checkOwner(owner, topic);
     if (!topic.getName().equalsIgnoreCase(dto.getName())) {
@@ -65,7 +59,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
   }
 
   public void deleteById(JwtAuthenticationToken token, UUID id) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     Topic topic = this.getById(id, false);
     checkOwner(owner, topic);
     super.deleteById(id);
@@ -75,7 +69,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
       JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
     Topic topic = this.getById(id, false);
     if (!topic.isPublic()) {
-      User owner = this.getOwnerByToken(token);
+      User owner = userService.getByToken(token, false);
       checkOwner(owner, topic);
     }
     return super.getById(id, entityGraph, noException);
@@ -86,7 +80,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
   }
 
   public Page<Topic> getList(JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     UUID ownerId = owner.getId();
     filter.add("ownerId=".concat(ownerId.toString()));
     return super.getList(filter, pageable);
