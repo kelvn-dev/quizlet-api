@@ -47,6 +47,7 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
     Folder folder = folderMapper.dto2Model(dto);
+    folder.setOwnerId(owner.getId());
     Set<Topic> topics = topicService.getAllById(dto.getTopicIds());
     folder.setTopics(topics);
     return repository.save(folder);
