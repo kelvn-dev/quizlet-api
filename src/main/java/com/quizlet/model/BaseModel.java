@@ -19,11 +19,7 @@ public abstract class BaseModel implements Serializable {
 
   @Id
   @GeneratedValue()
-  @Column(
-      name = "id",
-      columnDefinition = "uuid",
-      updatable = false,
-      nullable = false)
+  @Column(name = "id", columnDefinition = "uuid", updatable = false, nullable = false)
   private UUID id;
 
   //  @CreationTimestamp

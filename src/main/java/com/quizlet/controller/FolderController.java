@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,39 +27,42 @@ public class FolderController implements SecuredRestController {
   private final FolderMapper folderMapper;
 
   @PostMapping()
-  public ResponseEntity<?> create(@Valid @RequestBody FolderReqDto dto) {
-    Folder folder = folderService.create(dto);
+  public ResponseEntity<?> create(
+      JwtAuthenticationToken token, @Valid @RequestBody FolderReqDto dto) {
+    Folder folder = folderService.create(token, dto);
     return ResponseEntity.ok(folderMapper.model2Dto(folder));
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable UUID id) {
+  public ResponseEntity<?> getById(JwtAuthenticationToken token, @PathVariable UUID id) {
     FolderEntityGraph entityGraph = FolderEntityGraph.____().topics().____.____();
-    Folder folder = folderService.getById(id, entityGraph, false);
+    Folder folder = folderService.getById(token, id, entityGraph, false);
     return ResponseEntity.ok(folderMapper.model2ExtendDto(folder));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> updateById(@PathVariable UUID id, @Valid @RequestBody FolderReqDto dto) {
-    Folder folder = folderService.updateById(id, dto);
+  public ResponseEntity<?> updateById(
+      JwtAuthenticationToken token, @PathVariable UUID id, @Valid @RequestBody FolderReqDto dto) {
+    Folder folder = folderService.updateById(token, id, dto);
     return ResponseEntity.ok(folderMapper.model2Dto(folder));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-    folderService.deleteById(id);
+  public ResponseEntity<?> deleteById(JwtAuthenticationToken token, @PathVariable UUID id) {
+    folderService.deleteById(token, id);
     return ResponseEntity.ok(null);
   }
 
   @GetMapping
   public ResponseEntity<?> getList(
+      JwtAuthenticationToken token,
       @PageableDefault(
               sort = {"createdAt"},
               direction = Sort.Direction.DESC)
           @ParameterObject
           Pageable pageable,
       @RequestParam(required = false, defaultValue = "") List<String> filter) {
-    Page<Folder> folders = folderService.getList(filter, pageable);
+    Page<Folder> folders = folderService.getList(token, filter, pageable);
     return ResponseEntity.ok(folderMapper.model2Dto(folders));
   }
 }

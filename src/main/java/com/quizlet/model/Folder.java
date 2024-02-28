@@ -2,6 +2,7 @@ package com.quizlet.model;
 
 import jakarta.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -16,6 +17,9 @@ public class Folder extends BaseModel {
 
   @Column(name = "name")
   private String name;
+
+  @Column(name = "owner_id", updatable = false)
+  private UUID ownerId;
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
