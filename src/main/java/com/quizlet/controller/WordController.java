@@ -40,8 +40,8 @@ public class WordController implements SecuredRestController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-    wordService.deleteById(id);
+  public ResponseEntity<?> deleteById(JwtAuthenticationToken token, @PathVariable UUID id) {
+    wordService.deleteById(token, id);
     return ResponseEntity.ok(null);
   }
 }
