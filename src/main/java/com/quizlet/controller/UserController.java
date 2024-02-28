@@ -21,7 +21,7 @@ public class UserController implements SecuredRestController {
 
   @GetMapping("/profile")
   public ResponseEntity<?> getProfile(JwtAuthenticationToken jwtToken) {
-    User user = userService.getByToken(jwtToken);
+    User user = userService.getProfile(jwtToken);
     return ResponseEntity.ok(userMapper.model2Dto(user));
   }
 

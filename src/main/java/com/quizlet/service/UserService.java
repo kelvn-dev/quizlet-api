@@ -40,7 +40,12 @@ public class UserService extends BaseService<User, UserRepository> {
     return user;
   }
 
-  public User getByToken(JwtAuthenticationToken jwtToken) {
+  public User getByToken(JwtAuthenticationToken jwtToken, boolean noException) {
+    String auth0UserId = jwtToken.getToken().getSubject();
+    return this.getByAuth0UserId(auth0UserId, noException);
+  }
+
+  public User getProfile(JwtAuthenticationToken jwtToken) {
     String auth0UserId = jwtToken.getToken().getSubject();
     User user = this.getByAuth0UserId(auth0UserId, true);
     if (Objects.isNull(user)) {
@@ -58,8 +63,7 @@ public class UserService extends BaseService<User, UserRepository> {
   }
 
   public User updateByToken(JwtAuthenticationToken jwtToken, UserReqDto dto) {
-    String auth0UserId = jwtToken.getToken().getSubject();
-    User user = this.getByAuth0UserId(auth0UserId, false);
+    User user = this.getByToken(jwtToken, false);
     userMapper.updateModelFromDto(dto, user);
     return repository.save(user);
   }
