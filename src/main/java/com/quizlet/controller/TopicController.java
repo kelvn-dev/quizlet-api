@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,8 +26,9 @@ public class TopicController implements SecuredRestController {
   private final TopicMapper topicMapper;
 
   @PostMapping()
-  public ResponseEntity<?> create(@Valid @RequestBody TopicReqDto dto) {
-    Topic topic = topicService.create(dto);
+  public ResponseEntity<?> create(
+      JwtAuthenticationToken token, @Valid @RequestBody TopicReqDto dto) {
+    Topic topic = topicService.create(token, dto);
     return ResponseEntity.ok(topicMapper.model2Dto(topic));
   }
 
@@ -38,14 +40,15 @@ public class TopicController implements SecuredRestController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> updateById(@PathVariable UUID id, @Valid @RequestBody TopicReqDto dto) {
-    Topic topic = topicService.updateById(id, dto);
+  public ResponseEntity<?> updateById(
+      JwtAuthenticationToken token, @PathVariable UUID id, @Valid @RequestBody TopicReqDto dto) {
+    Topic topic = topicService.updateById(token, id, dto);
     return ResponseEntity.ok(topicMapper.model2Dto(topic));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@PathVariable UUID id) {
-    topicService.deleteById(id);
+  public ResponseEntity<?> deleteById(JwtAuthenticationToken token, @PathVariable UUID id) {
+    topicService.deleteById(token, id);
     return ResponseEntity.ok(null);
   }
 
