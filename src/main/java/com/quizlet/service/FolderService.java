@@ -35,20 +35,14 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
     this.userService = userService;
   }
 
-  public User getOwnerByToken(JwtAuthenticationToken token) {
-    String auth0UserId = token.getToken().getSubject();
-    User user = userService.getByAuth0UserId(auth0UserId, false);
-    return user;
-  }
-
-  public void checkOwner(User owner, Folder folder) {
+  private void checkOwner(User owner, Folder folder) {
     if (!owner.getId().equals(folder.getOwnerId())) {
       throw new ForbiddenException("Access denied");
     }
   }
 
   public Folder create(JwtAuthenticationToken token, FolderReqDto dto) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
@@ -59,7 +53,7 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
   }
 
   public Folder updateById(JwtAuthenticationToken token, UUID id, FolderReqDto dto) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     FolderEntityGraph entityGraph = FolderEntityGraph.____().topics().____.____();
     Folder folder = this.getById(id, entityGraph, false);
     checkOwner(owner, folder);
@@ -82,7 +76,7 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
   }
 
   public void deleteById(JwtAuthenticationToken token, UUID id) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     Folder folder = this.getById(id, false);
     checkOwner(owner, folder);
     super.deleteById(id);
@@ -91,14 +85,14 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
   public Folder getById(
       JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
     Folder folder = this.getById(id, false);
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     checkOwner(owner, folder);
     return super.getById(id, entityGraph, noException);
   }
 
   public Page<Folder> getList(
       JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
-    User owner = this.getOwnerByToken(token);
+    User owner = userService.getByToken(token, false);
     UUID ownerId = owner.getId();
     filter.add("ownerId=".concat(ownerId.toString()));
     return super.getList(filter, pageable);
