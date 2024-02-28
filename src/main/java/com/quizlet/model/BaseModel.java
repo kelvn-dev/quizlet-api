@@ -9,18 +9,19 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
 @MappedSuperclass // ensure that won't have a separate representation as table
-// @EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseModel implements Serializable {
 
   @Id
   @GeneratedValue()
   @Column(
       name = "id",
-      columnDefinition = "uuid", // make the value of UUID more readable
+      columnDefinition = "uuid",
       updatable = false,
       nullable = false)
   private UUID id;
