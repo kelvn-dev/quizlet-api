@@ -5,5 +5,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface WordRepository extends BaseRepository<Word, UUID> {
-  Optional<Word> findByNameIgnoreCase(String name);
+  Optional<Word> findByTopicIdAndNameIgnoreCase(UUID topicId, String name);
 }
