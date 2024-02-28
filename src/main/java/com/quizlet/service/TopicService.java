@@ -43,7 +43,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
 
   public Topic create(JwtAuthenticationToken token, TopicReqDto dto) {
     User owner = this.getOwnerByToken(token);
-    if (repository.findByNameIgnoreCase(dto.getName()).isPresent()) {
+    if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
     Topic topic = topicMapper.dto2Model(dto);
@@ -56,7 +56,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
     Topic topic = this.getById(id, false);
     checkOwner(owner, topic);
     if (!topic.getName().equalsIgnoreCase(dto.getName())) {
-      if (repository.findByNameIgnoreCase(dto.getName()).isPresent()) {
+      if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
         throw new ConflictException(modelClass, "name", dto.getName());
       }
     }
