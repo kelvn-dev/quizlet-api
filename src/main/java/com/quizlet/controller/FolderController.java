@@ -6,6 +6,7 @@ import com.quizlet.model.Folder;
 import com.quizlet.model.FolderEntityGraph;
 import com.quizlet.service.FolderService;
 import jakarta.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -56,7 +57,7 @@ public class FolderController implements SecuredRestController {
               direction = Sort.Direction.DESC)
           @ParameterObject
           Pageable pageable,
-      @RequestParam(required = false) String[] filter) {
+      @RequestParam(required = false, defaultValue = "") List<String> filter) {
     Page<Folder> folders = folderService.getList(filter, pageable);
     return ResponseEntity.ok(folderMapper.model2Dto(folders));
   }

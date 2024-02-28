@@ -5,6 +5,7 @@ import com.quizlet.mapping.WordMapper;
 import com.quizlet.model.Word;
 import com.quizlet.service.WordService;
 import jakarta.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -54,7 +55,7 @@ public class WordController implements SecuredRestController {
               direction = Sort.Direction.DESC)
           @ParameterObject
           Pageable pageable,
-      @RequestParam(required = false) String[] filter) {
+      @RequestParam(required = false, defaultValue = "") List<String> filter) {
     Page<Word> words = wordService.getList(filter, pageable);
     return ResponseEntity.ok(wordMapper.model2Dto(words));
   }

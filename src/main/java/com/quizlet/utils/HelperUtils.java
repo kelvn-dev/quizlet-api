@@ -11,16 +11,6 @@ public class HelperUtils {
 
   private static final Pattern filterPattern = Pattern.compile(RegexUtils.FILTER_REQUEST_PATTERN);
 
-  public static List<SearchCriteria> formatSearchCriteria(String[] filter) {
-    List<SearchCriteria> criteria = new ArrayList<>();
-    if (!Objects.isNull(filter)) {
-      Collection<SearchCriteria> collect =
-          Arrays.asList(filter).parallelStream().map(HelperUtils::validateFilterPattern).toList();
-      criteria.addAll(collect);
-    }
-    return criteria;
-  }
-
   public static List<SearchCriteria> formatSearchCriteria(List<String> filter) {
     List<SearchCriteria> criteria = new ArrayList<>();
     if (!Objects.isNull(filter)) {
