@@ -13,9 +13,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
 @Entity
-@Table(
-    name = "app_user",
-    indexes = {@Index(name = "idx_auth0_user_id", columnList = "auth0_user_id")})
+@Table(name = "app_user")
 @Getter
 @Setter
 @AllArgsConstructor
