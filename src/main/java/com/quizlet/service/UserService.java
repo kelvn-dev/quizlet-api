@@ -10,46 +10,38 @@ import com.quizlet.model.User;
 import com.quizlet.repository.UserRepository;
 import com.quizlet.service.provider.Auth0Service;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends BaseService<User, UserRepository> {
+@RequiredArgsConstructor
+public class UserService {
 
   private final UserMapper userMapper;
+  private final UserRepository repository;
   private final Auth0Service auth0Service;
   private final RedisTemplate<String, UserCacheDto> redisUserCacheTemplate;
 
-  public UserService(
-      UserRepository repository,
-      UserMapper userMapper,
-      Auth0Service auth0Service,
-      RedisTemplate<String, UserCacheDto> redisUserCacheTemplate) {
-    super(repository);
-    this.userMapper = userMapper;
-    this.auth0Service = auth0Service;
-    this.redisUserCacheTemplate = redisUserCacheTemplate;
-  }
-
-  public User getByAuth0UserId(String auth0UserId, boolean noException) {
-    User user = repository.findByAuth0UserId(auth0UserId).orElse(null);
+  public User getById(String id, boolean noException) {
+    User user = repository.findById(id).orElse(null);
     if (Objects.isNull(user) && !noException) {
-      throw new NotFoundException(modelClass, "auth0UserId", auth0UserId);
+      throw new NotFoundException(User.class, "id", id);
     }
     return user;
   }
 
-  public User getByToken(JwtAuthenticationToken jwtToken, boolean noException) {
-    String auth0UserId = jwtToken.getToken().getSubject();
-    return this.getByAuth0UserId(auth0UserId, noException);
+  public User getByToken(JwtAuthenticationToken token, boolean noException) {
+    String userId = token.getToken().getSubject();
+    return this.getById(userId, noException);
   }
 
   public User getProfile(JwtAuthenticationToken jwtToken) {
-    String auth0UserId = jwtToken.getToken().getSubject();
-    User user = this.getByAuth0UserId(auth0UserId, true);
+    String userId = jwtToken.getToken().getSubject();
+    User user = this.getById(userId, true);
     if (Objects.isNull(user)) {
-      com.auth0.json.mgmt.users.User auth0User = auth0Service.getUserById(auth0UserId);
+      com.auth0.json.mgmt.users.User auth0User = auth0Service.getUserById(userId);
       user = userMapper.auth02Model(auth0User);
       user = repository.save(user);
       cacheUser(user);
@@ -59,7 +51,7 @@ public class UserService extends BaseService<User, UserRepository> {
 
   public void cacheUser(User user) {
     UserCacheDto dto = userMapper.model2Cache(user);
-    redisUserCacheTemplate.opsForValue().set(user.getId().toString(), dto);
+    redisUserCacheTemplate.opsForValue().set(user.getId(), dto);
   }
 
   public User updateByToken(JwtAuthenticationToken jwtToken, UserReqDto dto) {
@@ -69,11 +61,10 @@ public class UserService extends BaseService<User, UserRepository> {
   }
 
   public void updatePassword(JwtAuthenticationToken jwtToken, PasswordReqDto dto) {
-    String auth0UserId = jwtToken.getToken().getSubject();
-    this.getByAuth0UserId(auth0UserId, false);
-    if (!auth0UserId.startsWith("auth0")) {
+    String userId = jwtToken.getToken().getSubject();
+    if (!userId.startsWith("auth0")) {
       throw new BadRequestException("Account is of type social");
     }
-    auth0Service.updatePassword(auth0UserId, dto.getPassword());
+    auth0Service.updatePassword(userId, dto.getPassword());
   }
 }

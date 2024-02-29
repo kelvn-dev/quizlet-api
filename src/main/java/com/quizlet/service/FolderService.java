@@ -8,7 +8,6 @@ import com.quizlet.mapping.FolderMapper;
 import com.quizlet.model.Folder;
 import com.quizlet.model.FolderEntityGraph;
 import com.quizlet.model.Topic;
-import com.quizlet.model.User;
 import com.quizlet.repository.FolderRepository;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,44 +21,39 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
 
   private final FolderMapper folderMapper;
   private final TopicService topicService;
-  private final UserService userService;
 
   public FolderService(
-      FolderRepository repository,
-      FolderMapper folderMapper,
-      TopicService topicService,
-      UserService userService) {
+      FolderRepository repository, FolderMapper folderMapper, TopicService topicService) {
     super(repository);
     this.folderMapper = folderMapper;
     this.topicService = topicService;
-    this.userService = userService;
   }
 
-  private void checkOwner(User owner, Folder folder) {
-    if (!owner.getId().equals(folder.getOwnerId())) {
+  private void checkOwner(String userId, Folder folder) {
+    if (!folder.getOwnerId().equals(userId)) {
       throw new ForbiddenException("Access denied");
     }
   }
 
   public Folder create(JwtAuthenticationToken token, FolderReqDto dto) {
-    User owner = userService.getByToken(token, false);
-    if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
+    String userId = token.getToken().getSubject();
+    if (repository.findByOwnerIdAndNameIgnoreCase(userId, dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
     Folder folder = folderMapper.dto2Model(dto);
-    folder.setOwnerId(owner.getId());
+    folder.setOwnerId(userId);
     Set<Topic> topics = topicService.getAllById(dto.getTopicIds());
     folder.setTopics(topics);
     return repository.save(folder);
   }
 
   public Folder updateById(JwtAuthenticationToken token, UUID id, FolderReqDto dto) {
-    User owner = userService.getByToken(token, false);
+    String userId = token.getToken().getSubject();
     FolderEntityGraph entityGraph = FolderEntityGraph.____().topics().____.____();
     Folder folder = this.getById(id, entityGraph, false);
-    checkOwner(owner, folder);
+    checkOwner(userId, folder);
     if (!folder.getName().equalsIgnoreCase(dto.getName())) {
-      if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
+      if (repository.findByOwnerIdAndNameIgnoreCase(userId, dto.getName()).isPresent()) {
         throw new ConflictException(modelClass, "name", dto.getName());
       }
     }
@@ -77,25 +71,24 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
   }
 
   public void deleteById(JwtAuthenticationToken token, UUID id) {
-    User owner = userService.getByToken(token, false);
+    String userId = token.getToken().getSubject();
     Folder folder = this.getById(id, false);
-    checkOwner(owner, folder);
+    checkOwner(userId, folder);
     super.deleteById(id);
   }
 
   public Folder getById(
       JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
     Folder folder = this.getById(id, false);
-    User owner = userService.getByToken(token, false);
-    checkOwner(owner, folder);
+    String userId = token.getToken().getSubject();
+    checkOwner(userId, folder);
     return super.getById(id, entityGraph, noException);
   }
 
   public Page<Folder> getList(
       JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
-    User owner = userService.getByToken(token, false);
-    UUID ownerId = owner.getId();
-    filter.add("ownerId=".concat(ownerId.toString()));
+    String userId = token.getToken().getSubject();
+    filter.add("ownerId=".concat(userId));
     return super.getList(filter, pageable);
   }
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserScoreId implements Serializable {
-  private UUID userId;
+  private String userId;
 
   private UUID topicId;
 

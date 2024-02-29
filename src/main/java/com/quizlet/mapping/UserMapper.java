@@ -29,8 +29,6 @@ public interface UserMapper {
 
   void updateModelFromDto(UserReqDto dto, @MappingTarget User user);
 
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "auth0UserId", source = "id")
   @Mapping(target = "avatar", source = "picture")
   @Mapping(
       target = "createdAt",

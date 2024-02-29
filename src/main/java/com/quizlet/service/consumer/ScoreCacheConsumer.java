@@ -24,9 +24,7 @@ public class ScoreCacheConsumer {
   public void updateScore(UserScore userScore) {
     // increment user's score in redis sortedset collection
     String key = userScoreCacheKey.concat(userScore.getTopicId().toString());
-    redisScoreCacheTemplate
-        .opsForZSet()
-        .add(key, userScore.getUserId().toString(), userScore.getScore());
+    redisScoreCacheTemplate.opsForZSet().add(key, userScore.getUserId(), userScore.getScore());
 
     log.info(
         "user with id: {}, score : {} added to redis set",

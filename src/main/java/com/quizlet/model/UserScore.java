@@ -21,8 +21,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @IdClass(UserScoreId.class)
 public class UserScore implements Serializable {
   @Id
-  @Column(name = "user_id", columnDefinition = "uuid")
-  private UUID userId;
+  @Column(name = "user_id")
+  private String userId;
 
   @Id
   @Column(name = "topic_id", columnDefinition = "uuid")

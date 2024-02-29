@@ -4,7 +4,6 @@ import com.quizlet.dto.request.UserScoreReqDto;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.UserScoreMapper;
 import com.quizlet.model.Topic;
-import com.quizlet.model.User;
 import com.quizlet.model.UserScore;
 import com.quizlet.repository.UserScoreRepository;
 import java.util.UUID;
@@ -19,7 +18,6 @@ public class UserScoreService {
 
   private final UserScoreMapper userScoreMapper;
   private final UserScoreRepository userScoreRepository;
-  private final UserService userService;
   private final TopicService topicService;
   private final RabbitTemplate rabbitTemplate;
 
@@ -32,9 +30,9 @@ public class UserScoreService {
 
   public UserScore create(JwtAuthenticationToken token, UserScoreReqDto dto) {
     this.checkPublicTopic(dto.getTopicId());
-    User user = userService.getByToken(token, false);
+    String userId = token.getToken().getSubject();
     UserScore userScore = userScoreMapper.dto2Model(dto);
-    userScore.setUserId(user.getId());
+    userScore.setUserId(userId);
     userScore = userScoreRepository.save(userScore);
     rabbitTemplate.convertAndSend("x.leaderboard", "redis-score-update", userScore);
     return userScore;

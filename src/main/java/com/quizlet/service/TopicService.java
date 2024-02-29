@@ -6,7 +6,6 @@ import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.TopicMapper;
 import com.quizlet.model.Topic;
-import com.quizlet.model.User;
 import com.quizlet.repository.TopicRepository;
 import java.util.List;
 import java.util.Set;
@@ -20,37 +19,34 @@ import org.springframework.stereotype.Service;
 public class TopicService extends BaseService<Topic, TopicRepository> {
 
   private final TopicMapper topicMapper;
-  private final UserService userService;
 
-  public TopicService(
-      TopicRepository repository, TopicMapper topicMapper, UserService userService) {
+  public TopicService(TopicRepository repository, TopicMapper topicMapper) {
     super(repository);
     this.topicMapper = topicMapper;
-    this.userService = userService;
   }
 
-  private void checkOwner(User owner, Topic topic) {
-    if (!owner.getId().equals(topic.getOwnerId())) {
+  private void checkOwner(String userId, Topic topic) {
+    if (!topic.getOwnerId().equals(userId)) {
       throw new ForbiddenException("Access denied");
     }
   }
 
   public Topic create(JwtAuthenticationToken token, TopicReqDto dto) {
-    User owner = userService.getByToken(token, false);
-    if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
+    String userId = token.getToken().getSubject();
+    if (repository.findByOwnerIdAndNameIgnoreCase(userId, dto.getName()).isPresent()) {
       throw new ConflictException(modelClass, "name", dto.getName());
     }
     Topic topic = topicMapper.dto2Model(dto);
-    topic.setOwnerId(owner.getId());
+    topic.setOwnerId(userId);
     return repository.save(topic);
   }
 
   public Topic updateById(JwtAuthenticationToken token, UUID id, TopicReqDto dto) {
-    User owner = userService.getByToken(token, false);
+    String userId = token.getToken().getSubject();
     Topic topic = this.getById(id, false);
-    checkOwner(owner, topic);
+    checkOwner(userId, topic);
     if (!topic.getName().equalsIgnoreCase(dto.getName())) {
-      if (repository.findByOwnerIdAndNameIgnoreCase(owner.getId(), dto.getName()).isPresent()) {
+      if (repository.findByOwnerIdAndNameIgnoreCase(userId, dto.getName()).isPresent()) {
         throw new ConflictException(modelClass, "name", dto.getName());
       }
     }
@@ -59,9 +55,9 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
   }
 
   public void deleteById(JwtAuthenticationToken token, UUID id) {
-    User owner = userService.getByToken(token, false);
+    String userId = token.getToken().getSubject();
     Topic topic = this.getById(id, false);
-    checkOwner(owner, topic);
+    checkOwner(userId, topic);
     super.deleteById(id);
   }
 
@@ -69,8 +65,8 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
       JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
     Topic topic = this.getById(id, false);
     if (!topic.isPublic()) {
-      User owner = userService.getByToken(token, false);
-      checkOwner(owner, topic);
+      String userId = token.getToken().getSubject();
+      checkOwner(userId, topic);
     }
     return super.getById(id, entityGraph, noException);
   }
@@ -80,9 +76,8 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
   }
 
   public Page<Topic> getList(JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
-    User owner = userService.getByToken(token, false);
-    UUID ownerId = owner.getId();
-    filter.add("ownerId=".concat(ownerId.toString()));
+    String userId = token.getToken().getSubject();
+    filter.add("ownerId=".concat(userId));
     return super.getList(filter, pageable);
   }
 }
