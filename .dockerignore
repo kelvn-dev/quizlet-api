@@ -1,0 +1,12 @@
+# Ignore all files in the root directory
+*
+
+# Include the src directory
+!src/main
+
+# Exclude the target directory and its contents except for *.jar
+!target/*.jar
+
+!pom.xml
+!.mvn
+!mvnw
