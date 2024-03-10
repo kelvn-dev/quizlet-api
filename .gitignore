@@ -1,6 +1,5 @@
 HELP.md
 target/
-.mvn/
 .git/
 !**/src/main/**/target/
 !**/src/test/**/target/
