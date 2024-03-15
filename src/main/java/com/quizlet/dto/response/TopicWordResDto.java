@@ -8,5 +8,6 @@ import lombok.Data;
 public class TopicWordResDto {
   private UUID id;
   private String name;
+  private String url;
   private Set<WordResDto> words;
 }

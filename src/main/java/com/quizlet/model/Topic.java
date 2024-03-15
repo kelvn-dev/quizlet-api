@@ -19,6 +19,9 @@ public class Topic extends BaseModel {
   @Column(name = "name")
   private String name;
 
+  @Column(name = "url")
+  private String url;
+
   @Column(name = "owner_id", updatable = false)
   private String ownerId;
 
