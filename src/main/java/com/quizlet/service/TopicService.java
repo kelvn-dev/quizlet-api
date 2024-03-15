@@ -77,7 +77,7 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
 
   public Page<Topic> getList(JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
     String userId = token.getToken().getSubject();
-    filter.add("ownerId=".concat(userId));
+    filter.add("ownerId-".concat(userId.split("\\|")[1]));
     return super.getList(filter, pageable);
   }
 }

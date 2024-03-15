@@ -88,7 +88,7 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
   public Page<Folder> getList(
       JwtAuthenticationToken token, List<String> filter, Pageable pageable) {
     String userId = token.getToken().getSubject();
-    filter.add("ownerId=".concat(userId));
+    filter.add("ownerId-".concat(userId.split("\\|")[1]));
     return super.getList(filter, pageable);
   }
 }
