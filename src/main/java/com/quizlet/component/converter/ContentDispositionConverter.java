@@ -1,4 +1,4 @@
-package com.quizlet.converter;
+package com.quizlet.component.converter;
 
 import com.quizlet.enums.ContentDisposition;
 import com.quizlet.exception.BadRequestException;

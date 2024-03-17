@@ -1,4 +1,4 @@
-package com.quizlet.converter;
+package com.quizlet.component.converter;
 
 import com.quizlet.exception.BadRequestException;
 import org.springframework.core.convert.converter.Converter;

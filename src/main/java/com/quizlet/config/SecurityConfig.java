@@ -41,7 +41,10 @@ public class SecurityConfig {
   }
 
   private final String[] byPassPaths = {
-    "**/api-docs/**", "/swagger-resources/**", "/swagger-ui/**",
+    "/swagger-resources/**",
+    "/swagger-ui/**",
+    "/api/v3/api-docs/**",
+    "/stomp/**" // To allow the initial HTTP call to stomp handshake endpoint
   };
 
   @Bean

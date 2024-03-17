@@ -1,7 +1,7 @@
 package com.quizlet.config;
 
-import com.quizlet.converter.AclConverter;
-import com.quizlet.converter.ContentDispositionConverter;
+import com.quizlet.component.converter.AclConverter;
+import com.quizlet.component.converter.ContentDispositionConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
