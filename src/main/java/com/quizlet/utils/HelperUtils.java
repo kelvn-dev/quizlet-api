@@ -22,7 +22,7 @@ public class HelperUtils {
   }
 
   public static SearchCriteria validateFilterPattern(String filter) {
-    Matcher m = filterPattern.matcher(filter + "|");
+    Matcher m = filterPattern.matcher(filter);
     if (m.find()) {
       return SearchCriteria.builder()
           .key(m.group(1))

@@ -18,15 +18,12 @@ public class RegexUtils {
    * @note (:|<|>|=|!=|<=|>=|%|\\(\\)): This part matches one of the specified symbols: -, :, <, >,
    *     =, !=, <=, >=, %, or (). The symbols are enclosed in parentheses for grouping.
    * @note ([\\w\\s\\(\\):@;,._-]+?): This part captures a group of word characters, whitespace
-   *     characters, and specific symbols like (), :, @, ,, ;, ., _, and -. The +? makes the match
+   *     characters, and specific symbols like (), :, @, ,, ;, ., _, and -. The +? matokes the match
    *     non-greedy. This group is enclosed in parentheses for capturing.
-   * @note \\|: This part matches the literal | character.
-   * @note In summary, this regular expression captures patterns with three components separated by
-   *     |. The first component captures a sequence of word characters and dots, the second
-   *     component captures one of the specified symbols, and the third component captures a
-   *     sequence of word characters, whitespace characters, and specific symbols. The | character
-   *     is used as a delimiter to separate these components.
+   * @note .*: This part matches 0+ chars other than line breaks
+   * @note In summary, this regular expression captures patterns with three components. The first
+   *     component captures a sequence of word characters and dots, the second component captures
+   *     one of the specified symbols, and the third component captures all characters till the end
    */
-  public static final String FILTER_REQUEST_PATTERN =
-      "([\\w.]+?)(:|-|<|>|=|!=|<=|>=|%|\\(\\))([\\w\\s\\(\\):@;,._-]+?)\\|";
+  public static final String FILTER_REQUEST_PATTERN = "([\\w.]+?)(:|-|<|>|=|!=|<=|>=|%|\\(\\))(.*)";
 }
