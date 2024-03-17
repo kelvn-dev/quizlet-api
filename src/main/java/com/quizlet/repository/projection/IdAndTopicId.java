@@ -1,4 +1,4 @@
-package com.quizlet.repository.shape;
+package com.quizlet.repository.projection;
 
 import java.util.UUID;
 

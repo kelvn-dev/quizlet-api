@@ -8,7 +8,7 @@ import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.rest.TopicMapper;
 import com.quizlet.model.Topic;
-import com.quizlet.repository.shape.IdAndTopicId;
+import com.quizlet.repository.projection.IdAndTopicId;
 import com.quizlet.repository.TopicRepository;
 import com.quizlet.repository.WordRepository;
 import java.util.List;
