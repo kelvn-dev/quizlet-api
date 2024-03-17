@@ -17,6 +17,7 @@ public class LeaderboardConsumer {
   @RabbitListener(queues = "q.websocket-leaderboard-change-event")
   public void leaderboardWsConsumer(LeaderboardCacheDto dto) {
     // broadcast leaderboard changes to the websocket broker
-    simpMessagingTemplate.convertAndSend("/live-updates/leaderboard", dto);
+    simpMessagingTemplate.convertAndSend(
+        "/live-updates/leaderboard/".concat(dto.getTopicId().toString()), dto);
   }
 }

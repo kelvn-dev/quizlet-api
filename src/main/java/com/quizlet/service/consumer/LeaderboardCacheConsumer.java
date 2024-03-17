@@ -4,10 +4,7 @@ import com.quizlet.dto.cache.LeaderboardCacheDto;
 import com.quizlet.dto.cache.LeaderboardUserCacheDto;
 import com.quizlet.dto.cache.UserCacheDto;
 import com.quizlet.model.UserScore;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -35,7 +32,8 @@ public class LeaderboardCacheConsumer {
 
   @RabbitListener(queues = "q.redis-leaderboard-update")
   public void leaderboardCacheConsumer(UserScore userScore) {
-    String userKey = userScoreCacheKey.concat(userScore.getTopicId().toString());
+    UUID topicId = userScore.getTopicId();
+    String userKey = userScoreCacheKey.concat(topicId.toString());
     String leaderboardKey = leaderboardCacheKey.concat(userScore.getTopicId().toString());
 
     // throttle leaderboard update interval
@@ -43,7 +41,7 @@ public class LeaderboardCacheConsumer {
         redisLeaderboardCacheTemplate.opsForValue().get(leaderboardKey);
     long currentTimeMs = System.currentTimeMillis();
 
-    // check if throttle timestamp hasn't  passed just skip this update
+    // check if throttle timestamp hasn't passed just skip this update
     if (!canRefreshLeaderboard(leaderBoardCache, currentTimeMs)) {
       log.info(
           "leaderboard cache update skipped , reason: throttle duration hasn't passed ,currentTs: {},  cacheTs: {}",
@@ -57,7 +55,7 @@ public class LeaderboardCacheConsumer {
         redisScoreCacheTemplate.opsForZSet().reverseRangeWithScores(userKey, 0, 9);
 
     LeaderboardCacheDto updatedLeaderboardCache =
-        mapLeaderboardCache(userScoreCache, currentTimeMs);
+        mapLeaderboardCache(userScoreCache, topicId, currentTimeMs);
     if (isLeaderboardUnchanged(leaderBoardCache, updatedLeaderboardCache)) {
       log.info("leaderboard cache update skipped , reason: leaderboard cache unchanged");
       return;
@@ -68,7 +66,7 @@ public class LeaderboardCacheConsumer {
 
     // broadcast leaderboard changes to websocket
     rabbitTemplate.convertAndSend(
-        "x.leaderboard", "leaderboard-websocket-change-event", updatedLeaderboardCache);
+        "x.leaderboard", "websocket-leaderboard-change-event", updatedLeaderboardCache);
     log.info("leaderboard cache updated , updateTimestamp: {}", currentTimeMs);
   }
 
@@ -102,7 +100,7 @@ public class LeaderboardCacheConsumer {
   }
 
   private LeaderboardCacheDto mapLeaderboardCache(
-      Set<ZSetOperations.TypedTuple<String>> userScoreCache, long currentTimeMs) {
+      Set<ZSetOperations.TypedTuple<String>> userScoreCache, UUID topicId, long currentTimeMs) {
     int rank = 0;
     List<LeaderboardUserCacheDto> users = new ArrayList<>(userScoreCache.size());
     for (ZSetOperations.TypedTuple<String> tuple : userScoreCache) {
@@ -119,7 +117,7 @@ public class LeaderboardCacheConsumer {
               .build();
       users.add(user);
     }
-    return new LeaderboardCacheDto(users, currentTimeMs);
+    return new LeaderboardCacheDto(users, topicId, currentTimeMs);
   }
 
   private UserCacheDto getCachedUserByUserId(String userId) {
