@@ -87,6 +87,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return buildResponseEntity(apiError);
   }
 
+  @ExceptionHandler(NoSuchFieldException.class)
+  protected ResponseEntity<Object> handleNoSuchField(NoSuchFieldException ex) {
+    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+    apiError.setMessage(String.format("Field %s doesn't exist", ex.getMessage()));
+    return buildResponseEntity(apiError);
+  }
+
   /**
    * Handle MethodArgumentNotValidException. Triggered when an object fails @Valid validation.
    *

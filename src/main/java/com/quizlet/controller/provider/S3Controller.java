@@ -3,7 +3,7 @@ package com.quizlet.controller.provider;
 import com.quizlet.controller.SecuredRestController;
 import com.quizlet.dto.provider.response.PresignedObjectRequestDto;
 import com.quizlet.enums.ContentDisposition;
-import com.quizlet.mapping.S3Mapper;
+import com.quizlet.mapping.provider.S3Mapper;
 import com.quizlet.service.provider.S3Service;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
