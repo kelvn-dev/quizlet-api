@@ -2,6 +2,8 @@ package com.quizlet.controller.rest;
 
 import com.quizlet.controller.SecuredRestController;
 import com.quizlet.dto.rest.request.TopicReqDto;
+import com.quizlet.dto.rest.response.PageResDto;
+import com.quizlet.dto.rest.response.TopicResDto;
 import com.quizlet.mapping.rest.TopicMapper;
 import com.quizlet.model.Topic;
 import com.quizlet.model.TopicEntityGraph;
@@ -64,7 +66,8 @@ public class TopicController implements SecuredRestController {
           Pageable pageable,
       @RequestParam(required = false, defaultValue = "") List<String> filter) {
     Page<Topic> topics = topicService.getList(token, filter, pageable);
-    return ResponseEntity.ok(topicMapper.model2Dto(topics));
+    PageResDto<TopicResDto> dto = topicService.getWordCount(topics);
+    return ResponseEntity.ok(dto);
   }
 
   @GetMapping("/community")
@@ -76,6 +79,7 @@ public class TopicController implements SecuredRestController {
           Pageable pageable) {
     List<String> filter = List.of("isPublic=true");
     Page<Topic> topics = topicService.getList(filter, pageable);
-    return ResponseEntity.ok(topicMapper.model2Dto(topics));
+    PageResDto<TopicResDto> dto = topicService.getWordCount(topics);
+    return ResponseEntity.ok(dto);
   }
 }

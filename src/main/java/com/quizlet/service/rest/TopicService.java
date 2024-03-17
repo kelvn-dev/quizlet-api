@@ -2,14 +2,19 @@ package com.quizlet.service.rest;
 
 import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
 import com.quizlet.dto.rest.request.TopicReqDto;
+import com.quizlet.dto.rest.response.PageResDto;
+import com.quizlet.dto.rest.response.TopicResDto;
 import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.rest.TopicMapper;
 import com.quizlet.model.Topic;
+import com.quizlet.repository.shape.IdAndTopicId;
 import com.quizlet.repository.TopicRepository;
+import com.quizlet.repository.WordRepository;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -19,10 +24,13 @@ import org.springframework.stereotype.Service;
 public class TopicService extends BaseService<Topic, TopicRepository> {
 
   private final TopicMapper topicMapper;
+  private final WordRepository wordRepository;
 
-  public TopicService(TopicRepository repository, TopicMapper topicMapper) {
+  public TopicService(
+      TopicRepository repository, TopicMapper topicMapper, WordRepository wordRepository) {
     super(repository);
     this.topicMapper = topicMapper;
+    this.wordRepository = wordRepository;
   }
 
   private void checkOwner(String userId, Topic topic) {
@@ -79,5 +87,29 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
     String userId = token.getToken().getSubject();
     filter.add("ownerId=".concat(userId));
     return super.getList(filter, pageable);
+  }
+
+  public PageResDto<TopicResDto> getWordCount(Page<Topic> topicPage) {
+    // count words of each topic
+    List<Topic> topics = topicPage.getContent();
+    List<UUID> topicIds = topics.stream().map(Topic::getId).toList();
+    List<IdAndTopicId> words = wordRepository.findByTopicIdIn(topicIds);
+
+    // map word count to response dto
+    PageResDto<TopicResDto> dto = topicMapper.model2Dto(topicPage);
+    dto.getItems()
+        .forEach(
+            topic -> {
+              UUID topicId = topic.getId();
+              AtomicInteger wordCount = new AtomicInteger();
+              words.forEach(
+                  word -> {
+                    if (word.getTopicId().equals(topicId)) {
+                      wordCount.incrementAndGet();
+                    }
+                  });
+              topic.setWordCount(wordCount.intValue());
+            });
+    return dto;
   }
 }

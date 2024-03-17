@@ -9,4 +9,5 @@ public class TopicResDto {
   private String name;
   private String url;
   private boolean isPublic;
+  private int wordCount;
 }
