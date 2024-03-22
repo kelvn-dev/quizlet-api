@@ -4,6 +4,7 @@ import com.quizlet.dto.cache.UserCacheDto;
 import com.quizlet.dto.rest.request.PasswordReqDto;
 import com.quizlet.dto.rest.request.UserReqDto;
 import com.quizlet.exception.BadRequestException;
+import com.quizlet.exception.ForbiddenException;
 import com.quizlet.exception.NotFoundException;
 import com.quizlet.mapping.rest.UserMapper;
 import com.quizlet.model.User;
@@ -74,6 +75,12 @@ public class UserService {
     if (!userId.startsWith("auth0")) {
       throw new BadRequestException("Account is of type social");
     }
-    auth0Service.updatePassword(userId, dto.getPassword());
+    User user = this.getByToken(jwtToken, false);
+    try {
+      auth0Service.login(user.getEmail(), dto.getOldPassword());
+    } catch (Exception exception) {
+      throw new ForbiddenException("Access denied");
+    }
+    auth0Service.updatePassword(userId, dto.getNewPassword());
   }
 }

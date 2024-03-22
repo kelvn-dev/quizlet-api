@@ -5,9 +5,11 @@ import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.client.mgmt.filter.UserFilter;
 import com.auth0.exception.APIException;
 import com.auth0.exception.Auth0Exception;
+import com.auth0.json.auth.TokenHolder;
 import com.auth0.json.mgmt.users.User;
 import com.auth0.net.Request;
 import com.auth0.net.Response;
+import com.auth0.net.TokenRequest;
 import com.quizlet.config.Auth0ClientConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,5 +53,10 @@ public class Auth0Service {
     user.setPassword(password.toCharArray());
     Request<User> request = managementAPI.users().update(userId, user);
     return executeRequest(request);
+  }
+
+  public TokenHolder login(String email, String password) {
+    TokenRequest tokenRequest = authAPI.login(email, password.toCharArray());
+    return executeRequest(tokenRequest);
   }
 }

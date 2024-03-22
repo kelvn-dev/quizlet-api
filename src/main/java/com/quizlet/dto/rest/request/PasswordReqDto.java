@@ -5,5 +5,6 @@ import lombok.Data;
 
 @Data
 public class PasswordReqDto {
-  @NotBlank private String password;
+  @NotBlank private String oldPassword;
+  @NotBlank private String newPassword;
 }
