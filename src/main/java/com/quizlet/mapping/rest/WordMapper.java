@@ -19,7 +19,10 @@ public interface WordMapper {
 
   @Mapping(source = "totalElements", target = "totalItems")
   @Mapping(source = "number", target = "pageIndex")
-  @Mapping(source = "content", target = "items")
+  @Mapping(
+      source = "content",
+      target = "items",
+      defaultExpression = "java(java.util.Collections.emptyList())")
   PageResDto<WordResDto> model2Dto(Page<Word> page);
 
   List<WordResDto> model2Dto(List<Word> words);

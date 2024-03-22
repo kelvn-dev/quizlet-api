@@ -20,7 +20,10 @@ public interface FolderMapper {
 
   @Mapping(source = "totalElements", target = "totalItems")
   @Mapping(source = "number", target = "pageIndex")
-  @Mapping(source = "content", target = "items")
+  @Mapping(
+      source = "content",
+      target = "items",
+      defaultExpression = "java(java.util.Collections.emptyList())")
   PageResDto<FolderResDto> model2Dto(Page<Folder> page);
 
   List<FolderResDto> model2Dto(List<Folder> folders);

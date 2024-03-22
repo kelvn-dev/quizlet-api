@@ -22,7 +22,10 @@ public interface UserMapper {
 
   @Mapping(source = "totalElements", target = "totalItems")
   @Mapping(source = "number", target = "pageIndex")
-  @Mapping(source = "content", target = "items")
+  @Mapping(
+      source = "content",
+      target = "items",
+      defaultExpression = "java(java.util.Collections.emptyList())")
   PageResDto<UserResDto> model2Dto(Page<User> page);
 
   List<UserResDto> model2Dto(List<User> users);

@@ -22,7 +22,10 @@ public interface TopicMapper {
 
   @Mapping(source = "totalElements", target = "totalItems")
   @Mapping(source = "number", target = "pageIndex")
-  @Mapping(source = "content", target = "items")
+  @Mapping(
+      source = "content",
+      target = "items",
+      defaultExpression = "java(java.util.Collections.emptyList())")
   PageResDto<TopicResDto> model2Dto(Page<Topic> page);
 
   List<TopicResDto> model2Dto(List<Topic> topics);
