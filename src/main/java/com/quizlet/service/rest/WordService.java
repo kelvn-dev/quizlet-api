@@ -18,7 +18,6 @@ public class WordService extends BaseService<Word, WordRepository> {
 
   private final WordMapper wordMapper;
   private final TopicService topicService;
-  private final UserService userService;
 
   public WordService(
       WordRepository repository,
@@ -28,7 +27,6 @@ public class WordService extends BaseService<Word, WordRepository> {
     super(repository);
     this.wordMapper = wordMapper;
     this.topicService = topicService;
-    this.userService = userService;
   }
 
   private void checkOwner(String userId, Topic topic) {
