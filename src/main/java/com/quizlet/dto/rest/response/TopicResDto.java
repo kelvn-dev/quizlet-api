@@ -1,5 +1,6 @@
 package com.quizlet.dto.rest.response;
 
+import java.util.Set;
 import java.util.UUID;
 import lombok.Data;
 
@@ -10,4 +11,5 @@ public class TopicResDto {
   private String url;
   private boolean isPublic;
   private int wordCount;
+  private Set<WordResDto> words;
 }

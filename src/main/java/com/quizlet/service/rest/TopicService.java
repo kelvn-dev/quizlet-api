@@ -71,12 +71,12 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
 
   public Topic getById(
       JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
-    Topic topic = this.getById(id, false);
+    Topic topic = this.getById(id, entityGraph, noException);
     if (!topic.isPublic()) {
       String userId = token.getToken().getSubject();
       checkOwner(userId, topic);
     }
-    return super.getById(id, entityGraph, noException);
+    return topic;
   }
 
   public Set<Topic> getAllById(Set<UUID> uuids) {

@@ -40,7 +40,7 @@ public class TopicController implements SecuredRestController {
   public ResponseEntity<?> getById(JwtAuthenticationToken token, @PathVariable UUID id) {
     TopicEntityGraph entityGraph = TopicEntityGraph.____().words().____.____();
     Topic topic = topicService.getById(token, id, entityGraph, false);
-    return ResponseEntity.ok(topicMapper.model2ExtendDto(topic));
+    return ResponseEntity.ok(topicMapper.model2Dto(topic));
   }
 
   @PutMapping("/{id}")

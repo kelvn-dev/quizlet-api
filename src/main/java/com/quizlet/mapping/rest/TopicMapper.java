@@ -3,12 +3,9 @@ package com.quizlet.mapping.rest;
 import com.quizlet.dto.rest.request.TopicReqDto;
 import com.quizlet.dto.rest.response.PageResDto;
 import com.quizlet.dto.rest.response.TopicResDto;
-import com.quizlet.dto.rest.response.TopicWordResDto;
 import com.quizlet.model.Topic;
 import java.util.List;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 @Mapper(
@@ -20,6 +17,10 @@ public interface TopicMapper {
 
   TopicResDto model2Dto(Topic topic);
 
+  @Named("ignoreWord")
+  @Mapping(target = "words", ignore = true)
+  TopicResDto model2DtoIgnoreWord(Topic topic);
+
   @Mapping(source = "totalElements", target = "totalItems")
   @Mapping(source = "number", target = "pageIndex")
   @Mapping(
@@ -28,9 +29,8 @@ public interface TopicMapper {
       defaultExpression = "java(java.util.Collections.emptyList())")
   PageResDto<TopicResDto> model2Dto(Page<Topic> page);
 
+  @IterableMapping(qualifiedByName = "ignoreWord")
   List<TopicResDto> model2Dto(List<Topic> topics);
-
-  TopicWordResDto model2ExtendDto(Topic topic);
 
   void updateModelFromDto(TopicReqDto dto, @MappingTarget Topic topic);
 }
