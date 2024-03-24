@@ -22,8 +22,7 @@ public class WordService extends BaseService<Word, WordRepository> {
   public WordService(
       WordRepository repository,
       WordMapper wordMapper,
-      TopicService topicService,
-      UserService userService) {
+      TopicService topicService) {
     super(repository);
     this.wordMapper = wordMapper;
     this.topicService = topicService;
