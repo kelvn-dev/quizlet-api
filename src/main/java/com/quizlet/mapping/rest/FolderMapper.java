@@ -8,11 +8,14 @@ import java.util.List;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+    componentModel = "spring",
+    uses = {TopicMapper.class})
 public interface FolderMapper {
 
   Folder dto2Model(FolderReqDto dto);
 
+  @Mapping(target = "topics", qualifiedByName = "ignoreWord")
   FolderResDto model2Dto(Folder folder);
 
   @Named("ignoreTopic")
