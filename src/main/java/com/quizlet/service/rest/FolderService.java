@@ -79,10 +79,10 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
 
   public Folder getById(
       JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
-    Folder folder = this.getById(id, false);
+    Folder folder = this.getById(id, entityGraph, noException);
     String userId = token.getToken().getSubject();
     checkOwner(userId, folder);
-    return super.getById(id, entityGraph, noException);
+    return folder;
   }
 
   public Page<Folder> getList(

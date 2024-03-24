@@ -38,7 +38,7 @@ public class FolderController implements SecuredRestController {
   public ResponseEntity<?> getById(JwtAuthenticationToken token, @PathVariable UUID id) {
     FolderEntityGraph entityGraph = FolderEntityGraph.____().topics().____.____();
     Folder folder = folderService.getById(token, id, entityGraph, false);
-    return ResponseEntity.ok(folderMapper.model2ExtendDto(folder));
+    return ResponseEntity.ok(folderMapper.model2Dto(folder));
   }
 
   @PutMapping("/{id}")
