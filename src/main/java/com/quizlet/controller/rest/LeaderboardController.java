@@ -5,7 +5,6 @@ import com.quizlet.controller.SecuredRestController;
 import com.quizlet.dto.cache.LeaderboardCacheDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

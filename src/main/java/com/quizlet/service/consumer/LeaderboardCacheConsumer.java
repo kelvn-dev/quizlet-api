@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class LeaderboardCacheConsumer {
-
 
   private final RedisPropConfig redisPropConfig;
   private final RedisTemplate<String, String> redisScoreCacheTemplate;
@@ -31,7 +29,8 @@ public class LeaderboardCacheConsumer {
   public void leaderboardCacheConsumer(UserScore userScore) {
     UUID topicId = userScore.getTopicId();
     String userKey = redisPropConfig.getUserScoreCacheKey().concat(topicId.toString());
-    String leaderboardKey = redisPropConfig.getLeaderboardCacheKey().concat(userScore.getTopicId().toString());
+    String leaderboardKey =
+        redisPropConfig.getLeaderboardCacheKey().concat(userScore.getTopicId().toString());
 
     // throttle leaderboard update interval
     LeaderboardCacheDto leaderBoardCache =

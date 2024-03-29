@@ -5,13 +5,11 @@ import com.auth0.client.mgmt.ManagementAPI;
 import com.auth0.exception.Auth0Exception;
 import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.TokenRequest;
+import com.quizlet.config.properties.Auth0PropConfig;
 import java.time.Instant;
 import java.util.Objects;
-
-import com.quizlet.config.properties.Auth0PropConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
@@ -26,7 +24,12 @@ public class Auth0ClientConfig {
 
   public AuthAPI getAuthAPI() {
     if (Objects.isNull(authAPI)) {
-      authAPI = AuthAPI.newBuilder(auth0PropConfig.getDomain(), auth0PropConfig.getClientId(), auth0PropConfig.getClientSecret()).build();
+      authAPI =
+          AuthAPI.newBuilder(
+                  auth0PropConfig.getDomain(),
+                  auth0PropConfig.getClientId(),
+                  auth0PropConfig.getClientSecret())
+              .build();
     }
     return authAPI;
   }
@@ -40,7 +43,8 @@ public class Auth0ClientConfig {
       log.info("Existing access token has expired");
       renewTokenHolder();
     }
-    managementAPI = ManagementAPI.newBuilder(auth0PropConfig.getDomain(), tokenHolder.getAccessToken()).build();
+    managementAPI =
+        ManagementAPI.newBuilder(auth0PropConfig.getDomain(), tokenHolder.getAccessToken()).build();
     return managementAPI;
   }
 

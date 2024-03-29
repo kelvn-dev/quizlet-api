@@ -1,10 +1,8 @@
 package com.quizlet.config;
 
-import java.util.List;
-
 import com.quizlet.config.properties.Oauth2PropConfig;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -75,7 +73,8 @@ public class SecurityConfig {
    */
   @Bean
   public JwtDecoder jwtDecoder() {
-    final NimbusJwtDecoder decoder = NimbusJwtDecoder.withJwkSetUri(oauth2PropConfig.getJwkSetUri()).build();
+    final NimbusJwtDecoder decoder =
+        NimbusJwtDecoder.withJwkSetUri(oauth2PropConfig.getJwkSetUri()).build();
     decoder.setJwtValidator(tokenValidator());
     return decoder;
   }
@@ -104,7 +103,8 @@ public class SecurityConfig {
             new JwtTimestampValidator(),
             new JwtIssuerValidator(oauth2PropConfig.getIssuerUri()),
             new JwtClaimValidator<List<String>>(
-                OAuth2TokenIntrospectionClaimNames.AUD, aud -> aud.contains(oauth2PropConfig.getAudience())));
+                OAuth2TokenIntrospectionClaimNames.AUD,
+                aud -> aud.contains(oauth2PropConfig.getAudience())));
     return new DelegatingOAuth2TokenValidator<>(validators);
   }
 

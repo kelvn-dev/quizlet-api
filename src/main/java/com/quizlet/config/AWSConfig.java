@@ -3,7 +3,6 @@ package com.quizlet.config;
 import com.quizlet.config.properties.AWSPropConfig;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -23,7 +22,8 @@ public class AWSConfig {
 
   @Bean
   public AwsCredentialsProvider awsCredentialsProvider() {
-    return StaticCredentialsProvider.create(AwsBasicCredentials.create(awsPropConfig.getKeyId(), awsPropConfig.getSecretKey()));
+    return StaticCredentialsProvider.create(
+        AwsBasicCredentials.create(awsPropConfig.getKeyId(), awsPropConfig.getSecretKey()));
   }
 
   @Bean
