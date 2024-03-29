@@ -11,20 +11,19 @@ import com.auth0.net.Request;
 import com.auth0.net.Response;
 import com.auth0.net.TokenRequest;
 import com.quizlet.config.Auth0ClientConfig;
-import org.springframework.beans.factory.annotation.Value;
+import com.quizlet.config.properties.Auth0PropConfig;
 import org.springframework.stereotype.Service;
 
 @Service
 public class Auth0Service {
 
-  @Value("${auth0.db-connection}")
-  private String auth0Connection;
+  private Auth0PropConfig auth0PropConfig;
+  private Auth0ClientConfig auth0ClientConfig;
+  private ManagementAPI managementAPI;
+  private AuthAPI authAPI;
 
-  private final Auth0ClientConfig auth0ClientConfig;
-  private final ManagementAPI managementAPI;
-  private final AuthAPI authAPI;
-
-  public Auth0Service(Auth0ClientConfig auth0ClientConfig) {
+  public Auth0Service(Auth0PropConfig auth0PropConfig, Auth0ClientConfig auth0ClientConfig) {
+    this.auth0PropConfig = auth0PropConfig;
     this.auth0ClientConfig = auth0ClientConfig;
     this.managementAPI = this.auth0ClientConfig.getManagementAPI();
     this.authAPI = this.auth0ClientConfig.getAuthAPI();
@@ -43,13 +42,13 @@ public class Auth0Service {
 
   public User getUserById(String userId) {
     UserFilter userFilter = new UserFilter();
-    userFilter.withConnection(auth0Connection);
+    userFilter.withConnection(auth0PropConfig.getDbConnection());
     Request<User> request = managementAPI.users().get(userId, userFilter);
     return executeRequest(request);
   }
 
   public User updatePassword(String userId, String password) {
-    User user = new User(auth0Connection);
+    User user = new User(auth0PropConfig.getDbConnection());
     user.setPassword(password.toCharArray());
     Request<User> request = managementAPI.users().update(userId, user);
     return executeRequest(request);

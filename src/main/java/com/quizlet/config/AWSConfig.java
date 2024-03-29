@@ -1,6 +1,8 @@
 package com.quizlet.config;
 
+import com.quizlet.config.properties.AWSPropConfig;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,25 +16,19 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 @Configuration
 @Getter
+@RequiredArgsConstructor
 public class AWSConfig {
 
-  @Value("${aws.access.key.id}")
-  private String awsKeyId;
-
-  @Value("${aws.access.key.secret}")
-  private String awsKeySecret;
-
-  @Value("${aws.region}")
-  private String awsRegion;
+  private final AWSPropConfig awsPropConfig;
 
   @Bean
   public AwsCredentialsProvider awsCredentialsProvider() {
-    return StaticCredentialsProvider.create(AwsBasicCredentials.create(awsKeyId, awsKeySecret));
+    return StaticCredentialsProvider.create(AwsBasicCredentials.create(awsPropConfig.getKeyId(), awsPropConfig.getSecretKey()));
   }
 
   @Bean
   public Region region() {
-    return Region.of(awsRegion);
+    return Region.of(awsPropConfig.getRegion());
   }
 
   @Bean

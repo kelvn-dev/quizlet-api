@@ -7,33 +7,26 @@ import com.auth0.json.auth.TokenHolder;
 import com.auth0.net.TokenRequest;
 import java.time.Instant;
 import java.util.Objects;
+
+import com.quizlet.config.properties.Auth0PropConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class Auth0ClientConfig {
 
-  @Value("${auth0.domain}")
-  private String auth0Domain;
-
-  @Value("${auth0.client-id}")
-  private String auth0ClientId;
-
-  @Value("${auth0.client-secret}")
-  private String auth0ClientSecret;
-
-  @Value("${auth0.management-api.audience}")
-  private String audience;
-
+  private final Auth0PropConfig auth0PropConfig;
   private TokenHolder tokenHolder;
   private AuthAPI authAPI;
   private ManagementAPI managementAPI;
 
   public AuthAPI getAuthAPI() {
     if (Objects.isNull(authAPI)) {
-      authAPI = AuthAPI.newBuilder(auth0Domain, auth0ClientId, auth0ClientSecret).build();
+      authAPI = AuthAPI.newBuilder(auth0PropConfig.getDomain(), auth0PropConfig.getClientId(), auth0PropConfig.getClientSecret()).build();
     }
     return authAPI;
   }
@@ -47,13 +40,13 @@ public class Auth0ClientConfig {
       log.info("Existing access token has expired");
       renewTokenHolder();
     }
-    managementAPI = ManagementAPI.newBuilder(auth0Domain, tokenHolder.getAccessToken()).build();
+    managementAPI = ManagementAPI.newBuilder(auth0PropConfig.getDomain(), tokenHolder.getAccessToken()).build();
     return managementAPI;
   }
 
   private void renewTokenHolder() {
     try {
-      TokenRequest tokenRequest = getAuthAPI().requestToken(audience);
+      TokenRequest tokenRequest = getAuthAPI().requestToken(auth0PropConfig.getManagementAPI());
       tokenHolder = tokenRequest.execute().getBody();
     } catch (Auth0Exception exception) {
       throw new RuntimeException(exception.getMessage());

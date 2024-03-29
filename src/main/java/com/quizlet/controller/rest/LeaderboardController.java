@@ -1,5 +1,6 @@
 package com.quizlet.controller.rest;
 
+import com.quizlet.config.properties.RedisPropConfig;
 import com.quizlet.controller.SecuredRestController;
 import com.quizlet.dto.cache.LeaderboardCacheDto;
 import java.util.UUID;
@@ -16,14 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/leaderboard")
 @RequiredArgsConstructor
 public class LeaderboardController implements SecuredRestController {
-  @Value("${redis.leaderboard-cache.key}")
-  private String leaderboardCacheKey;
 
+  private final RedisPropConfig redisPropConfig;
   private final RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate;
 
   @GetMapping("/{topicId}")
   public ResponseEntity<?> getLeaderboard(@PathVariable UUID topicId) {
-    String key = leaderboardCacheKey.concat(topicId.toString());
+    String key = redisPropConfig.getLeaderboardCacheKey().concat(topicId.toString());
     LeaderboardCacheDto leaderBoardCache = redisLeaderboardCacheTemplate.opsForValue().get(key);
     return ResponseEntity.ok(leaderBoardCache);
   }

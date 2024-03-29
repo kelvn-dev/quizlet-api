@@ -1,5 +1,6 @@
 package com.quizlet.service.provider;
 
+import com.quizlet.config.properties.AWSPropConfig;
 import com.quizlet.enums.ContentDisposition;
 import com.quizlet.utils.HelperUtils;
 import java.time.Duration;
@@ -20,8 +21,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 @RequiredArgsConstructor
 public class S3Service {
 
-  @Value("${aws.s3.bucket-name}")
-  private String s3BucketName;
+  private final AWSPropConfig awsPropConfig;
 
   private final S3Presigner s3Presigner;
 
@@ -34,7 +34,7 @@ public class S3Service {
 
       PutObjectRequest objectRequest =
           PutObjectRequest.builder()
-              .bucket(s3BucketName)
+              .bucket(awsPropConfig.getS3Bucket())
               .key(key)
               .contentType(contentType)
               .acl(acl)
@@ -60,7 +60,7 @@ public class S3Service {
     try {
       GetObjectRequest getObjectRequest =
           GetObjectRequest.builder()
-              .bucket(s3BucketName)
+              .bucket(awsPropConfig.getS3Bucket())
               .key(key)
               .responseContentDisposition(
                   ContentDisposition.ATTACHMENT.equals(contentDisposition)

@@ -1,5 +1,6 @@
 package com.quizlet.service.consumer;
 
+import com.quizlet.config.properties.RedisPropConfig;
 import com.quizlet.dto.cache.LeaderboardCacheDto;
 import com.quizlet.dto.cache.LeaderboardUserCacheDto;
 import com.quizlet.dto.cache.UserCacheDto;
@@ -19,12 +20,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LeaderboardCacheConsumer {
 
-  @Value("${redis.leaderboard-cache.key}")
-  private String leaderboardCacheKey;
 
-  @Value("${redis.user-score-cache.key}")
-  private String userScoreCacheKey;
-
+  private final RedisPropConfig redisPropConfig;
   private final RedisTemplate<String, String> redisScoreCacheTemplate;
   private final RedisTemplate<String, UserCacheDto> redisUserCacheTemplate;
   private final RedisTemplate<String, LeaderboardCacheDto> redisLeaderboardCacheTemplate;
@@ -33,8 +30,8 @@ public class LeaderboardCacheConsumer {
   @RabbitListener(queues = "q.redis-leaderboard-update")
   public void leaderboardCacheConsumer(UserScore userScore) {
     UUID topicId = userScore.getTopicId();
-    String userKey = userScoreCacheKey.concat(topicId.toString());
-    String leaderboardKey = leaderboardCacheKey.concat(userScore.getTopicId().toString());
+    String userKey = redisPropConfig.getUserScoreCacheKey().concat(topicId.toString());
+    String leaderboardKey = redisPropConfig.getLeaderboardCacheKey().concat(userScore.getTopicId().toString());
 
     // throttle leaderboard update interval
     LeaderboardCacheDto leaderBoardCache =

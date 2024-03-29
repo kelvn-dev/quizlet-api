@@ -1,6 +1,8 @@
 package com.quizlet.config;
 
 import java.util.List;
+
+import com.quizlet.config.properties.Oauth2PropConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,17 +25,7 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  @Value("${server.security.disabled}")
-  private String isSecurityDisabled;
-
-  @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-  private String issuer;
-
-  @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
-  private String jwkSetUri;
-
-  @Value("${spring.security.oauth2.resourceserver.jwt.audiences}")
-  private String audiences;
+  private final Oauth2PropConfig oauth2PropConfig;
 
   @Bean
   public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -53,7 +45,7 @@ public class SecurityConfig {
     http.sessionManagement(
         manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-    if (Boolean.parseBoolean(isSecurityDisabled)) {
+    if (oauth2PropConfig.isDisabled()) {
       http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
     } else {
       http.authorizeHttpRequests(
@@ -83,7 +75,7 @@ public class SecurityConfig {
    */
   @Bean
   public JwtDecoder jwtDecoder() {
-    final NimbusJwtDecoder decoder = NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
+    final NimbusJwtDecoder decoder = NimbusJwtDecoder.withJwkSetUri(oauth2PropConfig.getJwkSetUri()).build();
     decoder.setJwtValidator(tokenValidator());
     return decoder;
   }
@@ -110,9 +102,9 @@ public class SecurityConfig {
     final List<OAuth2TokenValidator<Jwt>> validators =
         List.of(
             new JwtTimestampValidator(),
-            new JwtIssuerValidator(issuer),
+            new JwtIssuerValidator(oauth2PropConfig.getIssuerUri()),
             new JwtClaimValidator<List<String>>(
-                OAuth2TokenIntrospectionClaimNames.AUD, aud -> aud.contains(audiences)));
+                OAuth2TokenIntrospectionClaimNames.AUD, aud -> aud.contains(oauth2PropConfig.getAudience())));
     return new DelegatingOAuth2TokenValidator<>(validators);
   }
 
