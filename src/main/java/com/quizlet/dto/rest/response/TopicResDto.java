@@ -8,6 +8,7 @@ import lombok.Data;
 public class TopicResDto {
   private UUID id;
   private String name;
+  private String ownerId;
   private String url;
   private boolean isPublic;
   private int wordCount;
