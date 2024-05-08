@@ -4,9 +4,9 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class WordResDto {
+public class WordFactorResDto {
   private UUID id;
   private String name;
   private String definition;
-  private UUID topicId;
+  private int learningCount;
 }

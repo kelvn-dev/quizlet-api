@@ -10,5 +10,4 @@ public class WordReqDto {
   @NotBlank private String name;
   @NotBlank private String definition;
   @NotNull private UUID topicId;
-  private Boolean isMarked;
 }

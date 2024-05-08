@@ -1,7 +1,6 @@
 package com.quizlet.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.quizlet.enums.WordStatus;
 import jakarta.persistence.*;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -24,13 +23,6 @@ public class Word extends BaseModel {
 
   @Column(name = "definition")
   private String definition;
-
-  @Column(name = "is_marked")
-  private Boolean isMarked;
-
-  @Column(name = "status")
-  @Enumerated(EnumType.STRING)
-  private WordStatus status;
 
   @Column(name = "topic_id", columnDefinition = "uuid")
   private UUID topicId;
