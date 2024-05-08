@@ -40,9 +40,10 @@ services:
       - quizlet-network
   api:
     container_name: quizlet-api
-    build:
-      context: ../
-      dockerfile: Dockerfile
+    image: kelvn/quizlet-api:latest
+#    build:
+#      context: ../
+#      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     networks:

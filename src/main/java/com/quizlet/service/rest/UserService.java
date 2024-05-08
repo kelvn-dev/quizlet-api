@@ -55,18 +55,15 @@ public class UserService {
     redisUserCacheTemplate.opsForValue().set(user.getId(), dto);
   }
 
-  private void updateUserCache(User user, String avatar) {
+  private void updateUserCache(User user) {
     UserCacheDto dto = userMapper.model2Cache(user);
-    dto.setAvatar(avatar);
     redisUserCacheTemplate.opsForValue().set(user.getId(), dto);
   }
 
   public User updateByToken(JwtAuthenticationToken jwtToken, UserReqDto dto) {
     User user = this.getByToken(jwtToken, false);
-    if (!user.getAvatar().equals(dto.getAvatar())) {
-      updateUserCache(user, dto.getAvatar());
-    }
     userMapper.updateModelFromDto(dto, user);
+    updateUserCache(user);
     return repository.save(user);
   }
 

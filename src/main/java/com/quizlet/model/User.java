@@ -21,15 +21,15 @@ import org.springframework.data.annotation.LastModifiedBy;
 @DynamicUpdate
 public class User {
 
-  @Column(name = "nickname", nullable = false, updatable = false)
-  private String nickname;
+  @Id
+  @Column(name = "id", nullable = false, unique = true, updatable = false)
+  private String id;
 
   @Column(name = "email", nullable = false, updatable = false)
   private String email;
 
-  @Id
-  @Column(name = "id", nullable = false, unique = true, updatable = false)
-  private String id;
+  @Column(name = "nickname", nullable = false)
+  private String nickname;
 
   @Column(name = "avatar")
   private String avatar;

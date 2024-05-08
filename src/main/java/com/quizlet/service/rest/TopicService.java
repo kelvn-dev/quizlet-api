@@ -4,11 +4,15 @@ import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
 import com.quizlet.dto.rest.request.TopicReqDto;
 import com.quizlet.dto.rest.response.PageResDto;
 import com.quizlet.dto.rest.response.TopicResDto;
+import com.quizlet.dto.rest.response.UserResDto;
 import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.rest.TopicMapper;
+import com.quizlet.mapping.rest.UserMapper;
 import com.quizlet.model.Topic;
+import com.quizlet.model.User;
 import com.quizlet.repository.TopicRepository;
+import com.quizlet.repository.UserRepository;
 import com.quizlet.repository.WordRepository;
 import com.quizlet.repository.projection.IdAndTopicId;
 import java.util.List;
@@ -24,13 +28,21 @@ import org.springframework.stereotype.Service;
 public class TopicService extends BaseService<Topic, TopicRepository> {
 
   private final TopicMapper topicMapper;
+  private final UserMapper userMapper;
   private final WordRepository wordRepository;
+  private final UserRepository userRepository;
 
   public TopicService(
-      TopicRepository repository, TopicMapper topicMapper, WordRepository wordRepository) {
+      TopicRepository repository,
+      TopicMapper topicMapper,
+      UserMapper userMapper,
+      WordRepository wordRepository,
+      UserRepository userRepository) {
     super(repository);
     this.topicMapper = topicMapper;
+    this.userMapper = userMapper;
     this.wordRepository = wordRepository;
+    this.userRepository = userRepository;
   }
 
   private void checkOwner(String userId, Topic topic) {
@@ -95,6 +107,10 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
     List<UUID> topicIds = topics.stream().map(Topic::getId).toList();
     List<IdAndTopicId> words = wordRepository.findByTopicIdIn(topicIds);
 
+    // get owner details
+    List<String> ownerIds = topics.stream().map(Topic::getOwnerId).toList();
+    List<User> owners = userRepository.findAllById(ownerIds);
+
     // map word count to response dto
     PageResDto<TopicResDto> dto = topicMapper.model2Dto(topicPage);
     dto.getItems()
@@ -109,6 +125,13 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
                     }
                   });
               topic.setWordCount(wordCount.intValue());
+              User owner =
+                  owners.stream()
+                      .filter(o -> o.getId().equals(topic.getOwnerId()))
+                      .findFirst()
+                      .orElse(null);
+              UserResDto ownerDto = userMapper.model2Dto(owner);
+              topic.setOwner(ownerDto);
             });
     return dto;
   }
