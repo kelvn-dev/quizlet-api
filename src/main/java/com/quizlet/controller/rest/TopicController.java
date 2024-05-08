@@ -4,6 +4,7 @@ import com.quizlet.controller.SecuredRestController;
 import com.quizlet.dto.rest.request.TopicReqDto;
 import com.quizlet.dto.rest.response.PageResDto;
 import com.quizlet.dto.rest.response.TopicResDto;
+import com.quizlet.dto.rest.response.TopicWithWordFactorResDto;
 import com.quizlet.mapping.rest.TopicMapper;
 import com.quizlet.mapping.rest.UserMapper;
 import com.quizlet.model.Topic;
@@ -44,11 +45,10 @@ public class TopicController implements SecuredRestController {
   @GetMapping("/{id}")
   public ResponseEntity<?> getById(JwtAuthenticationToken token, @PathVariable UUID id) {
     TopicEntityGraph entityGraph = TopicEntityGraph.____().words().____.____();
-    Topic topic = topicService.getById(token, id, entityGraph, false);
+    TopicWithWordFactorResDto topic = topicService.getByIdWithFactor(token, id, entityGraph, false);
     User owner = userService.getById(topic.getOwnerId(), false);
-    TopicResDto resDto = topicMapper.model2Dto(topic);
-    resDto.setOwner(userMapper.model2Dto(owner));
-    return ResponseEntity.ok(resDto);
+    topic.setOwner(userMapper.model2Dto(owner));
+    return ResponseEntity.ok(topic);
   }
 
   @PutMapping("/{id}")

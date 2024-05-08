@@ -3,6 +3,7 @@ package com.quizlet.mapping.rest;
 import com.quizlet.dto.rest.request.TopicReqDto;
 import com.quizlet.dto.rest.response.PageResDto;
 import com.quizlet.dto.rest.response.TopicResDto;
+import com.quizlet.dto.rest.response.TopicWithWordFactorResDto;
 import com.quizlet.model.Topic;
 import java.util.List;
 import org.mapstruct.*;
@@ -16,6 +17,8 @@ public interface TopicMapper {
   Topic dto2Model(TopicReqDto dto);
 
   TopicResDto model2Dto(Topic topic);
+
+  TopicWithWordFactorResDto model2DtoWithFactor(Topic topic);
 
   @Named("ignoreWord")
   @Mapping(target = "words", ignore = true)

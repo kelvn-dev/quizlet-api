@@ -9,4 +9,5 @@ public class WordFactorResDto {
   private String name;
   private String definition;
   private int learningCount;
+  private boolean isMarked;
 }

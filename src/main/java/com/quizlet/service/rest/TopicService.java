@@ -2,23 +2,27 @@ package com.quizlet.service.rest;
 
 import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
 import com.quizlet.dto.rest.request.TopicReqDto;
-import com.quizlet.dto.rest.response.PageResDto;
-import com.quizlet.dto.rest.response.TopicResDto;
-import com.quizlet.dto.rest.response.UserResDto;
+import com.quizlet.dto.rest.response.*;
 import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.rest.TopicMapper;
 import com.quizlet.mapping.rest.UserMapper;
+import com.quizlet.mapping.rest.WordFactorMapper;
 import com.quizlet.model.Topic;
 import com.quizlet.model.User;
+import com.quizlet.model.Word;
+import com.quizlet.model.WordFactor;
 import com.quizlet.repository.TopicRepository;
 import com.quizlet.repository.UserRepository;
+import com.quizlet.repository.WordFactorRepository;
 import com.quizlet.repository.WordRepository;
 import com.quizlet.repository.projection.IdAndTopicId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -29,20 +33,26 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
 
   private final TopicMapper topicMapper;
   private final UserMapper userMapper;
+  private final WordFactorMapper wordFactorMapperr;
   private final WordRepository wordRepository;
   private final UserRepository userRepository;
+  private final WordFactorRepository wordFactorRepository;
 
   public TopicService(
       TopicRepository repository,
       TopicMapper topicMapper,
       UserMapper userMapper,
+      WordFactorMapper wordFactorMapperr,
       WordRepository wordRepository,
-      UserRepository userRepository) {
+      UserRepository userRepository,
+      WordFactorRepository wordFactorRepository) {
     super(repository);
     this.topicMapper = topicMapper;
     this.userMapper = userMapper;
+    this.wordFactorMapperr = wordFactorMapperr;
     this.wordRepository = wordRepository;
     this.userRepository = userRepository;
+    this.wordFactorRepository = wordFactorRepository;
   }
 
   private void checkOwner(String userId, Topic topic) {
@@ -89,6 +99,62 @@ public class TopicService extends BaseService<Topic, TopicRepository> {
       checkOwner(userId, topic);
     }
     return topic;
+  }
+
+  public TopicWithWordFactorResDto getByIdWithFactor(
+      JwtAuthenticationToken token, UUID id, EntityGraph entityGraph, boolean noException) {
+    Topic topic = this.getById(id, entityGraph, noException);
+    String userId = token.getToken().getSubject();
+    if (!topic.isPublic()) {
+      checkOwner(userId, topic);
+    }
+
+    Set<Word> words = topic.getWords();
+    List<UUID> wordIds = words.stream().map(Word::getId).collect(Collectors.toList());
+    List<WordFactor> existingWordFactors =
+        wordFactorRepository.findByUserIdAndWordIdIn(userId, wordIds);
+
+    // Map word details to existing word factor
+    existingWordFactors.forEach(
+        wordFactor -> {
+          wordFactor.setWord(
+              words.stream()
+                  .filter(w -> w.getId().equals(wordFactor.getWordId()))
+                  .findFirst()
+                  .orElse(null));
+        });
+
+    List<UUID> existingWordIds =
+        existingWordFactors.stream().map(WordFactor::getWordId).collect(Collectors.toList());
+    wordIds.removeAll(existingWordIds); // Remove existing words to get list new words to create
+
+    // Insert non-existent word factor
+    List<WordFactor> newWordFactors = new ArrayList<>();
+    wordIds.forEach(
+        wordId -> {
+          WordFactor wordFactor = new WordFactor();
+          wordFactor.setUserId(userId);
+          wordFactor.setWordId(wordId);
+          newWordFactors.add(wordFactor);
+        });
+    List<WordFactor> createdWordFactors = wordFactorRepository.saveAll(newWordFactors);
+
+    // Map word details to newly created word factor
+    createdWordFactors.forEach(
+        wordFactor -> {
+          wordFactor.setWord(
+              words.stream()
+                  .filter(w -> w.getId().equals(wordFactor.getWordId()))
+                  .findFirst()
+                  .orElse(null));
+        });
+    existingWordFactors.addAll(createdWordFactors);
+
+    List<WordFactorResDto> wordsDto = wordFactorMapperr.model2Dto(existingWordFactors);
+
+    TopicWithWordFactorResDto resDto = topicMapper.model2DtoWithFactor(topic);
+    resDto.setWords(wordsDto);
+    return resDto;
   }
 
   public Set<Topic> getAllById(Set<UUID> uuids) {

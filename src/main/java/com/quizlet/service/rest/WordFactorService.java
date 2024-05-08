@@ -29,7 +29,7 @@ public class WordFactorService {
       JwtAuthenticationToken token, WordFactorReqDto dto, boolean isMark) {
     List<UUID> wordIds = dto.getWordIds();
     String userId = token.getToken().getSubject();
-    List<WordFactor> existingWordFactors = repository.findByUserIdAndAndWordIdIn(userId, wordIds);
+    List<WordFactor> existingWordFactors = repository.findByUserIdAndWordIdIn(userId, wordIds);
     existingWordFactors.forEach(word -> word.setMarked(isMark));
     List<UUID> existingWordIds =
         existingWordFactors.stream().map(WordFactor::getWordId).collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class WordFactorService {
   public void increaseLearningCountBy1(JwtAuthenticationToken token, WordFactorReqDto dto) {
     List<UUID> wordIds = dto.getWordIds();
     String userId = token.getToken().getSubject();
-    List<WordFactor> existingWordFactors = repository.findByUserIdAndAndWordIdIn(userId, wordIds);
+    List<WordFactor> existingWordFactors = repository.findByUserIdAndWordIdIn(userId, wordIds);
     existingWordFactors.forEach(word -> word.setLearningCount(word.getLearningCount() + 1));
     List<UUID> existingWordIds =
         existingWordFactors.stream().map(WordFactor::getWordId).collect(Collectors.toList());
