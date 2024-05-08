@@ -6,6 +6,6 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class MarkWordReqDto {
+public class WordFactorReqDto {
   @NotNull private List<UUID> wordIds;
 }

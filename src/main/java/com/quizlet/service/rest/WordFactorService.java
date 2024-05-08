@@ -1,6 +1,6 @@
 package com.quizlet.service.rest;
 
-import com.quizlet.dto.rest.request.MarkWordReqDto;
+import com.quizlet.dto.rest.request.WordFactorReqDto;
 import com.quizlet.model.WordFactor;
 import com.quizlet.model.WordFactorEntityGraph;
 import com.quizlet.repository.WordFactorRepository;
@@ -17,15 +17,16 @@ import org.springframework.stereotype.Service;
 public class WordFactorService {
   private final WordFactorRepository repository;
 
-  public void markWords(JwtAuthenticationToken token, MarkWordReqDto dto) {
+  public void markWords(JwtAuthenticationToken token, WordFactorReqDto dto) {
     markOrUnmarkWords(token, dto, true);
   }
 
-  public void unmarkWords(JwtAuthenticationToken token, MarkWordReqDto dto) {
+  public void unmarkWords(JwtAuthenticationToken token, WordFactorReqDto dto) {
     markOrUnmarkWords(token, dto, false);
   }
 
-  private void markOrUnmarkWords(JwtAuthenticationToken token, MarkWordReqDto dto, boolean isMark) {
+  private void markOrUnmarkWords(
+      JwtAuthenticationToken token, WordFactorReqDto dto, boolean isMark) {
     List<UUID> wordIds = dto.getWordIds();
     String userId = token.getToken().getSubject();
     List<WordFactor> existingWordFactors = repository.findByUserIdAndAndWordIdIn(userId, wordIds);
@@ -51,5 +52,27 @@ public class WordFactorService {
     String userId = token.getToken().getSubject();
     WordFactorEntityGraph entityGraph = WordFactorEntityGraph.____().word().____.____();
     return repository.findByUserIdAndIsMarkedIsTrue(userId, entityGraph);
+  }
+
+  public void increaseLearningCount(JwtAuthenticationToken token, WordFactorReqDto dto) {
+    List<UUID> wordIds = dto.getWordIds();
+    String userId = token.getToken().getSubject();
+    List<WordFactor> existingWordFactors = repository.findByUserIdAndAndWordIdIn(userId, wordIds);
+    existingWordFactors.forEach(word -> word.setLearningCount(word.getLearningCount() + 1));
+    List<UUID> existingWordIds =
+        existingWordFactors.stream().map(WordFactor::getWordId).collect(Collectors.toList());
+
+    wordIds.removeAll(existingWordIds); // Remove existing words to get list new words to create
+    List<WordFactor> wordFactors = new ArrayList<>();
+    wordIds.forEach(
+        wordId -> {
+          WordFactor wordFactor = new WordFactor();
+          wordFactor.setUserId(userId);
+          wordFactor.setWordId(wordId);
+          wordFactor.setLearningCount(1);
+          wordFactors.add(wordFactor);
+        });
+    existingWordFactors.addAll(wordFactors);
+    repository.saveAll(existingWordFactors);
   }
 }

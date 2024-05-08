@@ -1,7 +1,7 @@
 package com.quizlet.controller.rest;
 
 import com.quizlet.controller.SecuredRestController;
-import com.quizlet.dto.rest.request.MarkWordReqDto;
+import com.quizlet.dto.rest.request.WordFactorReqDto;
 import com.quizlet.mapping.rest.WordFactorMapper;
 import com.quizlet.model.WordFactor;
 import com.quizlet.service.rest.WordFactorService;
@@ -20,16 +20,16 @@ public class WordFactorController implements SecuredRestController {
   private final WordFactorService wordFactorService;
   private final WordFactorMapper wordFactorMapper;
 
-  @PostMapping("/marking")
+  @PutMapping("/marking")
   public ResponseEntity<?> markWords(
-      JwtAuthenticationToken token, @Valid @RequestBody MarkWordReqDto dto) {
+      JwtAuthenticationToken token, @Valid @RequestBody WordFactorReqDto dto) {
     wordFactorService.markWords(token, dto);
     return ResponseEntity.ok(null);
   }
 
-  @PostMapping("/unmarking")
+  @PutMapping("/unmarking")
   public ResponseEntity<?> unmarkWords(
-      JwtAuthenticationToken token, @Valid @RequestBody MarkWordReqDto dto) {
+      JwtAuthenticationToken token, @Valid @RequestBody WordFactorReqDto dto) {
     wordFactorService.unmarkWords(token, dto);
     return ResponseEntity.ok(null);
   }
@@ -38,5 +38,12 @@ public class WordFactorController implements SecuredRestController {
   public ResponseEntity<?> getMarkedWords(JwtAuthenticationToken token) {
     List<WordFactor> wordFactors = wordFactorService.getMarkedWords(token);
     return ResponseEntity.ok(wordFactorMapper.model2Dto(wordFactors));
+  }
+
+  @PutMapping("/learning-count")
+  public ResponseEntity<?> increaseLearningCount(
+      JwtAuthenticationToken token, @Valid @RequestBody WordFactorReqDto dto) {
+    wordFactorService.increaseLearningCount(token, dto);
+    return ResponseEntity.ok(null);
   }
 }
