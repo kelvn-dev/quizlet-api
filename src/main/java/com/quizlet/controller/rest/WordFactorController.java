@@ -41,9 +41,9 @@ public class WordFactorController implements SecuredRestController {
   }
 
   @PutMapping("/learning-count")
-  public ResponseEntity<?> increaseLearningCount(
+  public ResponseEntity<?> increaseLearningCountBy1(
       JwtAuthenticationToken token, @Valid @RequestBody WordFactorReqDto dto) {
-    wordFactorService.increaseLearningCount(token, dto);
+    wordFactorService.increaseLearningCountBy1(token, dto);
     return ResponseEntity.ok(null);
   }
 }

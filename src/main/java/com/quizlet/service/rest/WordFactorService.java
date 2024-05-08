@@ -54,7 +54,7 @@ public class WordFactorService {
     return repository.findByUserIdAndIsMarkedIsTrue(userId, entityGraph);
   }
 
-  public void increaseLearningCount(JwtAuthenticationToken token, WordFactorReqDto dto) {
+  public void increaseLearningCountBy1(JwtAuthenticationToken token, WordFactorReqDto dto) {
     List<UUID> wordIds = dto.getWordIds();
     String userId = token.getToken().getSubject();
     List<WordFactor> existingWordFactors = repository.findByUserIdAndAndWordIdIn(userId, wordIds);
