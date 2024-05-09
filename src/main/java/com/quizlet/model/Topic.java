@@ -32,7 +32,7 @@ public class Topic extends BaseModel {
   @JsonIgnore
   private Set<Folder> folders;
 
-  @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, orphanRemoval = true)
+  @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
   @JsonManagedReference
   private Set<Word> words;
 
@@ -43,6 +43,9 @@ public class Topic extends BaseModel {
   private void removeAssociations() {
     for (Folder folder : this.folders) {
       folder.getTopics().remove(this);
+    }
+    for (Word word: words) {
+      word.setTopicId(null);
     }
   }
 }
