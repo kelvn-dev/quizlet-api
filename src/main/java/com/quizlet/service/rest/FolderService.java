@@ -2,6 +2,8 @@ package com.quizlet.service.rest;
 
 import com.cosium.spring.data.jpa.entity.graph.domain2.EntityGraph;
 import com.quizlet.dto.rest.request.FolderReqDto;
+import com.quizlet.dto.rest.response.FolderResDto;
+import com.quizlet.dto.rest.response.PageResDto;
 import com.quizlet.exception.ConflictException;
 import com.quizlet.exception.ForbiddenException;
 import com.quizlet.mapping.rest.FolderMapper;
@@ -9,6 +11,7 @@ import com.quizlet.model.Folder;
 import com.quizlet.model.FolderEntityGraph;
 import com.quizlet.model.Topic;
 import com.quizlet.repository.FolderRepository;
+import com.quizlet.repository.projection.IdAndTopicCount;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
@@ -90,5 +93,28 @@ public class FolderService extends BaseService<Folder, FolderRepository> {
     String userId = token.getToken().getSubject();
     filter.add("ownerId=".concat(userId));
     return super.getList(filter, pageable);
+  }
+
+  public PageResDto<FolderResDto> getTopicCount(Page<Folder> folderPage) {
+    // count topics of each folder
+    List<Folder> folders = folderPage.getContent();
+    List<UUID> folderIds = folders.stream().map(Folder::getId).toList();
+    List<IdAndTopicCount> topicCounts = repository.findTopicCount(folderIds);
+
+    // map word count to response dto
+    PageResDto<FolderResDto> dto = folderMapper.model2Dto(folderPage);
+    dto.getItems()
+        .forEach(
+            folder -> {
+              UUID folderId = folder.getId();
+              int topicCount =
+                  topicCounts.stream()
+                      .filter(e -> e.getId().equals(folderId))
+                      .findFirst()
+                      .map(IdAndTopicCount::getTopicCount)
+                      .orElse(0);
+              folder.setTopicCount(topicCount);
+            });
+    return dto;
   }
 }

@@ -44,7 +44,7 @@ public class Topic extends BaseModel {
     for (Folder folder : this.folders) {
       folder.getTopics().remove(this);
     }
-    for (Word word: words) {
+    for (Word word : words) {
       word.setTopicId(null);
     }
   }

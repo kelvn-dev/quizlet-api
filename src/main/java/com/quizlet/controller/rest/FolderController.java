@@ -2,6 +2,8 @@ package com.quizlet.controller.rest;
 
 import com.quizlet.controller.SecuredRestController;
 import com.quizlet.dto.rest.request.FolderReqDto;
+import com.quizlet.dto.rest.response.FolderResDto;
+import com.quizlet.dto.rest.response.PageResDto;
 import com.quizlet.mapping.rest.FolderMapper;
 import com.quizlet.model.Folder;
 import com.quizlet.model.FolderEntityGraph;
@@ -64,6 +66,7 @@ public class FolderController implements SecuredRestController {
           Pageable pageable,
       @RequestParam(required = false, defaultValue = "") List<String> filter) {
     Page<Folder> folders = folderService.getList(token, filter, pageable);
-    return ResponseEntity.ok(folderMapper.model2Dto(folders));
+    PageResDto<FolderResDto> dto = folderService.getTopicCount(folders);
+    return ResponseEntity.ok(dto);
   }
 }

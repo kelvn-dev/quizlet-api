@@ -8,5 +8,6 @@ import lombok.Data;
 public class FolderResDto {
   private UUID id;
   private String name;
+  private int topicCount;
   private Set<TopicResDto> topics;
 }
