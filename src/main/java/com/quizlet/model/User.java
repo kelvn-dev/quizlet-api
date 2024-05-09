@@ -34,6 +34,9 @@ public class User {
   @Column(name = "avatar")
   private String avatar;
 
+  @Column(name = "language_code")
+  private String languageCode;
+
   @OneToMany(
       mappedBy = "user",
       cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},

@@ -7,4 +7,5 @@ import lombok.Data;
 public class UserReqDto {
   @NotNull private String avatar;
   @NotNull private String nickname;
+  private String languageCode;
 }

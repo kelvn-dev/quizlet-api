@@ -8,4 +8,5 @@ public class UserResDto {
   private String nickname;
   private String email;
   private String avatar;
+  private String languageCode;
 }
