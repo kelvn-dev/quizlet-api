@@ -20,7 +20,7 @@ jobs:
         id: meta
         with:
           images: ${{secrets.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}
-          tags: type=sha,format=long
+          tags: type=sha
 
       - name: Docker Login
         uses: docker/login-action@v2
