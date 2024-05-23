@@ -2,6 +2,7 @@ package com.quizlet.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +32,7 @@ public class Word extends BaseModel {
   @JoinColumn(name = "topic_id", insertable = false, updatable = false)
   @JsonBackReference
   private Topic topic;
+
+  @OneToMany(mappedBy = "word", fetch = FetchType.LAZY, orphanRemoval = true)
+  private Set<WordFactor> wordFactors;
 }
