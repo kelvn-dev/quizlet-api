@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "dev", "main" ]
 
+env:
+  IMAGE_NAME: "quizlet-api"
+
 jobs:
   build_docker_images:
     name: Build Docker Image To Dockerhub
@@ -18,7 +21,7 @@ jobs:
         uses: docker/metadata-action@v5
         id: meta
         with:
-          images: ${{secrets.DOCKER_USERNAME}}/${{github.repository}}
+          images: ${{secrets.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}
 
       - name: Docker Login
         uses: docker/login-action@v2
