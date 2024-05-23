@@ -1,7 +1,7 @@
 name: Build And Push Images to Dockerhub
 
 on:
-  pull_request:
+  push:
     branches: [ "main" ]
 
 env:
