@@ -1,0 +1,55 @@
+version: "3.8"
+name: "quizlet"
+services:
+  db:
+    container_name: quizlet-postgresql
+    image: postgres:14.1-alpine
+    environment:
+      - POSTGRES_USER=quizlet
+      - POSTGRES_PASSWORD=quizlet
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
+    networks:
+      - quizlet-network
+  redis:
+    image: redis:6.2-alpine
+    container_name: quizlet-redis
+    ports:
+      - "6379:6379"
+    # User default
+    command: redis-server --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - ./volumes/cache:/data
+    networks:
+      - quizlet-network
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: quizlet-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: quizlet
+      RABBITMQ_DEFAULT_PASS: quizlet
+    volumes:
+      - ./volumes/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./volumes/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - quizlet-network
+  api:
+    container_name: quizlet-api
+    image: kelvn/quizlet-api:latest
+#    build:
+#      context: ../
+#      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - quizlet-network
+    depends_on:
+      - db
+
+networks:
+  quizlet-network: {}

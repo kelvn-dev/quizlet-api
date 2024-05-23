@@ -1,8 +1,11 @@
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
+.git/
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### macOS ###
+.DS_Store
 
 ### STS ###
 .apt_generated
@@ -31,3 +34,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Secret ###
+application*.properties
+**/certs
+
+### Docker ###
+/docker/volumes/**
