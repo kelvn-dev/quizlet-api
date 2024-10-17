@@ -13,6 +13,25 @@ services:
       - ./volumes/db:/var/lib/postgresql/data
     networks:
       - quizlet-network
+  keycloak:
+    container_name: quizlet-keycloak
+    image: docker.io/bitnami/keycloak:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - KEYCLOAK_HTTP_PORT=8081
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KEYCLOAK_DATABASE_HOST=db
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_NAME=quizlet
+      - KEYCLOAK_DATABASE_SCHEMA=keycloak
+      - KEYCLOAK_DATABASE_USER=quizlet
+      - KEYCLOAK_DATABASE_PASSWORD=quizlet
+    depends_on:
+      - db
+    networks:
+      - quizlet-network
   redis:
     image: redis:6.2-alpine
     container_name: quizlet-redis
@@ -38,18 +57,6 @@ services:
       - ./volumes/rabbitmq/log/:/var/log/rabbitmq
     networks:
       - quizlet-network
-  api:
-    container_name: quizlet-api
-    image: kelvn/quizlet-api:latest
-#    build:
-#      context: ../
-#      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - quizlet-network
-    depends_on:
-      - db
 
 networks:
   quizlet-network: {}
