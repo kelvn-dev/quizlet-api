@@ -48,10 +48,10 @@ public class SecurityConfig {
     } else {
       http.authorizeHttpRequests(
               authorize ->
-                  authorize.requestMatchers(byPassPaths).permitAll().anyRequest().authenticated())
-          .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
+                  authorize.requestMatchers(byPassPaths).permitAll().anyRequest().authenticated());
     }
-    return http.build();
+
+    return http.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())).build();
   }
 
   /**

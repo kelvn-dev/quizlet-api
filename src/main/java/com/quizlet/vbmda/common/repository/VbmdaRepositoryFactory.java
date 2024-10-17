@@ -1,13 +1,9 @@
-/**
- * Copyright 2019 (C) VinBrain
- */
+/** Copyright 2019 (C) VinBrain */
+package com.quizlet.vbmda.common.repository;
 
-package net.vinbrain.vbmda.common.repository;
-
+import jakarta.persistence.EntityManager;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.repository.core.RepositoryMetadata;
-
-import javax.persistence.EntityManager;
 
 /**
  * Default repo factory.
@@ -16,22 +12,21 @@ import javax.persistence.EntityManager;
  */
 public class VbmdaRepositoryFactory extends JpaRepositoryFactory {
 
-    /** Entity manager. */
-    private final EntityManager em;
+  /** Entity manager. */
+  private final EntityManager em;
 
-    /**
-     * Constructor.
-     *
-     * @param entityManager
-     *         Is the entity manager
-     */
-    public VbmdaRepositoryFactory(final EntityManager entityManager) {
-        super(entityManager);
-        em = entityManager;
-    }
+  /**
+   * Constructor.
+   *
+   * @param entityManager Is the entity manager
+   */
+  public VbmdaRepositoryFactory(final EntityManager entityManager) {
+    super(entityManager);
+    em = entityManager;
+  }
 
-    @Override
-    protected Class<?> getRepositoryBaseClass(final RepositoryMetadata metadata) {
-        return VbmdaRepository.class;
-    }
+  @Override
+  protected Class<?> getRepositoryBaseClass(final RepositoryMetadata metadata) {
+    return VbmdaRepository.class;
+  }
 }

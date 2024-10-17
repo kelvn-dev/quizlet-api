@@ -1,12 +1,9 @@
-/**
- * Copyright 2019 (C) VinBrain
- */
+/** Copyright 2019 (C) VinBrain */
+package com.quizlet.vbmda.common.dom;
 
-package com.quizlet.vbmda.workcase.dom;
-
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Version;
 
 /**
  * Base entity of all classes which support optimistic locking mechanism (contains column VERSION).
@@ -16,17 +13,17 @@ import javax.persistence.Version;
 @MappedSuperclass
 public abstract class VbmdaBaseVersionedEntity extends VbmdaBaseEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Version
-    @Column(name = "VERSION", nullable = false)
-    private int version;
+  @Version
+  @Column(name = "VERSION", nullable = false)
+  private int version;
 
-    public int getVersion() {
-        return version;
-    }
+  public int getVersion() {
+    return version;
+  }
 
-    public void setVersion(int version) {
-        this.version = version;
-    }
+  public void setVersion(int version) {
+    this.version = version;
+  }
 }

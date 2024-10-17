@@ -1,15 +1,12 @@
-/**
- * Copyright 2019 (C) VinBrain
- */
+/** Copyright 2019 (C) VinBrain */
+package com.quizlet.vbmda.common.repository;
 
-package net.vinbrain.vbmda.common.repository;
-
+import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
+import jakarta.persistence.EntityManager;
+import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
-
-import javax.persistence.EntityManager;
-import java.io.Serializable;
 
 /**
  * Default repository factory bean.
@@ -17,17 +14,17 @@ import java.io.Serializable;
  * @author Nguyen Minh Man
  */
 public class VbmdaRepositoryFactoryBean<T extends JpaRepository<S, ID>, S, ID extends Serializable>
-        extends JpaRepositoryFactoryBean<T, S, ID> {
+    extends EntityGraphJpaRepositoryFactoryBean<T, S, ID> {
 
-    /**
-     * @param repositoryInterface
-     */
-    public VbmdaRepositoryFactoryBean(Class<? extends T> repositoryInterface) {
-        super(repositoryInterface);
-    }
+  /**
+   * @param repositoryInterface
+   */
+  public VbmdaRepositoryFactoryBean(Class<? extends T> repositoryInterface) {
+    super(repositoryInterface);
+  }
 
-    @Override
-    protected RepositoryFactorySupport createRepositoryFactory(EntityManager entityManager) {
-        return new VbmdaRepositoryFactory(entityManager);
-    }
+  @Override
+  protected RepositoryFactorySupport createRepositoryFactory(EntityManager entityManager) {
+    return new VbmdaRepositoryFactory(entityManager);
+  }
 }

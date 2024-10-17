@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "security.oauth2")
 public class Oauth2PropConfig {
-  private boolean isDisabled;
+  private boolean disabled;
   private String issuerUri;
   private String jwkSetUri;
   private String audience;

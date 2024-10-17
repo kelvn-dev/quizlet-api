@@ -2,7 +2,7 @@
  * Copyright 2021 (C) VinBrain
  */
 
-package net.vinbrain.vbmda.workcase.constant;
+package com.quizlet.vbmda.workcase.constant;
 
 import com.google.common.collect.Sets;
 
