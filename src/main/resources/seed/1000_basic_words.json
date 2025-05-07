@@ -1,0 +1,1327 @@
+[
+  {
+    "name": "Job - Nghề nghiệp",
+    "isPublic": true,
+    "words": [
+      {
+        "name": "accountant",
+        "definition": "kế toán"
+      },
+      {
+        "name": "actor/actress",
+        "definition": "diễn viên"
+      },
+      {
+        "name": "artist",
+        "definition": "nghệ sĩ"
+      },
+      {
+        "name": "astronaut",
+        "definition": "phi hành gia"
+      },
+      {
+        "name": "baker",
+        "definition": "thợ nướng bánh"
+      },
+      {
+        "name": "butcher",
+        "definition": "người mổ thịt"
+      },
+      {
+        "name": "cashier",
+        "definition": "nhân viên thu ngân"
+      },
+      {
+        "name": "chef",
+        "definition": "đầu bếp"
+      },
+      {
+        "name": "comedian",
+        "definition": "diễn viên hài"
+      },
+      {
+        "name": "delivery man",
+        "definition": "nhân viên giao hàng"
+      },
+      {
+        "name": "doctor",
+        "definition": "bác sĩ"
+      },
+      {
+        "name": "entrepreneur",
+        "definition": "nhà kinh doanh"
+      },
+      {
+        "name": "engineer",
+        "definition": "kỹ sư"
+      },
+      {
+        "name": "factory worker",
+        "definition": "công nhân nhà máy"
+      },
+      {
+        "name": "office worker",
+        "definition": "nhân viên văn phòng"
+      },
+      {
+        "name": "florist",
+        "definition": "người bán hoa"
+      },
+      {
+        "name": "hairdresser",
+        "definition": "thợ cắt tóc"
+      },
+      {
+        "name": "lawyer",
+        "definition": "luật sư"
+      },
+      {
+        "name": "musician",
+        "definition": "nhạc sĩ"
+      },
+      {
+        "name": "pharmacist",
+        "definition": "dược sĩ"
+      },
+      {
+        "name": "plumber",
+        "definition": "thợ sửa ống nước"
+      },
+      {
+        "name": "politician",
+        "definition": "chính trị gia"
+      },
+      {
+        "name": "programmer",
+        "definition": "lập trình viên"
+      },
+      {
+        "name": "real estate agent",
+        "definition": "người môi giới bất động sản"
+      },
+      {
+        "name": "tailor",
+        "definition": "thợ may"
+      },
+      {
+        "name": "taxi driver",
+        "definition": "tài xế taxi"
+      },
+      {
+        "name": "teacher",
+        "definition": "giáo viên"
+      },
+      {
+        "name": "receptionist",
+        "definition": "nhân viên lễ tân"
+      },
+      {
+        "name": "singer",
+        "definition": "ca sĩ"
+      },
+      {
+        "name": "firefighter",
+        "definition": "lính cứu hỏa"
+      }
+    ]
+  },
+  {
+    "name": "Fruit - Trái Cây",
+    "isPublic": true,
+    "words": [
+      {
+        "name": "apple",
+        "definition": "quả táo"
+      },
+      {
+        "name": "banana",
+        "definition": "quả chuối"
+      },
+      {
+        "name": "pear",
+        "definition": "quả lê"
+      },
+      {
+        "name": "grape",
+        "definition": "quả nho"
+      },
+      {
+        "name": "peach",
+        "definition": "quả đào"
+      },
+      {
+        "name": "orange",
+        "definition": "quả cam"
+      },
+      {
+        "name": "mango",
+        "definition": "quả xoài"
+      },
+      {
+        "name": "coconut",
+        "definition": "quả dừa"
+      },
+      {
+        "name": "pineapple",
+        "definition": "quả dứa"
+      },
+      {
+        "name": "watermelon",
+        "definition": "quả dưa hấu"
+      },
+      {
+        "name": "durian",
+        "definition": "sầu riêng"
+      },
+      {
+        "name": "lychee",
+        "definition": "quả vải"
+      },
+      {
+        "name": "guava",
+        "definition": "quả ổi"
+      },
+      {
+        "name": "starfruit",
+        "definition": "quả khế"
+      },
+      {
+        "name": "apricot",
+        "definition": "quả mơ"
+      },
+      {
+        "name": "jackfruit",
+        "definition": "quả mít"
+      },
+      {
+        "name": "avocado",
+        "definition": "quả bơ"
+      },
+      {
+        "name": "papaya",
+        "definition": "quả đu đủ"
+      },
+      {
+        "name": "plum",
+        "definition": "quả mận"
+      },
+      {
+        "name": "lemon",
+        "definition": "chanh vàng"
+      },
+      {
+        "name": "kiwi",
+        "definition": "quả kiwi"
+      },
+      {
+        "name": "raspberry",
+        "definition": "quả mâm xôi"
+      },
+      {
+        "name": "blueberry",
+        "definition": "quả việt quất"
+      }
+    ]
+  },
+  {
+    "name": "Family - Gia Đình",
+    "isPublic": true,
+    "words": [
+      {
+        "name": "family",
+        "definition": "gia đình"
+      },
+      {
+        "name": "mother",
+        "definition": "mẹ"
+      },
+      {
+        "name": "father",
+        "definition": "bố, cha"
+      },
+      {
+        "name": "parent",
+        "definition": "bố hoặc mẹ"
+      },
+      {
+        "name": "daughter",
+        "definition": "con gái"
+      },
+      {
+        "name": "son",
+        "definition": "con trai"
+      },
+      {
+        "name": "sibling",
+        "definition": "anh chị em ruột"
+      },
+      {
+        "name": "sister",
+        "definition": "chị, em gái"
+      },
+      {
+        "name": "brother",
+        "definition": "anh, em trai"
+      },
+      {
+        "name": "grandmother",
+        "definition": "bà"
+      },
+      {
+        "name": "grandfather",
+        "definition": "ông"
+      },
+      {
+        "name": "grandparent",
+        "definition": "ông hoặc bà"
+      },
+      {
+        "name": "relative",
+        "definition": "họ hàng"
+      },
+      {
+        "name": "aunt",
+        "definition": "cô, dì"
+      },
+      {
+        "name": "uncle",
+        "definition": "chú, bác"
+      },
+      {
+        "name": "cousin",
+        "definition": "anh em họ"
+      },
+      {
+        "name": "nephew",
+        "definition": "cháu trai"
+      },
+      {
+        "name": "niece",
+        "definition": "cháu gái"
+      },
+      {
+        "name": "wife",
+        "definition": "vợ"
+      },
+      {
+        "name": "husband",
+        "definition": "chồng"
+      }
+    ]
+  },
+  {
+    "name": "Animal - Động Vật",
+    "isPublic": true,
+    "words": [
+      {
+        "name": "mouse",
+        "definition": "chuột"
+      },
+      {
+        "name": "cat",
+        "definition": "mèo"
+      },
+      {
+        "name": "dog",
+        "definition": "chó"
+      },
+      {
+        "name": "kitten",
+        "definition": "mèo con"
+      },
+      {
+        "name": "puppy",
+        "definition": "chó con"
+      },
+      {
+        "name": "pig",
+        "definition": "lợn"
+      },
+      {
+        "name": "chicken",
+        "definition": "gà"
+      },
+      {
+        "name": "duck",
+        "definition": "vịt"
+      },
+      {
+        "name": "goose",
+        "definition": "ngỗng"
+      },
+      {
+        "name": "turkey",
+        "definition": "gà tây"
+      },
+      {
+        "name": "stork",
+        "definition": "cò"
+      },
+      {
+        "name": "swan",
+        "definition": "thiên nga"
+      },
+      {
+        "name": "rabbit",
+        "definition": "thỏ"
+      },
+      {
+        "name": "cow",
+        "definition": "bò"
+      },
+      {
+        "name": "buffalo",
+        "definition": "trâu"
+      },
+      {
+        "name": "horse",
+        "definition": "ngựa"
+      },
+      {
+        "name": "goat",
+        "definition": "dê"
+      },
+      {
+        "name": "sheep",
+        "definition": "cừu"
+      },
+      {
+        "name": "fish",
+        "definition": "cá"
+      },
+      {
+        "name": "goldfish",
+        "definition": "cá vàng"
+      }
+    ]
+  },
+  {
+    "name": "Color - Màu sắc",
+    "isPublic": true,
+    "words": [
+      { "name": "white", "definition": "màu trắng" },
+      { "name": "black", "definition": "màu đen" },
+      { "name": "red", "definition": "màu đỏ" },
+      { "name": "orange", "definition": "màu cam" },
+      { "name": "yellow", "definition": "màu vàng" },
+      { "name": "green", "definition": "xanh lá cây" },
+      { "name": "blue", "definition": "màu xanh lam, xanh nước biển" },
+      { "name": "violet", "definition": "màu tím" },
+      { "name": "purple", "definition": "màu tía" },
+      { "name": "beige", "definition": "màu be" },
+      { "name": "pink", "definition": "màu hồng" },
+      { "name": "gray", "definition": "màu xám" },
+      { "name": "brown", "definition": "màu nâu" },
+      { "name": "silver", "definition": "màu bạc" },
+      { "name": "indigo", "definition": "màu chàm" },
+      { "name": "navy (blue)", "definition": "màu xanh tím than" },
+      { "name": "ivory", "definition": "màu trắng ngà" },
+      { "name": "coral", "definition": "màu hồng san hô" },
+      { "name": "teal", "definition": "màu xanh mòng két" },
+      { "name": "blond", "definition": "vàng hoe" }
+    ]
+  },
+  {
+    "name": "Body Part - Cơ thể",
+    "isPublic": true,
+    "words": [
+      { "name": "head", "definition": "đầu" },
+      { "name": "hair", "definition": "tóc" },
+      { "name": "face", "definition": "gương mặt" },
+      { "name": "forehead", "definition": "trán" },
+      { "name": "eyebrow", "definition": "lông mày" },
+      { "name": "eye", "definition": "mắt" },
+      { "name": "eyelash", "definition": "lông mi" },
+      { "name": "nose", "definition": "mũi" },
+      { "name": "ear", "definition": "tai" },
+      { "name": "cheek", "definition": "má" },
+      { "name": "beard", "definition": "râu" },
+      { "name": "mouth", "definition": "miệng" },
+      { "name": "lip", "definition": "môi" },
+      { "name": "tooth", "definition": "răng" },
+      { "name": "gum", "definition": "nướu, lợi" },
+      { "name": "jaw", "definition": "hàm, quai hàm" },
+      { "name": "chin", "definition": "cằm" },
+      { "name": "neck", "definition": "cổ" },
+      { "name": "chest", "definition": "ngực" },
+      { "name": "back", "definition": "lưng" },
+      { "name": "belly", "definition": "bụng" },
+      { "name": "hip", "definition": "hông" },
+      { "name": "arm", "definition": "cánh tay" },
+      { "name": "armpit", "definition": "nách" },
+      { "name": "forearm", "definition": "cẳng tay" },
+      { "name": "elbow", "definition": "khuỷu tay" },
+      { "name": "finger", "definition": "ngón tay" },
+      { "name": "knuckle", "definition": "khớp đốt ngón tay" },
+      { "name": "leg", "definition": "chân" },
+      { "name": "knee", "definition": "đầu gối" },
+      { "name": "ankle", "definition": "mắt cá chân" },
+      { "name": "heel", "definition": "gót chân" }
+    ]
+  },
+  {
+    "name": "School - Trường học",
+    "isPublic": true,
+    "words": [
+      { "name": "school", "definition": "trường học" },
+      { "name": "class", "definition": "lớp học" },
+      { "name": "student", "definition": "học sinh, sinh viên" },
+      { "name": "pupil", "definition": "học sinh" },
+      { "name": "teacher", "definition": "giáo viên" },
+      { "name": "principal", "definition": "hiệu trưởng" },
+      { "name": "course", "definition": "khóa học" },
+      { "name": "semester", "definition": "học kì" },
+      { "name": "exersise", "definition": "bài tập" },
+      { "name": "homework", "definition": "bài tập về nhà" },
+      { "name": "exam", "definition": "bài kiểm tra" },
+      { "name": "grade", "definition": "điểm số" },
+      { "name": "certificate", "definition": "bằng cấp, giấy khen" },
+      { "name": "kindergarten", "definition": "lớp mẫu giáo, nhà trẻ" },
+      {
+        "name": "primary school",
+        "definition": "trường tiểu học, trường cấp 1"
+      },
+      {
+        "name": "secondary school",
+        "definition": "trường trung học, trường cấp 2"
+      },
+      { "name": "high school", "definition": "trường cấp 3" },
+      { "name": "university", "definition": "trường đại học" },
+      { "name": "college", "definition": "trường đại học, cao đẳng" },
+      { "name": "private school", "definition": "trường tư" },
+      { "name": "public school", "definition": "trường công" }
+    ]
+  },
+  {
+    "name": "Character - Tính cách",
+    "isPublic": true,
+    "words": [
+      { "name": "active", "definition": "năng nổ, lanh lợi" },
+      { "name": "alert", "definition": "tỉnh táo, cảnh giác" },
+      { "name": "ambitious", "definition": "tham vọng" },
+      { "name": "attentive", "definition": "chăm chú, chú tâm" },
+      { "name": "bold", "definition": "táo bạo, mạo hiểm" },
+      { "name": "brave", "definition": "dũng cảm, gan dạ" },
+      { "name": "careful", "definition": "cẩn thận, thận trọng" },
+      { "name": "careless", "definition": "bất cẩn, cẩu thả" },
+      { "name": "cautious", "definition": "thận trọng, cẩn thận" },
+      { "name": "conscientious", "definition": "chu đáo, tỉ mỉ" },
+      { "name": "courageous", "definition": "can đảm" },
+      { "name": "crafty", "definition": "láu cá, xảo quyệt" },
+      { "name": "cunning", "definition": "xảo trá, khôn lỏi" },
+      { "name": "deceitful", "definition": "dối trá" },
+      { "name": "decent", "definition": "lịch sự, tao nhã" },
+      { "name": "dependable", "definition": "đáng tin cậy" },
+      { "name": "determined", "definition": "quyết tâm" },
+      { "name": "devoted", "definition": "hết lòng, tận tâm, tận tụy" },
+      { "name": "diligent", "definition": "siêng năng, cần cù" },
+      { "name": "disciplined", "definition": "có tính kỷ luật" },
+      { "name": "dishonest", "definition": "bất lương, dối trá" },
+      { "name": "disloyal", "definition": "phản trắc, phản bội" },
+      { "name": "energetic", "definition": "giàu năng lượng" },
+      { "name": "fair", "definition": "ngay thẳng" },
+      { "name": "faithful", "definition": "trung thành, chung thủy" },
+      { "name": "fearless", "definition": "bạo dạn" },
+      { "name": "forgetful", "definition": "hay quên" },
+      { "name": "hard-headed", "definition": "cứng đầu, ương ngạnh" },
+      { "name": "hardworking", "definition": "chăm chỉ, chịu khó" },
+      { "name": "hardy", "definition": "táo bạo, gan dạ" },
+      { "name": "honest", "definition": "chân thật, trung thành" },
+      { "name": "idle", "definition": "nhàn rỗi, lười nhác" },
+      { "name": "immature", "definition": "non nớt, thiếu chín chắn" },
+      { "name": "impartial", "definition": "trung lập, ngay thẳng" },
+      { "name": "inattentive", "definition": "lơ đễnh, thiếu tập trung" },
+      { "name": "independent", "definition": "tự lập" },
+      { "name": "inert", "definition": "trì trệ, chậm chạp" },
+      { "name": "insightful", "definition": "sâu sắc, sáng suốt" },
+      { "name": "insincere", "definition": "không thành thực, giả dối" },
+      { "name": "irrational", "definition": "không hợp lý" },
+      { "name": "irresponsible", "definition": "thiếu trách nhiệm" },
+      { "name": "lazy", "definition": "lười biếng" },
+      { "name": "level-headed", "definition": "bình tĩnh, điềm đạm" },
+      { "name": "loyal", "definition": "trung thành, trung kiên" },
+      { "name": "mature", "definition": "trưởng thành, chững chạc" },
+      { "name": "methodical", "definition": "ngăn nắp, cẩn thận" },
+      { "name": "naive", "definition": "ngây thơ" },
+      { "name": "objective", "definition": "khách quan" },
+      { "name": "observant", "definition": "tinh ý, hay quan sát" }
+    ]
+  },
+  {
+    "name": "Nature - Thiên nhiên",
+    "isPublic": true,
+    "words": [
+      { "name": "forest", "definition": "rừng" },
+      { "name": "rainforest", "definition": "rừng mưa nhiệt đới" },
+      { "name": "mountain", "definition": "núi, dãy núi" },
+      { "name": "highland", "definition": "cao nguyên" },
+      { "name": "hill", "definition": "đồi" },
+      { "name": "valley", "definition": "thung lũng, châu thổ, lưu vực" },
+      { "name": "cave", "definition": "hang động" },
+      { "name": "rock", "definition": "đá" },
+      { "name": "slope", "definition": "dốc" },
+      { "name": "volcano", "definition": "núi lửa" },
+      { "name": "eruption", "definition": "sự phun trào (núi lửa)" },
+      { "name": "waterfall", "definition": "thác nước" },
+      { "name": "canyon", "definition": "hẻm núi" },
+      { "name": "cliff", "definition": "vách đá" },
+      { "name": "bush", "definition": "bụi cây, bụi rậm" },
+      { "name": "desert", "definition": "sa mạc, hoang mạc" },
+      { "name": "oasis", "definition": "ốc đảo" },
+      { "name": "savanna", "definition": "hoang mạc, thảo nguyên" },
+      { "name": "sand dune", "definition": "đụn cát" },
+      { "name": "coal", "definition": "than đá" },
+      { "name": "fossil", "definition": "hóa thạch" },
+      { "name": "soil", "definition": "đất trồng, đất dai" },
+      { "name": "pond", "definition": "ao nước" },
+      { "name": "river", "definition": "dòng sông" },
+      { "name": "riverbank", "definition": "bờ sông, bãi sông" },
+      { "name": "creek", "definition": "lạch, nhánh sông" },
+      { "name": "sea", "definition": "biển" },
+      { "name": "ocean", "definition": "đại dương" },
+      { "name": "reef", "definition": "rặng đá (dưới biển)" },
+      { "name": "coral reef", "definition": "rặng san hô" },
+      { "name": "beach", "definition": "bãi biển" },
+      { "name": "bay", "definition": "vịnh" },
+      { "name": "seashore", "definition": "bờ biển" },
+      { "name": "meadow", "definition": "đồng cỏ" },
+      { "name": "mud", "definition": "bùn" },
+      { "name": "peninsula", "definition": "bán đảo" },
+      { "name": "island", "definition": "đảo" },
+      { "name": "continent", "definition": "châu lục" },
+      { "name": "environment", "definition": "môi trường" },
+      { "name": "planet", "definition": "hành tinh" },
+      { "name": "scenery", "definition": "phong cảnh, cảnh vật" }
+    ]
+  },
+  {
+    "name": "Leisure - Giải trí",
+    "isPublic": true,
+    "words": [
+      { "name": "activity", "definition": "hoạt động" },
+      { "name": "art gallery", "definition": "phòng trưng bày tranh" },
+      { "name": "exhibition", "definition": "buổi triển lãm, trưng bày" },
+      { "name": "museum", "definition": "bảo tàng" },
+      { "name": "concert", "definition": "buổi hòa nhạc" },
+      { "name": "ballet", "definition": "ba lê, kịch múa" },
+      { "name": "opera", "definition": "nhạc kịch" },
+      { "name": "bar", "definition": "quán rượu, quầy bán rượu" },
+      { "name": "pub", "definition": "nơi phục vụ đồ uống có cồn" },
+      { "name": "nightclub", "definition": "hộp đêm" },
+      { "name": "restaurant", "definition": "nhà hàng ăn uống" },
+      { "name": "cafè", "definition": "quán cà phê" },
+      { "name": "film", "definition": "phim, phim ảnh" },
+      { "name": "cinema", "definition": "rạp chiếu phim" },
+      { "name": "theater", "definition": "nhà hát, rạp hát" },
+      { "name": "circus", "definition": "rạp xiếc" },
+      { "name": "cosplay", "definition": "trò chơi hóa trang" },
+      { "name": "stadium", "definition": "sân vận động" },
+      { "name": "zoo", "definition": "sở thú" },
+      { "name": "park", "definition": "công viên" },
+      {
+        "name": "handcraft",
+        "definition": "nghề thủ công, hoạt động thủ công"
+      },
+      {
+        "name": "leisure centre",
+        "definition": "khu vui chơi, trung tâm giải trí"
+      },
+      { "name": "bowling", "definition": "trò chơi lăn bóng, bowling" },
+      { "name": "monopoly", "definition": "trò chơi cờ tỷ phú" },
+      { "name": "puzzle", "definition": "trò chơi xếp hình" },
+      { "name": "quiz", "definition": "trò chơi đố vui" },
+      { "name": "library", "definition": "thư viện" },
+      { "name": "fishing", "definition": "câu cá" },
+      { "name": "gardening", "definition": "làm vườn" },
+      { "name": "hiking", "definition": "leo núi" },
+      { "name": "reading", "definition": "đọc sách" },
+      { "name": "music", "definition": "âm nhạc" },
+      { "name": "poetry", "definition": "thơ ca" },
+      { "name": "shopping", "definition": "mua sắm" },
+      { "name": "painting", "definition": "vẽ tranh" },
+      { "name": "photography", "definition": "nhiếp ảnh" }
+    ]
+  },
+  {
+    "name": "House - Nhà cửa",
+    "isPublic": true,
+    "words": [
+      { "name": "living room", "definition": "phòng khách" },
+      { "name": "dining room", "definition": "phòng ăn" },
+      { "name": "kitchen", "definition": "nhà bếp" },
+      { "name": "bedroom", "definition": "phòng ngủ" },
+      { "name": "bathroom", "definition": "phòng tắm" },
+      { "name": "garage", "definition": "ga ra, nhà để xe" },
+      { "name": "attic", "definition": "tum, gác xép" },
+      { "name": "basement", "definition": "tầng hầm" },
+      { "name": "roof", "definition": "mái nhà" },
+      { "name": "entrance", "definition": "lối vào, cổng vào" },
+      { "name": "patio", "definition": "hiên, sân hè" },
+      { "name": "balcony", "definition": "ban công" },
+      { "name": "floor", "definition": "sàn nhà" },
+      { "name": "wall", "definition": "tường" },
+      { "name": "ceiling", "definition": "trần nhà" },
+      { "name": "door", "definition": "cửa ra vào" },
+      { "name": "window", "definition": "cửa sổ" },
+      { "name": "curtain", "definition": "rèm cửa" },
+      { "name": "armchair", "definition": "ghế bành, ghế có tựa tay" },
+      { "name": "couch", "definition": "ghế dài, trường kỷ, đi văng" },
+      { "name": "table", "definition": "cái bàn" },
+      { "name": "lamp", "definition": "cái đèn" },
+      { "name": "fan", "definition": "cái quạt" },
+      { "name": "air conditioner (AC)", "definition": "điều hòa nhiệt độ" },
+      { "name": "television (TV)", "definition": "ti vi" },
+      { "name": "bookshelf", "definition": "kệ sách" },
+      { "name": "rug", "definition": "thảm trải sàn" },
+      { "name": "cupboard", "definition": "tủ bát" },
+      { "name": "refrigerator", "definition": "tủ lạnh" },
+      { "name": "stove", "definition": "bếp lò" },
+      { "name": "oven", "definition": "lò nướng" },
+      { "name": "microwave", "definition": "lò vi sóng" },
+      { "name": "cooker", "definition": "nồi cơm điện" },
+      { "name": "blender", "definition": "máy xay" },
+      { "name": "kettle", "definition": "ấm đun nước" },
+      { "name": "tablecloth", "definition": "khăn trải bàn" },
+      { "name": "bed", "definition": "giường" },
+      { "name": "mattress", "definition": "đệm" },
+      { "name": "blanket", "definition": "chăn" },
+      { "name": "pillow", "definition": "gối" },
+      { "name": "wardrobe", "definition": "tủ quần áo" },
+      { "name": "nightstand", "definition": "tủ đầu giường" },
+      { "name": "hairdryer", "definition": "máy sấy tóc" },
+      { "name": "photo frame", "definition": "khung ảnh" },
+      { "name": "plant pot", "definition": "chậu cây" },
+      { "name": "vase", "definition": "lọ hoa" },
+      { "name": "dressing table", "definition": "bàn trang điểm" },
+      { "name": "sink", "definition": "bồn rửa, chậu rửa mặt" },
+      { "name": "mirror", "definition": "gương" },
+      { "name": "shower", "definition": "vòi hoa sen" },
+      { "name": "toilet", "definition": "bồn cầu" },
+      { "name": "bathtub", "definition": "bồn tắm" },
+      { "name": "towel", "definition": "khăn" },
+      { "name": "broom", "definition": "chổi quét" },
+      { "name": "mop", "definition": "chổi lau nhà" },
+      { "name": "dustpan", "definition": "xẻng hót rác" },
+      { "name": "bucket", "definition": "xô" },
+      { "name": "trash can", "definition": "thùng rác" },
+      { "name": "washing machine", "definition": "máy giặt" },
+      { "name": "laundry basket", "definition": "giỏ đựng quần áo" },
+      { "name": "hanger", "definition": "móc treo quần áo" }
+    ]
+  },
+  {
+    "name": "Vegetable - Rau củ",
+    "isPublic": true,
+    "words": [
+      { "name": "bean", "definition": "hạt đậu" },
+      { "name": "pea", "definition": "đậu Hà Lan" },
+      { "name": "cabbage", "definition": "bắp cải" },
+      { "name": "carrot", "definition": "củ cà rốt" },
+      { "name": "corn", "definition": "ngô, bắp" },
+      { "name": "cucumber", "definition": "dưa chuột" },
+      { "name": "tomato", "definition": "quả cà chua" },
+      { "name": "garlic", "definition": "tỏi" },
+      { "name": "onion", "definition": "củ hành" },
+      { "name": "spring onion", "definition": "hành lá" },
+      { "name": "ginger", "definition": "củ gừng" },
+      { "name": "turmeric", "definition": "củ nghệ" },
+      { "name": "potato", "definition": "khoai tây" },
+      { "name": "sweet potato", "definition": "khoai lang" },
+      { "name": "pumpkin", "definition": "bí ngô, bí đỏ" },
+      { "name": "asparagus", "definition": "măng tây" },
+      { "name": "turnip", "definition": "củ cải trắng" },
+      { "name": "beet", "definition": "củ cải đường, củ dền" },
+      { "name": "cauliflower", "definition": "súp lơ" },
+      { "name": "broccoli", "definition": "bông cải xanh" },
+      { "name": "eggplant", "definition": "cà tím" },
+      { "name": "celery", "definition": "cần tây" },
+      { "name": "leek", "definition": "tỏi tây" },
+      { "name": "lettuce", "definition": "rau diếp" },
+      { "name": "mushroom", "definition": "nấm" },
+      { "name": "chili (pepper)", "definition": "ớt cay" },
+      { "name": "bell pepper", "definition": "ớt chuông" },
+      { "name": "spinach", "definition": "rau chân vịt (bina)" },
+      { "name": "herb", "definition": "rau thơm (nói chung)" }
+    ]
+  },
+  {
+    "name": "Drink - Đồ uống",
+    "isPublic": true,
+    "words": [
+      { "name": "water", "definition": "nước" },
+      { "name": "lemonade", "definition": "nước chanh" },
+      { "name": "juice", "definition": "nước ép hoa quả" },
+      { "name": "smoothie", "definition": "sinh tố" },
+      { "name": "coffee", "definition": "cà phê" },
+      { "name": "tea", "definition": "trà" },
+      { "name": "milk", "definition": "sữa" },
+      { "name": "bubble tea", "definition": "trà sữa trân châu" },
+      { "name": "hot chocolate", "definition": "sô cô la nóng" },
+      { "name": "beer", "definition": "bia" },
+      { "name": "wine", "definition": "rượu" },
+      { "name": "yogurt", "definition": "sữa chua" },
+      { "name": "ice cream", "definition": "kem" }
+    ]
+  },
+  {
+    "name": "Food - Đồ ăn",
+    "isPublic": true,
+    "words": [
+      { "name": "soup", "definition": "món súp, món canh" },
+      { "name": "salad", "definition": "rau trộn, nộm rau" },
+      { "name": "bread", "definition": "bánh mì" },
+      { "name": "sausage", "definition": "xúc xích" },
+      { "name": "hot dog", "definition": "bánh mỳ kẹp xúc xích" },
+      { "name": "bacon", "definition": "thịt xông khói" },
+      { "name": "ham", "definition": "thịt giăm bông" },
+      { "name": "egg", "definition": "trứng" },
+      { "name": "pork", "definition": "thịt lợn" },
+      { "name": "beef", "definition": "thịt bò" },
+      { "name": "chicken", "definition": "thịt gà" },
+      { "name": "duck", "definition": "thịt vịt" },
+      { "name": "lamb", "definition": "thịt cừu" },
+      { "name": "ribs", "definition": "sườn" },
+      { "name": "seafood", "definition": "hải sản" },
+      { "name": "salmon", "definition": "cá hồi" },
+      { "name": "tuna", "definition": "cá ngừ" },
+      { "name": "shrimp", "definition": "tôm" },
+      { "name": "pizza", "definition": "bánh pizza" },
+      { "name": "beefsteak", "definition": "bít tết" },
+      { "name": "French fries", "definition": "khoai tây chiên" },
+      { "name": "hamburger", "definition": "hăm bơ gơ" },
+      { "name": "chicken nugget", "definition": "gà viên chiên" },
+      { "name": "sandwich", "definition": "bánh mỳ kẹp" },
+      { "name": "pancake", "definition": "bánh kếp, bánh xèo" },
+      { "name": "noodle", "definition": "mỳ, bún" },
+      { "name": "pasta", "definition": "mỳ Ý" },
+      { "name": "cheese", "definition": "pho mát" },
+      { "name": "hot pot", "definition": "lẩu" },
+      { "name": "porridge", "definition": "cháo" }
+    ]
+  },
+  {
+    "name": "Body Movement - Động tác",
+    "isPublic": true,
+    "words": [
+      { "name": "walk", "definition": "đi bộ" },
+      { "name": "jog", "definition": "đi bộ nhanh (tập thể dục)" },
+      { "name": "run", "definition": "chạy" },
+      { "name": "tiptoe", "definition": "đi nhón chân" },
+      { "name": "jump", "definition": "nhảy" },
+      { "name": "leap", "definition": "nhảy vọt, nhảy xa" },
+      { "name": "stand", "definition": "đứng" },
+      { "name": "sit", "definition": "ngồi" },
+      { "name": "lean", "definition": "dựa, tựa" },
+      { "name": "wave", "definition": "vẫy tay" },
+      { "name": "clap", "definition": "vỗ tay" },
+      { "name": "point", "definition": "chỉ, trỏ" },
+      { "name": "catch", "definition": "bắt, đỡ" },
+      { "name": "stretch", "definition": "vươn (vai..), ưỡn lưng" },
+      { "name": "push", "definition": "đẩy" },
+      { "name": "pull", "definition": "kéo" },
+      { "name": "crawl", "definition": "bò, trườn" },
+      { "name": "bend", "definition": "cúi, uốn cong" },
+      { "name": "talk", "definition": "nói chuyện, trò chuyện" },
+      { "name": "kiss", "definition": "hôn" },
+      { "name": "laugh", "definition": "cười lớn" },
+      { "name": "smile", "definition": "cười" },
+      { "name": "frown", "definition": "nhíu mày" },
+      { "name": "cry", "definition": "khóc lóc" },
+      { "name": "hit", "definition": "đánh, va phải" },
+      { "name": "punch", "definition": "đấm, thọi" },
+      { "name": "kick", "definition": "đá" },
+      { "name": "put down", "definition": "đặt xuống" },
+      { "name": "march", "definition": "diễu hành, hành quân" },
+      { "name": "drop", "definition": "làm rơi" },
+      { "name": "break", "definition": "làm vỡ, bẻ gãy" },
+      { "name": "drag", "definition": "lôi, kéo" },
+      { "name": "carry", "definition": "mang, vác" },
+      { "name": "open", "definition": "mở ra" },
+      { "name": "lie down", "definition": "nằm xuống, ngả lưng" },
+      { "name": "hold", "definition": "nắm, giữ" },
+      { "name": "lift", "definition": "nâng lên" },
+      { "name": "throw", "definition": "ném, quăng, vứt" },
+      { "name": "trip", "definition": "ngáng chân, vấp ngã" },
+      { "name": "squat", "definition": "ngồi xổm" },
+      { "name": "cartwheel", "definition": "nhào lộn" },
+      { "name": "dive", "definition": "nhảy lao xuống nước, lặn" },
+      { "name": "dance", "definition": "nhảy múa, khiêu vũ" },
+      { "name": "look", "definition": "nhìn, ngắm" },
+      { "name": "kneel", "definition": "quỳ gối" },
+      { "name": "slip", "definition": "trượt, tuột" }
+    ]
+  },
+  {
+    "name": "Clothes - Trang phục",
+    "isPublic": true,
+    "words": [
+      { "name": "clothes", "definition": "quần áo (nói chung)" },
+      { "name": "t-shirt", "definition": "áo phông" },
+      { "name": "shirt", "definition": "áo sơ mi" },
+      { "name": "sweater", "definition": "áo len dài tay" },
+      { "name": "vest", "definition": "áo gi-lê, áo vét" },
+      { "name": "suit", "definition": "bộ com lê, Âu phục" },
+      { "name": "trench coat", "definition": "áo choàng" },
+      { "name": "skirt", "definition": "chân váy" },
+      { "name": "pants", "definition": "quần" },
+      { "name": "jeans", "definition": "quần bò" },
+      { "name": "shorts", "definition": "quần sóoc, quần đùi" },
+      { "name": "accessories", "definition": "phụ kiện" },
+      { "name": "hat", "definition": "mũ" },
+      { "name": "glasses", "definition": "kính mắt" },
+      { "name": "sunglasses", "definition": "kính râm, kính mát" },
+      { "name": "earring", "definition": "khuyên tai" },
+      { "name": "necklace", "definition": "vòng cổ" },
+      { "name": "ring", "definition": "nhẫn" },
+      { "name": "hairpin", "definition": "cặp tóc" },
+      { "name": "tie", "definition": "cà vạt, nơ" },
+      { "name": "scarf", "definition": "khăn choàng" },
+      { "name": "gloves", "definition": "găng tay, bao tay" },
+      { "name": "watch", "definition": "đồng hồ" },
+      { "name": "handbag", "definition": "túi xách" },
+      { "name": "wallet", "definition": "ví, bóp" },
+      { "name": "belt", "definition": "thắt lưng" },
+      { "name": "socks", "definition": "tất, vớ" },
+      { "name": "shoe", "definition": "giày" },
+      { "name": "boot", "definition": "ủng, giày cao cổ" },
+      { "name": "swimsuit", "definition": "đồ tắm, đồ bơi" },
+      { "name": "bra", "definition": "áo lót" },
+      { "name": "underwear", "definition": "quần lót" },
+      { "name": "button", "definition": "khuy áo" },
+      { "name": "collar", "definition": "cổ áo" },
+      { "name": "hem", "definition": "đường viền (áo, quần)" },
+      { "name": "hood", "definition": "mũ áo" },
+      { "name": "pocket", "definition": "túi áo, túi quần" },
+      { "name": "sleeve", "definition": "tay áo" },
+      { "name": "strap", "definition": "dây" },
+      { "name": "zip", "definition": "khóa kéo" },
+      { "name": "cuff", "definition": "cổ tay áo" },
+      { "name": "denim", "definition": "vải bò" },
+      { "name": "silk", "definition": "lụa" },
+      { "name": "corduroy", "definition": "nhung" },
+      { "name": "cotton", "definition": "vải sợi bông" },
+      { "name": "linen", "definition": "vải lanh" },
+      { "name": "khaki", "definition": "vải kaki" },
+      { "name": "jewel", "definition": "đá quý" },
+      { "name": "diamond", "definition": "kim cương" },
+      { "name": "gold", "definition": "vàng" },
+      { "name": "silver", "definition": "bạc" }
+    ]
+  },
+  {
+    "name": "Feeling - Cảm xúc",
+    "isPublic": true,
+    "words": [
+      { "name": "annoyed", "definition": "khó chịu, bực bội, bị làm phiền" },
+      { "name": "angry", "definition": "tức giận" },
+      { "name": "mad", "definition": "cực kì giận" },
+      { "name": "worried", "definition": "lo lắng" },
+      { "name": "happy", "definition": "vui vẻ" },
+      { "name": "sad", "definition": "buồn sầu" },
+      { "name": "moody", "definition": "buồn bực" },
+      { "name": "anxious", "definition": "lo âu, bồn chồn" },
+      { "name": "grateful", "definition": "biết ơn" },
+      { "name": "emotional", "definition": "xúc động" },
+      { "name": "hungry", "definition": "đói" },
+      { "name": "thirsty", "definition": "khát" },
+      { "name": "astonished", "definition": "kinh ngạc" },
+      { "name": "uncomfortable", "definition": "không thoải mái" },
+      { "name": "wonderful", "definition": "tuyệt vời" },
+      { "name": "bored", "definition": "buồn chán, tẻ nhạt" },
+      { "name": "tired", "definition": "mệt mỏi" },
+      { "name": "terrible", "definition": "tệ hại" },
+      { "name": "calm", "definition": "bình tĩnh" },
+      { "name": "unhappy", "definition": "không vui" },
+      { "name": "upset", "definition": "buồn bực" },
+      { "name": "delighted", "definition": "vui mừng, mừng rỡ" },
+      { "name": "desperate", "definition": "tuyệt vọng, chán trường" },
+      { "name": "disturbed", "definition": "bối rối, lúng túng" },
+      { "name": "doubtful", "definition": "nghi hoặc, hoài nghi" },
+      { "name": "down", "definition": "nản lòng, chán nản" },
+      { "name": "drained", "definition": "kiệt sức" },
+      { "name": "elated", "definition": "phấn khởi, hân hoan" },
+      { "name": "embarrassed", "definition": "xấu hổ, ngại ngùng" },
+      { "name": "empathetic", "definition": "đồng cảm, xót xa" },
+      {
+        "name": "enlightened",
+        "definition": "được làm sáng tỏ, được thông suốt"
+      },
+      { "name": "jealous", "definition": "ghen tị" },
+      { "name": "envious", "definition": "ghen tị, đố kỵ" },
+      { "name": "excited", "definition": "hưng phấn, sôi nổi" },
+      { "name": "excluded", "definition": "bị bỏ rơi, cảm giác lạc lõng" },
+      { "name": "exhausted", "definition": "mệt lử" },
+      { "name": "foolish", "definition": "dại dột" },
+      { "name": "frustrated", "definition": "nản lòng, nản chí" },
+      { "name": "furious", "definition": "giận dữ, điên tiết" },
+      { "name": "giddy", "definition": "chóng mặt, choáng váng" },
+      { "name": "glad", "definition": "vui sướng" },
+      { "name": "gleeful", "definition": "hân hoan, mừng rỡ" },
+      { "name": "guarded", "definition": "thận trọng, ý tứ" },
+      { "name": "guilty", "definition": "mặc cảm, cảm thấy tội lỗi" },
+      { "name": "hesitant", "definition": "do dự, ngập ngừng" },
+      { "name": "hollow", "definition": "trống rỗng" },
+      { "name": "horrified", "definition": "khiếp sợ" },
+      { "name": "humiliated", "definition": "cảm giác bẽ mặt, xấu hổ" },
+      { "name": "indifferent", "definition": "dửng dưng, lãnh đạm, thờ ơ" },
+      { "name": "intense", "definition": "mãnh liệt, nồng nhiệt" },
+      { "name": "interested", "definition": "hứng thú, thích thú" },
+      { "name": "irritated", "definition": "tức tối, khó chịu" },
+      { "name": "jittery", "definition": "bồn chồn, dễ bị kích động" },
+      { "name": "jolly", "definition": "vui tươi, nhộn nhịp" },
+      { "name": "joyful", "definition": "hân hoan, vui mừng" },
+      { "name": "keen", "definition": "say mê, ham thích" },
+      { "name": "lonely", "definition": "cô đơn" },
+      { "name": "longing", "definition": "thèm khát, thèm muốn" },
+      { "name": "lost", "definition": "lạc lõng, mất phương hướng" },
+      { "name": "lucky", "definition": "may mắn" },
+      { "name": "melancholic", "definition": "u sầu, buồn bã" },
+      { "name": "miserable", "definition": "khốn khổ, đáng thương" },
+      { "name": "mortified", "definition": "xấu hổ, ái ngại" },
+      { "name": "mournful", "definition": "buồn rầu, ảm đạm" },
+      { "name": "nasty", "definition": "tục tĩu" },
+      { "name": "needy", "definition": "thiếu thốn (về mặt tình cảm)" },
+      { "name": "nervous", "definition": "lo lắng, bồn chồn" },
+      { "name": "numb", "definition": "lặng người" },
+      { "name": "obsessed", "definition": "ám ảnh" },
+      { "name": "offended", "definition": "phật ý, cảm thấy bị xúc phạm" },
+      { "name": "optimistic", "definition": "lạc quan, yêu đời" },
+      { "name": "overwhelmed", "definition": "choáng ngợp, quá tải" },
+      { "name": "passionate", "definition": "nồng nhiệt, thiết tha" },
+      { "name": "peaceful", "definition": "thanh thản, bình yên" },
+      { "name": "positive", "definition": "tích cực, lạc quan" },
+      { "name": "proud", "definition": "hãnh diện, tự hào" },
+      { "name": "regretful", "definition": "hối tiếc" },
+      { "name": "relaxed", "definition": "thư giãn, thoải mái" },
+      { "name": "relieved", "definition": "nhẹ nhõm" },
+      { "name": "satisfied", "definition": "thỏa mãn, hài lòng" },
+      { "name": "self-conscious", "definition": "e dè, ngượng nghịu" },
+      { "name": "selfish", "definition": "ích kỷ" },
+      { "name": "sensitive", "definition": "nhạy cảm, dễ tổn thương" },
+      { "name": "shameful", "definition": "đáng hổ thẹn, ngượng" },
+      { "name": "shock", "definition": "bất ngờ, sốc" },
+      { "name": "speechless", "definition": "câm nín" },
+      { "name": "stressed", "definition": "căng thẳng" },
+      { "name": "stunned", "definition": "sững sờ, bất ngờ" },
+      { "name": "surprised", "definition": "bất ngờ, ngạc nhiên" },
+      { "name": "thankful", "definition": "biết ơn" },
+      { "name": "upbeat", "definition": "vui vẻ, phấn chấn" },
+      { "name": "uptight", "definition": "căng thẳng, lo lắng" }
+    ]
+  },
+  {
+    "name": "Cooking - Nấu ăn",
+    "isPublic": true,
+    "words": [
+      { "name": "ingredient", "definition": "nguyên liệu" },
+      { "name": "recipe", "definition": "công thức nấu ăn" },
+      { "name": "cooking oil", "definition": "dầu ăn" },
+      { "name": "salt", "definition": "muối" },
+      { "name": "sugar", "definition": "đường" },
+      { "name": "vinegar", "definition": "dấm" },
+      { "name": "chili sauce", "definition": "tương ớt" },
+      { "name": "ketchup", "definition": "tương cà chua" },
+      { "name": "raw", "definition": "sống" },
+      { "name": "wash", "definition": "rửa" },
+      { "name": "peel", "definition": "bóc vỏ" },
+      { "name": "chop", "definition": "chặt, bổ" },
+      { "name": "chunk", "definition": "cắt khúc, khúc" },
+      { "name": "filet", "definition": "róc xương, lạng thịt" },
+      { "name": "slice", "definition": "thái" },
+      { "name": "dice", "definition": "thái hạt lựu" },
+      { "name": "mince", "definition": "băm, xay" },
+      { "name": "mash", "definition": "nghiền, làm nát" },
+      { "name": "blend", "definition": "trộn" },
+      { "name": "boil", "definition": "đun sôi, luộc" },
+      { "name": "steam", "definition": "hấp" },
+      { "name": "stew", "definition": "hầm, ninh nhừ" },
+      { "name": "blanch", "definition": "chần thức ăn" },
+      { "name": "stir", "definition": "xào, quấy" },
+      { "name": "fry", "definition": "rán" },
+      { "name": "bake", "definition": "nướng (bánh)" },
+      { "name": "roast", "definition": "quay, nướng" },
+      { "name": "grill", "definition": "nướng" },
+      { "name": "steep", "definition": "ngâm" },
+      { "name": "dip", "definition": "nhúng" },
+      { "name": "brew", "definition": "ủ (trà, rượu...)" },
+      { "name": "ferment", "definition": "lên men" },
+      { "name": "chill", "definition": "làm tan giá, rã đông" },
+      { "name": "cool", "definition": "để nguội" },
+      { "name": "melt", "definition": "làm tan chảy" },
+      { "name": "flavor", "definition": "tẩm gia vị" },
+      { "name": "marinate", "definition": "ướp" },
+      { "name": "salt", "definition": "ướp gia vị, rắc muối" },
+      { "name": "garnish", "definition": "trang trí, bày biện" },
+      { "name": "press", "definition": "ấn, ép" },
+      { "name": "refrigerate", "definition": "ướp lạnh" },
+      { "name": "roll", "definition": "cuộn" }
+    ]
+  },
+  {
+    "name": "Vehicles - Phương tiện giao thông",
+    "isPublic": true,
+    "words": [
+      { "name": "automobile", "definition": "xe ô tô" },
+      { "name": "car", "definition": "xe ô tô" },
+      { "name": "taxi", "definition": "xe taxi" },
+      { "name": "bus", "definition": "xe buýt" },
+      { "name": "bicycle", "definition": "xe đạp" },
+      { "name": "bike", "definition": "xe đạp" },
+      { "name": "motorcycle", "definition": "xe máy" },
+      { "name": "motorbike", "definition": "xe máy" },
+      { "name": "airplane", "definition": "máy bay" },
+      { "name": "plane", "definition": "máy bay" },
+      { "name": "helicopter", "definition": "trực thăng" },
+      { "name": "train", "definition": "tàu hỏa" },
+      { "name": "subway", "definition": "tàu điện ngầm" },
+      { "name": "boat", "definition": "thuyền" },
+      { "name": "ship", "definition": "tàu" },
+      { "name": "van", "definition": "xe van" },
+      { "name": "police car", "definition": "xe cảnh sát" },
+      { "name": "ambulance", "definition": "xe cứu thương" },
+      { "name": "scooter", "definition": "xe tay ga" },
+      { "name": "truck", "definition": "xe tải" },
+      { "name": "yacht", "definition": "du thuyền" },
+      { "name": "canoe", "definition": "ca nô" },
+      { "name": "fire engine", "definition": "xe cứu hỏa" },
+      { "name": "hot-air balloon", "definition": "khinh khí cầu" },
+      { "name": "submarine", "definition": "tàu ngầm" }
+    ]
+  },
+  {
+    "name": "Travel - Du lịch",
+    "isPublic": true,
+    "words": [
+      { "name": "travel", "definition": "đi du lịch" },
+      { "name": "depart", "definition": "khởi hành" },
+      { "name": "leave", "definition": "rời đi" },
+      { "name": "arrive", "definition": "đến nơi" },
+      { "name": "airport", "definition": "sân bay" },
+      { "name": "take off", "definition": "cất cánh" },
+      { "name": "land", "definition": "hạ cánh" },
+      { "name": "check in", "definition": "đăng ký phòng ở khách sạn" },
+      { "name": "check out", "definition": "trả phòng khách sạn" },
+      { "name": "visit", "definition": "thăm viếng" },
+      { "name": "destination", "definition": "điểm đến" },
+      { "name": "passenger", "definition": "hành khách" },
+      { "name": "tourist", "definition": "khách du lịch" },
+      { "name": "cruise", "definition": "chuyến đi chơi trên biển" },
+      { "name": "route", "definition": "lộ trình" },
+      { "name": "tour", "definition": "chuyến đi du lịch" },
+      { "name": "trip", "definition": "cuộc du ngoạn, dạo chơi" },
+      { "name": "journey", "definition": "hành trình" },
+      { "name": "passport", "definition": "hộ chiếu" },
+      { "name": "ticket", "definition": "vé" },
+      { "name": "visa", "definition": "thị thực" },
+      { "name": "luggage", "definition": "hành lý" }
+    ]
+  },
+  {
+    "name": "Subject - Môn học",
+    "isPublic": true,
+    "words": [
+      { "name": "English", "definition": "tiếng Anh" },
+      { "name": "Mathematics", "definition": "toán học" },
+      { "name": "Maths", "definition": "toán học" },
+      { "name": "Physics", "definition": "vật lý" },
+      { "name": "Chemistry", "definition": "hóa học" },
+      { "name": "History", "definition": "lịch sử" },
+      { "name": "Geography", "definition": "địa lý" },
+      { "name": "Literature", "definition": "văn học" },
+      { "name": "Biology", "definition": "sinh học" },
+      { "name": "Physical Education", "definition": "giáo dục thể chất" },
+      {
+        "name": "Information technology",
+        "definition": "Công nghệ thông tin / Tin học"
+      },
+      { "name": "Craft", "definition": "thủ công" },
+      { "name": "Arts", "definition": "mỹ thuật, nghệ thuật" },
+      { "name": "Music", "definition": "âm nhạc" },
+      { "name": "Engineering", "definition": "kỹ thuật" },
+      { "name": "Medicine", "definition": "y học" },
+      { "name": "Science", "definition": "khoa học" },
+      { "name": "Astronomy", "definition": "thiên văn học" },
+      { "name": "Philosophy", "definition": "triết học" },
+      { "name": "Psychology", "definition": "tâm lý học" },
+      { "name": "Economics", "definition": "kinh tế học" }
+    ]
+  },
+  {
+    "name": "Sports - Thể thao",
+    "isPublic": true,
+    "words": [
+      { "name": "soccer", "definition": "bóng đá" },
+      { "name": "football", "definition": "bóng đá" },
+      { "name": "American football", "definition": "bóng bầu dục" },
+      { "name": "volleyball", "definition": "bóng chuyền" },
+      { "name": "swimming", "definition": "bơi lội" },
+      { "name": "tennis", "definition": "quần vợt" },
+      { "name": "badminton", "definition": "cầu lông" },
+      { "name": "basketball", "definition": "bóng rổ" },
+      { "name": "table tennis", "definition": "bóng bàn" },
+      { "name": "baseball", "definition": "bóng chày" },
+      { "name": "athletics", "definition": "điền kinh" },
+      { "name": "martial arts", "definition": "võ thuật" },
+      { "name": "archery", "definition": "bắn cung" },
+      { "name": "cycling", "definition": "đua xe đạp" },
+      { "name": "boxing", "definition": "quyền anh" },
+      { "name": "diving", "definition": "nhảy cầu, lặn" },
+      { "name": "skiing", "definition": "trượt tuyết" },
+      { "name": "figure skating", "definition": "trượt băng nghệ thuật" },
+      { "name": "skateboarding", "definition": "trượt ván" },
+      { "name": "billiards", "definition": "bi-a" },
+      { "name": "weightlifting", "definition": "cử tạ" }
+    ]
+  },
+  {
+    "name": "Time - Thời gian",
+    "isPublic": true,
+    "words": [
+      { "name": "Second", "definition": "Giây" },
+      { "name": "Minute", "definition": "Phút" },
+      { "name": "Hour", "definition": "Giờ" },
+      { "name": "Week", "definition": "Tuần" },
+      { "name": "Decade", "definition": "Thập kỷ" },
+      { "name": "Century", "definition": "Thế kỷ" },
+      { "name": "Weekend", "definition": "Cuối tuần" },
+      { "name": "Month", "definition": "Tháng" },
+      { "name": "Year", "definition": "Năm" },
+      { "name": "Millennium", "definition": "Thiên niên kỷ" },
+      { "name": "Morning", "definition": "Buổi sáng" },
+      { "name": "noon", "definition": "Buổi trưa" },
+      { "name": "Afternoon", "definition": "Buổi chiều" },
+      { "name": "Evening", "definition": "Buổi tối" },
+      { "name": "Midnight", "definition": "Nửa đêm" },
+      { "name": "Dusk", "definition": "Hoàng hôn" },
+      { "name": "sunset", "definition": "Hoàng hôn" },
+      { "name": "Dawn", "definition": "Bình minh" },
+      { "name": "sunrise", "definition": "Bình minh" },
+      { "name": "Always", "definition": "Luôn luôn" },
+      { "name": "Often", "definition": "Thường xuyên" },
+      { "name": "Normally", "definition": "Thường xuyên" },
+      { "name": "Usually", "definition": "Thường xuyên" },
+      { "name": "Sometimes", "definition": "Thỉnh thoảng, đôi khi" },
+      { "name": "Occasionally", "definition": "Thỉnh thoảng" },
+      { "name": "Rarely", "definition": "Hiếm khi" },
+      { "name": "Seldom", "definition": "Ít khi, hiếm khi" },
+      { "name": "Never", "definition": "Không bao giờ" },
+      { "name": "January", "definition": "Tháng 1" },
+      { "name": "February", "definition": "Tháng 2" },
+      { "name": "March", "definition": "Tháng 3" },
+      { "name": "April", "definition": "Tháng 4" },
+      { "name": "May", "definition": "Tháng 5" },
+      { "name": "June", "definition": "Tháng 6" },
+      { "name": "July", "definition": "Tháng 7" },
+      { "name": "August", "definition": "Tháng 8" },
+      { "name": "September", "definition": "Tháng 9" },
+      { "name": "October", "definition": "Tháng 10" },
+      { "name": "November", "definition": "Tháng 11" },
+      { "name": "December", "definition": "Tháng 12" },
+      { "name": "Spring", "definition": "Mùa Xuân" },
+      { "name": "Summer", "definition": "Mùa Hạ" },
+      { "name": "Autumn / Fall", "definition": "Mùa Thu" },
+      { "name": "Winter", "definition": "Mùa Đông" }
+    ]
+  },
+  {
+    "name": "Plants - Cây và hoa",
+    "isPublic": true,
+    "words": [
+      { "name": "rose", "definition": "hoa hồng" },
+      { "name": "sunflower", "definition": "hoa hướng dương" },
+      { "name": "lily", "definition": "hoa huệ tây" },
+      { "name": "orchid", "definition": "hoa lan" },
+      { "name": "daisy", "definition": "hoa cúc" },
+      { "name": "dandelion", "definition": "hoa bồ công anh" },
+      { "name": "tulip", "definition": "hoa tulip" },
+      { "name": "water lily", "definition": "hoa súng" },
+      { "name": "lotus", "definition": "hoa sen" },
+      { "name": "hydrangea", "definition": "hoa cẩm tú cầu" },
+      { "name": "jasmine", "definition": "hoa nhài" },
+      { "name": "camellia", "definition": "hoa trà" },
+      { "name": "peony", "definition": "hoa mẫu đơn" },
+      { "name": "carnation", "definition": "hoa cẩm chướng" },
+      { "name": "tree", "definition": "cây" },
+      { "name": "leaf", "definition": "lá" },
+      { "name": "flower", "definition": "hoa" },
+      { "name": "petal", "definition": "cánh hoa" },
+      { "name": "pollen", "definition": "phấn hoa" },
+      { "name": "thorn", "definition": "gai" },
+      { "name": "bud", "definition": "chồi" },
+      { "name": "branch", "definition": "cành cây" },
+      { "name": "sap", "definition": "nhựa cây" },
+      { "name": "root", "definition": "rễ cây" },
+      { "name": "bark", "definition": "vỏ cây" },
+      { "name": "cactus", "definition": "xương rồng" },
+      { "name": "succulent", "definition": "sen đá" },
+      { "name": "aloe vera", "definition": "nha đam" },
+      { "name": "bamboo", "definition": "cây tre" },
+      { "name": "sugar cane", "definition": "cây mía" },
+      { "name": "pine", "definition": "cây thông" },
+      { "name": "willow", "definition": "cây liễu" },
+      { "name": "maple", "definition": "cây phong" }
+    ]
+  },
+  {
+    "name": "Weather - Thời tiết",
+    "isPublic": true,
+    "words": [
+      { "name": "weather", "definition": "thời tiết" },
+      { "name": "weather forecast", "definition": "dự báo thời tiết" },
+      { "name": "windy", "definition": "nhiều gió" },
+      {
+        "name": "haze",
+        "definition": "màn sương mỏng, thường gây ra bởi sức nóng"
+      },
+      { "name": "breeze", "definition": "gió nhẹ" },
+      { "name": "gloomy", "definition": "trời ảm đạm" },
+      { "name": "cloudy", "definition": "trời nhiều mây" },
+      {
+        "name": "sunny",
+        "definition": "bầu trời có mặt trời chiếu sáng, không có mây"
+      },
+      { "name": "foggy", "definition": "có sương mù" },
+      { "name": "humid", "definition": "ẩm" },
+      { "name": "bright", "definition": "sáng mạnh" },
+      { "name": "wet", "definition": "ẩm ướt" },
+      { "name": "dry", "definition": "hanh khô" },
+      { "name": "mild", "definition": "ôn hòa, ấm áp" },
+      { "name": "clear", "definition": "trời trong trẻo, quang đãng" },
+      { "name": "climate", "definition": "khí hậu" },
+      { "name": "overcast", "definition": "âm u" },
+      { "name": "lightning", "definition": "tia chớp" },
+      { "name": "snow", "definition": "tuyết" },
+      { "name": "drizzle", "definition": "mưa phùn" },
+      { "name": "hail", "definition": "mưa đá" },
+      { "name": "thunderstorm", "definition": "bão tố có sấm sét, cơn giông" },
+      { "name": "snowflake", "definition": "bông hoa tuyết" },
+      { "name": "snowstorm", "definition": "bão tuyết" },
+      { "name": "blizzard", "definition": "cơn bão tuyết" },
+      { "name": "damp", "definition": "ẩm thấp, ẩm ướt" },
+      { "name": "thunder", "definition": "sấm sét" },
+      { "name": "rain", "definition": "mưa" },
+      { "name": "shower", "definition": "mưa rào" },
+      { "name": "rain-storm", "definition": "mưa bão" },
+      { "name": "flood", "definition": "lũ lụt" },
+      { "name": "gale", "definition": "gió giật" },
+      { "name": "tornado", "definition": "lốc xoáy" },
+      { "name": "typhoon", "definition": "bão nhiệt đới" },
+      { "name": "storm", "definition": "dông bão" },
+      { "name": "rainbow", "definition": "cầu vồng" },
+      { "name": "blustery", "definition": "cơn gió mạnh" },
+      { "name": "mist", "definition": "sương" },
+      { "name": "hurricane", "definition": "siêu bão" },
+      { "name": "frosty", "definition": "lạnh băng" },
+      { "name": "hot", "definition": "nóng" },
+      { "name": "boiling (hot)", "definition": "rất nóng" },
+      { "name": "cold", "definition": "lạnh" },
+      { "name": "chilly", "definition": "lạnh thấu xương" },
+      { "name": "freeze", "definition": "đóng băng" },
+      { "name": "temperature", "definition": "nhiệt độ" },
+      { "name": "thermometer", "definition": "nhiệt kế" },
+      { "name": "degree", "definition": "độ" },
+      { "name": "Fahrenheit", "definition": "độ F" },
+      { "name": "Celsius", "definition": "độ C" }
+    ]
+  }
+]
